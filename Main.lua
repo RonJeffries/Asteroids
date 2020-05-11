@@ -6,6 +6,6 @@ function setup()
 end
 
 function draw()
-    background(40, 40, 50)C
+    background(40, 40, 50)
 end
 

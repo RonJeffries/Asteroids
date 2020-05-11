@@ -5,6 +5,11 @@
 	<key>Buffer Order</key>
 	<array>
 		<string>Main</string>
+		<string>TestAsteroids</string>
+	</array>
+	<key>Dependencies</key>
+	<array>
+		<string>Documents:CodeaUnit</string>
 	</array>
 </dict>
 </plist>
