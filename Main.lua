@@ -3,8 +3,15 @@
 
 function setup()
     print("Hello Asteroids!")
-    Pos = vec2(400,500)
-    Angle = math.random()*2*math.pi
+    Asteroids = {}
+    local asteroid = {}
+    asteroid.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    asteroid.angle = math.random()*2*math.pi
+    table.insert(Asteroids,asteroid)
+    asteroid = {}
+    asteroid.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    asteroid.angle = math.random()*2*math.pi
+    table.insert(Asteroids,asteroid)
     Vel = 1.5
 end
 
@@ -14,12 +21,14 @@ function draw()
     fill(40, 40,50)
     strokeWidth(2)
     rectMode(CENTER)
-    rect(Pos.x, Pos.y, 120)
-    local step = vec2(Vel,0):rotate(Angle)
-    Pos = Pos + step
-    if Pos.x > WIDTH then Pos.x = Pos.x - WIDTH end
-    if Pos.x < 0 then Pos.x = Pos.x + WIDTH end
-    if Pos.y > HEIGHT then Pos.y = Pos.y - HEIGHT end
-    if Pos.y < 0 then Pos.y = Pos.y + HEIGHT end
+    for i,asteroid in ipairs(Asteroids) do
+        rect(asteroid.pos.x, asteroid.pos.y, 120)
+        local step = vec2(Vel,0):rotate(asteroid.angle)
+        asteroid.pos = asteroid.pos + step
+        if asteroid.pos.x > WIDTH then asteroid.pos.x = asteroid.pos.x - WIDTH end
+        if asteroid.pos.x < 0 then asteroid.pos.x = asteroid.pos.x + WIDTH end
+        if asteroid.pos.y > HEIGHT then asteroid.pos.y = asteroid.pos.y - HEIGHT end
+        if asteroid.pos.y < 0 then asteroid.pos.y = asteroid.pos.y + HEIGHT end
+    end
 end
 
