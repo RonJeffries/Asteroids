@@ -28,7 +28,7 @@ end
 function drawAsteroids()
     pushStyle()
     stroke(255)
-    fill(40, 40,50)
+    fill(0,0,0, 0)
     strokeWidth(2)
     rectMode(CENTER)
     for i,asteroid in ipairs(Asteroids) do
