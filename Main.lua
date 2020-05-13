@@ -19,11 +19,14 @@ function createAsteroid()
 end
 
 function draw()
+    pushStyle()
     background(40, 40, 50)
     drawAsteroids()
+    popStyle()
 end
 
 function drawAsteroids()
+    pushStyle()
     stroke(255)
     fill(40, 40,50)
     strokeWidth(2)
@@ -32,6 +35,7 @@ function drawAsteroids()
         drawAsteroid(asteroid)
         moveAsteroid(asteroid)
     end
+    popStyle()
 end
 
 function drawAsteroid(asteroid)
