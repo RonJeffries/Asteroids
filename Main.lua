@@ -20,18 +20,29 @@ end
 
 function draw()
     background(40, 40, 50)
+    drawAsteroids()
+end
+
+function drawAsteroids()
     stroke(255)
     fill(40, 40,50)
     strokeWidth(2)
     rectMode(CENTER)
     for i,asteroid in ipairs(Asteroids) do
-        rect(asteroid.pos.x, asteroid.pos.y, 120)
-        local step = vec2(Vel,0):rotate(asteroid.angle)
-        asteroid.pos = asteroid.pos + step
-        if asteroid.pos.x > WIDTH then asteroid.pos.x = asteroid.pos.x - WIDTH end
-        if asteroid.pos.x < 0 then asteroid.pos.x = asteroid.pos.x + WIDTH end
-        if asteroid.pos.y > HEIGHT then asteroid.pos.y = asteroid.pos.y - HEIGHT end
-        if asteroid.pos.y < 0 then asteroid.pos.y = asteroid.pos.y + HEIGHT end
+        drawAsteroid(asteroid)
     end
 end
 
+function drawAsteroid(asteroid)
+    rect(asteroid.pos.x, asteroid.pos.y, 120)
+    moveAsteroid(asteroid)
+end
+
+function moveAsteroid(asteroid)
+    local step = vec2(Vel,0):rotate(asteroid.angle)
+    asteroid.pos = asteroid.pos + step
+    if asteroid.pos.x > WIDTH then asteroid.pos.x = asteroid.pos.x - WIDTH end
+    if asteroid.pos.x < 0 then asteroid.pos.x = asteroid.pos.x + WIDTH end
+    if asteroid.pos.y > HEIGHT then asteroid.pos.y = asteroid.pos.y - HEIGHT end
+    if asteroid.pos.y < 0 then asteroid.pos.y = asteroid.pos.y + HEIGHT end
+end
