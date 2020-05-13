@@ -40,9 +40,10 @@ end
 
 function moveAsteroid(asteroid)
     local step = vec2(Vel,0):rotate(asteroid.angle)
-    asteroid.pos = asteroid.pos + step
-    if asteroid.pos.x > WIDTH then asteroid.pos.x = asteroid.pos.x - WIDTH end
-    if asteroid.pos.x < 0 then asteroid.pos.x = asteroid.pos.x + WIDTH end
-    if asteroid.pos.y > HEIGHT then asteroid.pos.y = asteroid.pos.y - HEIGHT end
-    if asteroid.pos.y < 0 then asteroid.pos.y = asteroid.pos.y + HEIGHT end
+    local pos = asteroid.pos + step
+    asteroid.pos = vec2(putInBounds(pos.x, WIDTH), putInBounds(pos.y, HEIGHT))
+end
+
+function putInBounds(value, bound)
+    return (value+bound)%bound
 end

@@ -48,6 +48,13 @@ function testAsteroids()
             _:expect(rvx).is(707)
             _:expect(rvy).is(-708)
         end)
+        
+        _:test("Bounds function", function()
+            _:expect(putInBounds(100,1000)).is(100)
+            _:expect(putInBounds(1000,1000)).is(0)
+            _:expect(putInBounds(1001,1000)).is(1)
+            _:expect(putInBounds(-1,1000)).is(999)
+        end)
 
     end)
 end
