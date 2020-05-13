@@ -1,18 +1,21 @@
 -- Asteroids
 -- RJ 20200511
 
+local Asteroids = {}
+local Vel = 1.5
+
 function setup()
     print("Hello Asteroids!")
-    Asteroids = {}
-    local asteroid = {}
-    asteroid.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
-    asteroid.angle = math.random()*2*math.pi
-    table.insert(Asteroids,asteroid)
-    asteroid = {}
-    asteroid.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
-    asteroid.angle = math.random()*2*math.pi
-    table.insert(Asteroids,asteroid)
-    Vel = 1.5
+    for i = 1,10 do
+        table.insert(Asteroids, createAsteroid())
+    end
+end
+
+function createAsteroid()
+    local a = {}
+    a.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    a.angle = math.random()*2*math.pi
+    return a
 end
 
 function draw()
