@@ -30,12 +30,12 @@ function drawAsteroids()
     rectMode(CENTER)
     for i,asteroid in ipairs(Asteroids) do
         drawAsteroid(asteroid)
+        moveAsteroid(asteroid)
     end
 end
 
 function drawAsteroid(asteroid)
     rect(asteroid.pos.x, asteroid.pos.y, 120)
-    moveAsteroid(asteroid)
 end
 
 function moveAsteroid(asteroid)
