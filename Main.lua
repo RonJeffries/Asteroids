@@ -45,9 +45,9 @@ end
 function moveAsteroid(asteroid)
     local step = vec2(Vel,0):rotate(asteroid.angle)
     local pos = asteroid.pos + step
-    asteroid.pos = vec2(putInBounds(pos.x, WIDTH), putInBounds(pos.y, HEIGHT))
+    asteroid.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))
 end
 
-function putInBounds(value, bound)
+function keepInBounds(value, bound)
     return (value+bound)%bound
 end
