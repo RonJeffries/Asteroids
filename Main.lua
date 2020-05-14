@@ -8,6 +8,7 @@ local Ship = {}
 function setup()
     print("Hello Asteroids!")
     Ship.pos = vec2(WIDTH, HEIGHT)/2
+    Ship.ang = 0
     for i = 1,10 do
         table.insert(Asteroids, createAsteroid())
     end
@@ -34,6 +35,7 @@ function drawShip()
     pushStyle()
     pushMatrix()
     translate(Ship.pos.x, Ship.pos.y)
+    rotate(Ship.ang)
     strokeWidth(2)
     stroke(255)
     line(sx,0, -sx,sy)
@@ -41,6 +43,7 @@ function drawShip()
     line(-sx,-sy, sx,0)
     popMatrix()
     popStyle()
+    Ship.ang = Ship.ang + 1
 end
 
 function drawAsteroids()
