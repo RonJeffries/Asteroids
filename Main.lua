@@ -3,9 +3,11 @@
 
 local Asteroids = {}
 local Vel = 1.5
+local Ship = {}
 
 function setup()
     print("Hello Asteroids!")
+    Ship.pos = vec2(WIDTH, HEIGHT)/2
     for i = 1,10 do
         table.insert(Asteroids, createAsteroid())
     end
@@ -21,7 +23,23 @@ end
 function draw()
     pushStyle()
     background(40, 40, 50)
+    drawShip()
     drawAsteroids()
+    popStyle()
+end
+
+function drawShip()
+    local sx = 10
+    local sy = 6
+    pushStyle()
+    pushMatrix()
+    translate(Ship.pos.x, Ship.pos.y)
+    strokeWidth(2)
+    stroke(255)
+    line(sx,0, -sx,sy)
+    line(-sx,sy, -sx,-sy)
+    line(-sx,-sy, sx,0)
+    popMatrix()
     popStyle()
 end
 
