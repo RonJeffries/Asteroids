@@ -7,11 +7,10 @@ local Ship = {}
 
 function setup()
     print("Hello Asteroids!")
-    Ship.pos = vec2(WIDTH, HEIGHT)/2
-    Ship.ang = 0
     for i = 1,10 do
         table.insert(Asteroids, createAsteroid())
     end
+    createShip()
 end
 
 function createAsteroid()
@@ -21,10 +20,16 @@ function createAsteroid()
     return a
 end
 
+function createShip()
+    Ship.pos = vec2(WIDTH, HEIGHT)/2
+    Ship.ang = 0
+end
+
 function draw()
     pushStyle()
     background(40, 40, 50)
     drawShip()
+    moveShip()
     drawAsteroids()
     popStyle()
 end
@@ -43,7 +48,21 @@ function drawShip()
     line(-sx,-sy, sx,0)
     popMatrix()
     popStyle()
-    Ship.ang = Ship.ang + 1
+end
+
+function moveShip()
+    local delta = 0
+    if CurrentTouch.state == BEGAN then
+        if CurrentTouch.pos.x < WIDTH/2 then
+            delta = 1
+        else
+            delta = -1
+        end
+    end
+    if CurrentTouch.state == ENDED then
+        delta = 0
+    end
+    Ship.ang = Ship.ang + delta
 end
 
 function drawAsteroids()
