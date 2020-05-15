@@ -5,13 +5,20 @@ local Asteroids = {}
 local Vel = 1.5
 local Ship = {}
 local Touches = {}
+local Buttons = {}
 
 function setup()
     print("Hello Asteroids!")
+    displayMode(FULLSCREEN_NO_BUTTONS)
+    createButtons()
+    createAsteroids()
+    createShip()
+end
+
+function createAsteroids()
     for i = 1,10 do
         table.insert(Asteroids, createAsteroid())
     end
-    createShip()
 end
 
 function createAsteroid()
@@ -19,6 +26,15 @@ function createAsteroid()
     a.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
     a.angle = math.random()*2*math.pi
     return a
+end
+
+function createButtons()
+    local dx=50
+    local dy=200
+    table.insert(Buttons, vec2(dx,dy))
+    table.insert(Buttons, vec2(dy,dx))
+    table.insert(Buttons, vec2(WIDTH-dx,dy))
+    table.insert(Buttons, vec2(WIDTH-dy,dx))
 end
 
 function createShip()
@@ -29,9 +45,24 @@ end
 function draw()
     pushStyle()
     background(40, 40, 50)
+    drawButtons()
     drawShip()
     moveShip()
     drawAsteroids()
+    popStyle()
+end
+
+function drawButtons()
+    pushStyle()
+    ellipseMode(RADIUS)
+    stroke(255)
+    strokeWidth(1)
+    for i,b in ipairs(Buttons) do
+        pushMatrix()
+        translate(b.x,b.y)
+        ellipse(0,0, 50)
+        popMatrix()
+    end
     popStyle()
 end
 
