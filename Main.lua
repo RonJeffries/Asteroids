@@ -4,6 +4,7 @@
 local Asteroids = {}
 local Vel = 1.5
 local Ship = {}
+local Touches = {}
 
 function setup()
     print("Hello Asteroids!")
@@ -51,18 +52,6 @@ function drawShip()
 end
 
 function moveShip()
-    local delta = 0
-    if CurrentTouch.state == BEGAN then
-        if CurrentTouch.pos.x < WIDTH/2 then
-            delta = 1
-        else
-            delta = -1
-        end
-    end
-    if CurrentTouch.state == ENDED then
-        delta = 0
-    end
-    Ship.ang = Ship.ang + delta
 end
 
 function drawAsteroids()
@@ -91,3 +80,12 @@ end
 function keepInBounds(value, bound)
     return (value+bound)%bound
 end
+
+function touched(touch)
+    if touch.state == ENDED or touch.state == CANCELLED then
+        Touches[touch.id] = nil
+    else
+        Touches[touch.id] = touch
+    end
+end
+
