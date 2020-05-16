@@ -31,10 +31,10 @@ end
 function createButtons()
     local dx=50
     local dy=200
-    table.insert(Buttons, vec2(dx,dy))
-    table.insert(Buttons, vec2(dy,dx))
-    table.insert(Buttons, vec2(WIDTH-dx,dy))
-    table.insert(Buttons, vec2(WIDTH-dy,dx))
+    table.insert(Buttons, {x=dx, y=dy, name="left"})
+    table.insert(Buttons, {x=dy, y=dx, name="right"})
+    table.insert(Buttons, {x=WIDTH-dx, y=dy, name="fire"})
+    table.insert(Buttons, {x=WIDTH-dy, y=dx, name = "go"})
 end
 
 function createShip()
@@ -55,12 +55,18 @@ end
 function drawButtons()
     pushStyle()
     ellipseMode(RADIUS)
+    textMode(CENTER)
     stroke(255)
     strokeWidth(1)
     for i,b in ipairs(Buttons) do
         pushMatrix()
         translate(b.x,b.y)
         ellipse(0,0, 50)
+        pushStyle()
+        fill(255)
+        fontSize(30)
+        text(b.name,0,0)
+        popStyle()
         popMatrix()
     end
     popStyle()
