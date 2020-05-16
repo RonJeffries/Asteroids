@@ -110,6 +110,8 @@ function drawShip()
 end
 
 function moveShip()
+    if Button.left then Ship.ang = Ship.ang + 1 end
+    if Button.right then Ship.ang = Ship.ang - 1 end
 end
 
 function drawAsteroids()
