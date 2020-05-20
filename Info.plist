@@ -7,6 +7,9 @@
 		<string>Main</string>
 		<string>TestAsteroids</string>
 		<string>Shapes</string>
+		<string>Ship</string>
+		<string>Button</string>
+		<string>Asteroid</string>
 	</array>
 	<key>Dependencies</key>
 	<array>
