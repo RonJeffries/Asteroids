@@ -6,6 +6,7 @@
 	<array>
 		<string>Main</string>
 		<string>TestAsteroids</string>
+		<string>Shapes</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

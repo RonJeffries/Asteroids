@@ -53,7 +53,6 @@ function draw()
     drawShip()
     moveShip()
     drawAsteroids()
-    drawNewAsteroid()
     popStyle()
 end
 
@@ -96,40 +95,6 @@ function drawButtons()
     popStyle()
 end
 
-function drawNewAsteroid()
-    local m = 2
-    local a = {--vec2(0,1),
-    vec2(1,1),
-    vec2(1,-1),
-    vec2(-1,-2)/m,
-    vec2(1,-2)/m,
-    vec2(-3,-2)/m,
-    vec2(-3,0)/m,
-    vec2(-1,1),
-    vec2(0, 2),
-    vec2(1,1),
-    vec2(1,-1)}
-    pushStyle()
-    pushMatrix()
-    stroke(255)
-    local from = vec2(0,1)
-    translate(WIDTH/2, HEIGHT/2 +100)
-    fill(255)
-    ellipse(0,0,5)
-    local s = 25
-    scale(s)
-    strokeWidth(1.0/s)
-    for i,v in ipairs(a) do
-        local n = 1
-        local t = from+v
-        line(n*from.x, n*from.y, n*t.x,n*t.y)
-        from = vec2(t.x,t.y)
-    end
-    Once = false
-    popMatrix()
-    popStyle()
-end
-
 function drawShip()
     local sx = 10
     local sy = 6
@@ -165,20 +130,19 @@ function drawAsteroids()
 end
 
 function drawAsteroid(asteroid)
-    drawTable(asteroid.pos.x, asteroid.pos.y, asteroid.shape)
-end
-
-function drawTable(x,y, tab)
     pushMatrix()
     pushStyle()
-    translate(x,y)
+    translate(asteroid.pos.x, asteroid.pos.y)
     scale(10)
     strokeWidth(1/10)
-    for i,l in ipairs(tab) do
+    for i,l in ipairs(asteroid.shape) do
         line(l.x, l.y, l.z, l.w)
     end
     popStyle()
     popMatrix()
+end
+
+function drawTable(x,y, tab)
 end
 
 
