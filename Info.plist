@@ -10,6 +10,7 @@
 		<string>Ship</string>
 		<string>Button</string>
 		<string>Asteroid</string>
+		<string>Splat</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

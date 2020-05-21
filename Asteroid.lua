@@ -5,7 +5,7 @@ local Asteroids = {}
 local Vel = 1.5
 
 function createAsteroids()
-    for i = 1,10 do
+    for i = 1,4 do
         table.insert(Asteroids, createAsteroid())
     end
 end
@@ -15,6 +15,7 @@ function createAsteroid()
     a.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
     a.angle = math.random()*2*math.pi
     a.shape = Rocks[math.random(1,4)]
+    a.scale = 16
     return a
 end
 
@@ -27,16 +28,29 @@ function drawAsteroids()
     for i,asteroid in ipairs(Asteroids) do
         drawAsteroid(asteroid)
         moveAsteroid(asteroid)
+        splitAsteroid(asteroid)
     end
     popStyle()
+end
+
+function splitAsteroid(asteroid)
+    if asteroid.scale == 4 then return end
+    if math.random(1,960) ~= 1 then return end
+    asteroid.scale = asteroid.scale//2
+    asteroid.angle = math.random()*2*math.pi
+    local new = createAsteroid()
+    new.pos = asteroid.pos
+    new.scale = asteroid.scale
+    table.insert(Asteroids, new)
+    Splat(asteroid.pos)
 end
 
 function drawAsteroid(asteroid)
     pushMatrix()
     pushStyle()
     translate(asteroid.pos.x, asteroid.pos.y)
-    scale(10)
-    strokeWidth(1/10)
+    scale(asteroid.scale)
+    strokeWidth(1/asteroid.scale)
     for i,l in ipairs(asteroid.shape) do
         line(l.x, l.y, l.z, l.w)
     end
