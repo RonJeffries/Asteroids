@@ -5,7 +5,7 @@ Touches = {}
 
 function setup()
     print("Hello Asteroids!")
-    --displayMode(FULLSCREEN_NO_BUTTONS)
+    displayMode(FULLSCREEN_NO_BUTTONS)
     createButtons()
     createAsteroids()
     createShip()
@@ -13,7 +13,7 @@ end
 
 function draw()
     checkButtons()
-    --displayMode(FULLSCREEN_NO_BUTTONS)
+    displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
     drawButtons()
