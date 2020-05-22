@@ -28,7 +28,7 @@ end
 
 function findCollisions()
     local KillDist = 50
-    for i,a in ipairs(Asteroids) do
+    for i,a in pairs(Asteroids) do
         for k,m in pairs(Missiles) do
             if m.pos:dist(a.pos) < KillDist then
                 splitAsteroid(a)

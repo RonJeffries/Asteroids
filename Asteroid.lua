@@ -2,11 +2,13 @@
 -- RJ 20200520
 
 Asteroids = {}
+local DeadAsteroids = {}
 local Vel = 1.5
 
 function createAsteroids()
     for i = 1,4 do
-        table.insert(Asteroids, createAsteroid())
+        local a = createAsteroid()
+        Asteroids[a] = a
     end
 end
 
@@ -25,21 +27,43 @@ function drawAsteroids()
     fill(0,0,0, 0)
     strokeWidth(2)
     rectMode(CENTER)
-    for i,asteroid in ipairs(Asteroids) do
+    for i,asteroid in pairs(Asteroids) do
         drawAsteroid(asteroid)
         moveAsteroid(asteroid)
     end
     popStyle()
+    killDeadAsteroids()
+end
+
+function killDeadAsteroids()
+    for k,a in pairs(DeadAsteroids) do
+        print("killing", a)
+        Asteroids[a] = nil
+    end
+    DeadAsteroids = {}
+end
+
+function deathSize()
+    local i = 0
+    for k, a in pairs(DeadAsteroids) do
+        i = i + 1
+    end
+    return i
 end
 
 function splitAsteroid(asteroid)
-    if asteroid.scale == 4 then return end
+    if asteroid.scale == 4 then
+        Splat(asteroid.pos)
+        print("condemning", asteroid, deathSize())
+        DeadAsteroids[asteroid] = asteroid
+        return
+    end
     asteroid.scale = asteroid.scale//2
     asteroid.angle = math.random()*2*math.pi
     local new = createAsteroid()
     new.pos = asteroid.pos
     new.scale = asteroid.scale
-    table.insert(Asteroids, new)
+    Asteroids[new] = new
     Splat(asteroid.pos)
 end
 
