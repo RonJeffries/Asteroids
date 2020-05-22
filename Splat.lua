@@ -22,7 +22,9 @@ function Splat:init(pos)
     self.pos = pos
     Splats[self] = self
     self.size = 2
-    tween(4, self, {size=10}, tween.easing.linear, die)
+    self.diameter = 6
+    self.rot = math.random(0,359)
+    tween(4, self, {size=10, diameter=1}, tween.easing.linear, die)
 end
 
 function Splat:draw()
@@ -30,9 +32,11 @@ function Splat:draw()
     pushMatrix()
     translate(self.pos.x, self.pos.y)
     fill(255)
+    stroke(255)
+    rotate(self.rot)
     local s = self.size
     for i,v in ipairs(Vecs) do
-        ellipse(s*v.x, s*v.y, 2)
+        ellipse(s*v.x, s*v.y, self.diameter)
     end
     popMatrix()
     popStyle()
