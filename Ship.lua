@@ -33,5 +33,5 @@ end
 
 function fireMissile()
     Ship.holdFire = true
-    Splat(Ship.pos)
+    Missile(Ship)
 end
