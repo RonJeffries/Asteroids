@@ -27,4 +27,11 @@ end
 function moveShip()
     if Button.left then Ship.ang = Ship.ang + 1 end
     if Button.right then Ship.ang = Ship.ang - 1 end
+    if Button.fire then if not Ship.holdFire then fireMissile() end end
+    if not Button.fire then Ship.holdFire = false end
+end
+
+function fireMissile()
+    Ship.holdFire = true
+    Splat(Ship.pos)
 end

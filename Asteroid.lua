@@ -5,7 +5,7 @@ local Asteroids = {}
 local Vel = 1.5
 
 function createAsteroids()
-    for i = 1,4 do
+    for i = 1,1 do
         table.insert(Asteroids, createAsteroid())
     end
 end
