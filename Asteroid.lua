@@ -1,11 +1,11 @@
 -- Asteroid
 -- RJ 20200520
 
-local Asteroids = {}
+Asteroids = {}
 local Vel = 1.5
 
 function createAsteroids()
-    for i = 1,1 do
+    for i = 1,4 do
         table.insert(Asteroids, createAsteroid())
     end
 end
@@ -28,14 +28,12 @@ function drawAsteroids()
     for i,asteroid in ipairs(Asteroids) do
         drawAsteroid(asteroid)
         moveAsteroid(asteroid)
-        splitAsteroid(asteroid)
     end
     popStyle()
 end
 
 function splitAsteroid(asteroid)
     if asteroid.scale == 4 then return end
-    if math.random(1,960) ~= 1 then return end
     asteroid.scale = asteroid.scale//2
     asteroid.angle = math.random()*2*math.pi
     local new = createAsteroid()

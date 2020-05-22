@@ -23,6 +23,19 @@ function draw()
     drawAsteroids()
     drawSplats()
     popStyle()
+    findCollisions()
+end
+
+function findCollisions()
+    local KillDist = 50
+    for i,a in ipairs(Asteroids) do
+        for k,m in pairs(Missiles) do
+            if m.pos:dist(a.pos) < KillDist then
+                splitAsteroid(a)
+                m:die()
+            end
+        end
+    end
 end
 
 function touched(touch)

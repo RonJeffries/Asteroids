@@ -1,7 +1,7 @@
 -- Missile
 -- RJ 20200522
 
-local Missiles = {}
+Missiles = {}
 
 function drawMissiles()
     pushStyle()
@@ -24,12 +24,16 @@ local MissileVelocity = 2.0
 
 function Missile:init(ship)
     function die()
-        Missiles[self] = nil
+        self:die()
     end
     self.pos = ship.pos
     self.vel = vec2(MissileVelocity,0):rotate(math.rad(ship.ang))
     Missiles[self] = self
     tween(3, self, {}, tween.easing.linear, die)
+end
+
+function Missile:die()
+    Missiles[self] = nil
 end
 
 function Missile:draw()
