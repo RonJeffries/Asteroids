@@ -9,13 +9,12 @@ function drawMissiles()
     fill(255)
     stroke(255)
     for k, missile in pairs(Missiles) do
-        ellipse(missile.pos.x, missile.pos.y, 6)
+        missile:draw()
     end
     popMatrix()
     popStyle()
     for k, missile in pairs(Missiles) do
-        missile.pos = missile.pos + missile.vel
-        missile.pos = vec2(keepInBounds(missile.pos.x, WIDTH), keepInBounds(missile.pos.y, HEIGHT))
+        missile:move()
     end
 end
 
@@ -34,5 +33,10 @@ function Missile:init(ship)
 end
 
 function Missile:draw()
+    ellipse(self.pos.x, self.pos.y, 6)
 end
 
+function Missile:move()
+    self.pos = self.pos + self.vel
+    self.pos = vec2(keepInBounds(self.pos.x, WIDTH), keepInBounds(self.pos.y, HEIGHT))
+end
