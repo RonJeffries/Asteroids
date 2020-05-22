@@ -16,9 +16,13 @@ end
 Splat = class()
 
 function Splat:init(pos)
+    local die = function()
+        Splats[self] = nil
+    end
     self.pos = pos
     Splats[self] = self
-    self.size = 1
+    self.size = 2
+    tween(4, self, {size=10}, tween.easing.linear, die)
 end
 
 function Splat:draw()
@@ -26,13 +30,10 @@ function Splat:draw()
     pushMatrix()
     translate(self.pos.x, self.pos.y)
     fill(255)
-    scale(2)
     local s = self.size
     for i,v in ipairs(Vecs) do
         ellipse(s*v.x, s*v.y, 2)
     end
     popMatrix()
     popStyle()
-    self.size = self.size * (1 + DeltaTime)
-    if self.size > 5 then Splats[self] = nil end
 end
