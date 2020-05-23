@@ -35,6 +35,11 @@ function drawAsteroids()
     killDeadAsteroids()
 end
 
+function killDist(asteroid)
+    local s = asteroid.scale
+    if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
+end
+
 function killDeadAsteroids()
     for k,a in pairs(DeadAsteroids) do
         Asteroids[a] = nil
@@ -79,6 +84,7 @@ function drawAsteroid(asteroid)
     pushMatrix()
     pushStyle()
     translate(asteroid.pos.x, asteroid.pos.y)
+    ellipse(0,0,2*killDist(asteroid))
     scale(asteroid.scale)
     strokeWidth(1/asteroid.scale)
     for i,l in ipairs(asteroid.shape) do
