@@ -1,14 +1,13 @@
 -- Asteroid
 -- RJ 20200520
 
-Asteroids = {}
 local DeadAsteroids = {}
 local Vel = 1.5
 
-function createAsteroids()
+function createAsteroids(asteroids)
     for i = 1,4 do
         local a = createAsteroid()
-        Asteroids[a] = a
+        asteroids[a] = a
     end
 end
 
@@ -21,18 +20,18 @@ function createAsteroid()
     return a
 end
 
-function drawAsteroids()
+function drawAsteroids(asteroids)
     pushStyle()
     stroke(255)
     fill(0,0,0, 0)
     strokeWidth(2)
     rectMode(CENTER)
-    for i,asteroid in pairs(Asteroids) do
+    for i,asteroid in pairs(asteroids) do
         drawAsteroid(asteroid)
         moveAsteroid(asteroid)
     end
     popStyle()
-    killDeadAsteroids()
+    killDeadAsteroids(asteroids)
 end
 
 function killDist(asteroid)
@@ -40,9 +39,9 @@ function killDist(asteroid)
     if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
 end
 
-function killDeadAsteroids()
+function killDeadAsteroids(asteroids)
     for k,a in pairs(DeadAsteroids) do
-        Asteroids[a] = nil
+        asteroids[a] = nil
     end
     DeadAsteroids = {}
 end
@@ -65,7 +64,7 @@ function scoreAsteroid(asteroid)
     Score = Score + inc
 end
 
-function splitAsteroid(asteroid)
+function splitAsteroid(asteroid, asteroids)
     if asteroid.scale == 4 then
         Splat(asteroid.pos)
         DeadAsteroids[asteroid] = asteroid
@@ -76,7 +75,7 @@ function splitAsteroid(asteroid)
     local new = createAsteroid()
     new.pos = asteroid.pos
     new.scale = asteroid.scale
-    Asteroids[new] = new
+    asteroids[new] = new
     Splat(asteroid.pos)
 end
 

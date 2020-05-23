@@ -12,6 +12,7 @@
 		<string>Asteroid</string>
 		<string>Splat</string>
 		<string>Missile</string>
+		<string>Universe</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

@@ -6,12 +6,11 @@ Ratio = 1.0 -- draw time scaling ratio
 Score = 0
 
 function setup()
-    print("Hello Asteroids!")
-    print(WIDTH, HEIGHT)
+    U = Universe()
+    U:createAsteroids()
     Score = 0
     --displayMode(FULLSCREEN_NO_BUTTONS)
     createButtons()
-    createAsteroids()
     createShip()
 end
 
@@ -21,15 +20,15 @@ function draw()
     checkButtons()
     pushStyle()
     background(40, 40, 50)
+    U:draw()
     drawButtons()
     drawShip()
     moveShip()
     drawMissiles()
-    drawAsteroids()
     drawSplats()
     drawScore()
     popStyle()
-    findCollisions()
+    U:findCollisions()
 end
 
 function drawScore()
@@ -37,19 +36,6 @@ function drawScore()
     s = string.sub(s,-5)
     fontSize(100)
     text(s, 200, HEIGHT-60)
-end
-
-function findCollisions()
-    local KillDist = 50
-    for i,a in pairs(Asteroids) do
-        for k,m in pairs(Missiles) do
-            if m.pos:dist(a.pos) < killDist(a) then
-                scoreAsteroid(a)
-                splitAsteroid(a)
-                m:die()
-            end
-        end
-    end
 end
 
 function touched(touch)
