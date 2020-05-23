@@ -7,6 +7,7 @@ Score = 0
 
 function setup()
     print("Hello Asteroids!")
+    print(WIDTH, HEIGHT)
     Score = 0
     --displayMode(FULLSCREEN_NO_BUTTONS)
     createButtons()
@@ -15,7 +16,7 @@ function setup()
 end
 
 function draw()
-    Ratio = 0.0083333/DeltaTime
+    Ratio = DeltaTime/0.0083333
     --displayMode(FULLSCREEN_NO_BUTTONS)
     checkButtons()
     pushStyle()
