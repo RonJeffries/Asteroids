@@ -50,6 +50,16 @@ function deathSize()
     return i
 end
 
+function scoreAsteroid(asteroid)
+    local s = asteroid.scale
+    local inc = 0
+    if s == 16 then inc = 20
+    elseif s == 8 then inc = 50
+    else inc = 100
+    end
+    Score = Score + inc
+end
+
 function splitAsteroid(asteroid)
     if asteroid.scale == 4 then
         Splat(asteroid.pos)
