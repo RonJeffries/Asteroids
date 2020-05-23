@@ -37,7 +37,6 @@ end
 
 function killDeadAsteroids()
     for k,a in pairs(DeadAsteroids) do
-        print("killing", a)
         Asteroids[a] = nil
     end
     DeadAsteroids = {}
@@ -54,7 +53,6 @@ end
 function splitAsteroid(asteroid)
     if asteroid.scale == 4 then
         Splat(asteroid.pos)
-        print("condemning", asteroid, deathSize())
         DeadAsteroids[asteroid] = asteroid
         return
     end
@@ -81,7 +79,7 @@ function drawAsteroid(asteroid)
 end
 
 function moveAsteroid(asteroid)
-    local step = vec2(Vel,0):rotate(asteroid.angle)
+    local step = Ratio*vec2(Vel,0):rotate(asteroid.angle)
     local pos = asteroid.pos + step
     asteroid.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))
 end

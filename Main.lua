@@ -2,18 +2,20 @@
 -- RJ 20200511
 
 Touches = {}
+Ratio = 1.0 -- draw time scaling ratio
 
 function setup()
     print("Hello Asteroids!")
-    displayMode(FULLSCREEN_NO_BUTTONS)
+    --displayMode(FULLSCREEN_NO_BUTTONS)
     createButtons()
     createAsteroids()
     createShip()
 end
 
 function draw()
+    Ratio = 0.0083333/DeltaTime
+    --displayMode(FULLSCREEN_NO_BUTTONS)
     checkButtons()
-    displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
     drawButtons()

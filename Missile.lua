@@ -41,6 +41,6 @@ function Missile:draw()
 end
 
 function Missile:move()
-    self.pos = self.pos + self.vel
+    self.pos = self.pos + Ratio*self.vel
     self.pos = vec2(keepInBounds(self.pos.x, WIDTH), keepInBounds(self.pos.y, HEIGHT))
 end
