@@ -3,9 +3,12 @@
 
 local Ship = {}
 
+local rotationStep = math.rad(1) -- one degree in radians
+
 function createShip()
     Ship.pos = vec2(WIDTH, HEIGHT)/2
-    Ship.ang = 0
+    Ship.radians = 0
+    Ship.velocity = vec2(0,0)
 end
 
 function drawShip()
@@ -14,7 +17,7 @@ function drawShip()
     pushStyle()
     pushMatrix()
     translate(Ship.pos.x, Ship.pos.y)
-    rotate(Ship.ang)
+    rotate(math.deg(Ship.radians))
     strokeWidth(2)
     stroke(255)
     line(sx,0, -sx,sy)
@@ -25,10 +28,30 @@ function drawShip()
 end
 
 function moveShip()
-    if Button.left then Ship.ang = Ship.ang + 1 end
-    if Button.right then Ship.ang = Ship.ang - 1 end
+    if Button.left then Ship.radians = Ship.radians + rotationStep end
+    if Button.right then Ship.radians = Ship.radians - rotationStep end
     if Button.fire then if not Ship.holdFire then fireMissile() end end
     if not Button.fire then Ship.holdFire = false end
+    actualShipMove()
+end
+
+function actualShipMove()
+    if Button.go then
+        local accel = vec2(0.015,0):rotate(Ship.radians)
+        Ship.velocity = Ship.velocity + accel
+        Ship.velocity = maximize(Ship.velocity, 3)
+    end
+    Ship.pos = Ship.pos + Ship.velocity
+    Ship.pos = vec2(keepInBounds(Ship.pos.x, WIDTH), keepInBounds(Ship.pos.y, HEIGHT))
+end
+
+function maximize(vec, size)
+    local s = vec:len()
+    if s <= size then
+        return vec
+    else
+        return vec*size/s
+    end
 end
 
 function fireMissile()
