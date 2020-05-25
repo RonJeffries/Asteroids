@@ -26,14 +26,6 @@ function killDeadAsteroids(asteroids)
     DeadAsteroids = {}
 end
 
-function deathSize()
-    local i = 0
-    for k, a in pairs(DeadAsteroids) do
-        i = i + 1
-    end
-    return i
-end
-
 function scoreAsteroid(asteroid)
     local s = asteroid.scale
     local inc = 0
