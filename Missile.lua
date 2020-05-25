@@ -27,7 +27,7 @@ function Missile:init(ship)
         self:die()
     end
     self.pos = ship.pos
-    self.vel = vec2(MissileVelocity,0):rotate(ship.radians) + ship.velocity
+    self.step = vec2(MissileVelocity,0):rotate(ship.radians) + ship.velocity
     Missiles[self] = self
     tween(3, self, {}, tween.easing.linear, die)
 end
@@ -41,6 +41,6 @@ function Missile:draw()
 end
 
 function Missile:move()
-    self.pos = self.pos + Ratio*self.vel
-    self.pos = vec2(keepInBounds(self.pos.x, WIDTH), keepInBounds(self.pos.y, HEIGHT))
+    local pos = self.pos + Ratio*self.step
+    self.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))
 end
