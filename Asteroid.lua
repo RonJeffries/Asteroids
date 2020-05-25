@@ -14,9 +14,10 @@ end
 function createAsteroid()
     local a = {}
     a.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
-    a.angle = math.random()*2*math.pi
     a.shape = Rocks[math.random(1,4)]
     a.scale = 16
+    local angle = math.random()*2*math.pi
+    a.step = Ratio*vec2(Vel,0):rotate(angle)
     return a
 end
 
@@ -94,8 +95,7 @@ function drawAsteroid(asteroid)
 end
 
 function moveAsteroid(asteroid)
-    local step = Ratio*vec2(Vel,0):rotate(asteroid.angle)
-    local pos = asteroid.pos + step
+    local pos = asteroid.pos + Ratio*asteroid.step
     asteroid.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))
 end
 
