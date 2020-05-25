@@ -66,14 +66,14 @@ function splitAsteroid(asteroid, asteroids)
     Splat(asteroid.pos)
 end
 
-function drawAsteroid(asteroid)
+function Asteroid:draw()
     pushMatrix()
     pushStyle()
-    translate(asteroid.pos.x, asteroid.pos.y)
-    ellipse(0,0,2*killDist(asteroid))
-    scale(asteroid.scale)
-    strokeWidth(1/asteroid.scale)
-    for i,l in ipairs(asteroid.shape) do
+    translate(self.pos.x, self.pos.y)
+    --ellipse(0,0,2*killDist(self))
+    scale(self.scale)
+    strokeWidth(1/self.scale)
+    for i,l in ipairs(self.shape) do
         line(l.x, l.y, l.z, l.w)
     end
     popStyle()

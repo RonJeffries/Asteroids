@@ -62,7 +62,7 @@ function Universe:drawAsteroids()
     strokeWidth(2)
     rectMode(CENTER)
     for i,asteroid in pairs(self.asteroids) do
-        drawAsteroid(asteroid)
+        asteroid:draw()
         moveAsteroid(asteroid)
     end
     popStyle()
