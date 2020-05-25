@@ -25,7 +25,7 @@ end
 function Universe:findCollisions()
     for i,a in pairs(self.asteroids) do
         for k,m in pairs(self.missiles) do
-            if m.pos:dist(a.pos) < killDist(a) then
+            if m.pos:dist(a.pos) < a:killDist() then
                 scoreAsteroid(a)
                 splitAsteroid(a, self.asteroids)
                 m:die()

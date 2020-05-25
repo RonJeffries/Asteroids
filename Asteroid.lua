@@ -14,8 +14,8 @@ function Asteroid:init()
     self.step = Ratio*vec2(Vel,0):rotate(angle)
 end
 
-function killDist(asteroid)
-    local s = asteroid.scale
+function Asteroid:killDist()
+    local s = self.scale
     if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
 end
 
@@ -55,7 +55,6 @@ function Asteroid:draw()
     pushMatrix()
     pushStyle()
     translate(self.pos.x, self.pos.y)
-    --ellipse(0,0,2*killDist(self))
     scale(self.scale)
     strokeWidth(1/self.scale)
     for i,l in ipairs(self.shape) do
