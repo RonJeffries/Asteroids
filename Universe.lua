@@ -12,7 +12,7 @@ function Universe:init()
 end
 
 function Universe:draw()
-    drawAsteroids(self.asteroids)
+    self:drawAsteroids()
 end
 
 function Universe:createAsteroids()
@@ -53,6 +53,20 @@ function Universe:drawMissiles()
     for k, missile in pairs(self.missiles) do
         missile:move()
     end
+end
+
+function Universe:drawAsteroids()
+    pushStyle()
+    stroke(255)
+    fill(0,0,0, 0)
+    strokeWidth(2)
+    rectMode(CENTER)
+    for i,asteroid in pairs(self.asteroids) do
+        drawAsteroid(asteroid)
+        moveAsteroid(asteroid)
+    end
+    popStyle()
+    killDeadAsteroids(self.asteroids)
 end
 
 

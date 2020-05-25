@@ -6,33 +6,19 @@ local Vel = 1.5
 
 function createAsteroids(asteroids)
     for i = 1,4 do
-        local a = createAsteroid()
+        local a = Asteroid()
         asteroids[a] = a
     end
 end
 
-function createAsteroid()
-    local a = {}
-    a.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
-    a.shape = Rocks[math.random(1,4)]
-    a.scale = 16
-    local angle = math.random()*2*math.pi
-    a.step = Ratio*vec2(Vel,0):rotate(angle)
-    return a
-end
+Asteroid = class()
 
-function drawAsteroids(asteroids)
-    pushStyle()
-    stroke(255)
-    fill(0,0,0, 0)
-    strokeWidth(2)
-    rectMode(CENTER)
-    for i,asteroid in pairs(asteroids) do
-        drawAsteroid(asteroid)
-        moveAsteroid(asteroid)
-    end
-    popStyle()
-    killDeadAsteroids(asteroids)
+function Asteroid:init()
+    self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    self.shape = Rocks[math.random(1,4)]
+    self.scale = 16
+    local angle = math.random()*2*math.pi
+    self.step = Ratio*vec2(Vel,0):rotate(angle)
 end
 
 function killDist(asteroid)
@@ -73,7 +59,7 @@ function splitAsteroid(asteroid, asteroids)
     end
     asteroid.scale = asteroid.scale//2
     asteroid.angle = math.random()*2*math.pi
-    local new = createAsteroid()
+    local new = Asteroid()
     new.pos = asteroid.pos
     new.scale = asteroid.scale
     asteroids[new] = new
