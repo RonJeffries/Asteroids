@@ -95,11 +95,6 @@ function drawAsteroid(asteroid)
 end
 
 function moveAsteroid(asteroid)
-    local pos = asteroid.pos + Ratio*asteroid.step
-    asteroid.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))
-end
-
-function keepInBounds(value, bound)
-    return (value+bound)%bound
+    U:moveObject(asteroid)
 end
 

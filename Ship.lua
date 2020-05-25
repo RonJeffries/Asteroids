@@ -45,8 +45,7 @@ function actualShipMove()
 end
 
 function finallyMove(ship)
-    local pos = ship.pos + Ratio*ship.step
-    Ship.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))    
+    U:moveObject(ship)
 end
 
 function maximize(vec, size)

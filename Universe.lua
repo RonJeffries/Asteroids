@@ -27,3 +27,13 @@ function Universe:findCollisions()
     end
 end
 
+function Universe:moveObject(anObject)
+    local pos = anObject.pos + Ratio*anObject.step
+    anObject.pos = vec2(self:keepInBounds(pos.x, WIDTH), self:keepInBounds(pos.y, HEIGHT))    
+end
+
+function Universe:keepInBounds(value, bound)
+    return (value+bound)%bound
+end
+
+

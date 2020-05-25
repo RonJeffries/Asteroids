@@ -41,6 +41,5 @@ function Missile:draw()
 end
 
 function Missile:move()
-    local pos = self.pos + Ratio*self.step
-    self.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))    
+    U:moveObject(self)
 end
