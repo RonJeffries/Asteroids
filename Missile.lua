@@ -27,7 +27,7 @@ function Missile:init(ship)
         self:die()
     end
     self.pos = ship.pos
-    self.vel = vec2(MissileVelocity,0):rotate(ship.radians)
+    self.vel = vec2(MissileVelocity,0):rotate(ship.radians) + ship.velocity
     Missiles[self] = self
     tween(3, self, {}, tween.easing.linear, die)
 end
