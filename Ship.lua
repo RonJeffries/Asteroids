@@ -8,7 +8,7 @@ local rotationStep = math.rad(1) -- one degree in radians
 function createShip()
     Ship.pos = vec2(WIDTH, HEIGHT)/2
     Ship.radians = 0
-    Ship.velocity = vec2(0,0)
+    Ship.step = vec2(0,0)
 end
 
 function drawShip()
@@ -38,11 +38,15 @@ end
 function actualShipMove()
     if Button.go then
         local accel = vec2(0.015,0):rotate(Ship.radians)
-        Ship.velocity = Ship.velocity + accel
-        Ship.velocity = maximize(Ship.velocity, 3)
+        Ship.step = Ship.step + accel
+        Ship.step = maximize(Ship.step, 3)
     end
-    Ship.pos = Ship.pos + Ship.velocity
-    Ship.pos = vec2(keepInBounds(Ship.pos.x, WIDTH), keepInBounds(Ship.pos.y, HEIGHT))
+    finallyMove(Ship)
+end
+
+function finallyMove(ship)
+    local pos = ship.pos + Ratio*ship.step
+    Ship.pos = vec2(keepInBounds(pos.x, WIDTH), keepInBounds(pos.y, HEIGHT))    
 end
 
 function maximize(vec, size)
