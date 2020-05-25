@@ -63,7 +63,7 @@ function Universe:drawAsteroids()
     rectMode(CENTER)
     for i,asteroid in pairs(self.asteroids) do
         asteroid:draw()
-        moveAsteroid(asteroid)
+        asteroid:move()
     end
     popStyle()
     killDeadAsteroids(self.asteroids)

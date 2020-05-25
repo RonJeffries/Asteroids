@@ -80,7 +80,7 @@ function Asteroid:draw()
     popMatrix()
 end
 
-function moveAsteroid(asteroid)
-    U:moveObject(asteroid)
+function Asteroid:move()
+    U:moveObject(self)
 end
 
