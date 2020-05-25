@@ -16,7 +16,10 @@ function Universe:draw()
 end
 
 function Universe:createAsteroids()
-    createAsteroids(self.asteroids)
+    for i = 1,4 do
+        local a = Asteroid()
+        self.asteroids[a] = a
+    end
 end
 
 function Universe:findCollisions()

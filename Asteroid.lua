@@ -4,13 +4,6 @@
 local DeadAsteroids = {}
 local Vel = 1.5
 
-function createAsteroids(asteroids)
-    for i = 1,4 do
-        local a = Asteroid()
-        asteroids[a] = a
-    end
-end
-
 Asteroid = class()
 
 function Asteroid:init()
