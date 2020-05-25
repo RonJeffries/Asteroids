@@ -3,8 +3,12 @@
 
 Universe = class()
 
+local MissileSpeed = 2.0
+
 function Universe:init()
     self.asteroids = {}
+    self.missiles = {}
+    self.missileVelocity = vec2(MissileSpeed,0)
 end
 
 function Universe:draw()
@@ -17,7 +21,7 @@ end
 
 function Universe:findCollisions()
     for i,a in pairs(self.asteroids) do
-        for k,m in pairs(Missiles) do
+        for k,m in pairs(self.missiles) do
             if m.pos:dist(a.pos) < killDist(a) then
                 scoreAsteroid(a)
                 splitAsteroid(a, self.asteroids)
@@ -34,6 +38,21 @@ end
 
 function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
+end
+
+function Universe:drawMissiles()
+    pushStyle()
+    pushMatrix()
+    fill(255)
+    stroke(255)
+    for k, missile in pairs(self.missiles) do
+        missile:draw()
+    end
+    popMatrix()
+    popStyle()
+    for k, missile in pairs(self.missiles) do
+        missile:move()
+    end
 end
 
 
