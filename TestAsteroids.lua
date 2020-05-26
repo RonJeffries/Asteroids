@@ -55,6 +55,35 @@ function testAsteroids()
             _:expect(U:keepInBounds(1001,1000)).is(1)
             _:expect(U:keepInBounds(-1,1000)).is(999)
         end)
+        
+        _:test("Missile fired at rest", function()
+            createShip()
+            local ship = getShip()
+            local missile = Missile(ship)
+            _:expect(missile.step).is(U.missileVelocity)
+        end)
+        
+        _:test("Missile fired north", function()
+            createShip()
+            local ship = getShip()
+            ship.radians = math.pi/2
+            local missile = Missile(ship)
+            local mx = missile.step.x
+            local my = missile.step.y
+            _:expect(mx).is(0, 0.001)
+            _:expect(my).is(U.missileVelocity.x, 0.001)
+        end)
+        
+        _:test("Missile fired from moving ship", function()
+            createShip()
+            local ship = getShip()
+            ship.step = vec2(1,2)
+            local missile = Missile(ship)
+            local mx = missile.step.x
+            local my = missile.step.y
+            _:expect(mx).is(U.missileVelocity.x + 1, 0.001)
+            _:expect(my).is(U.missileVelocity.y + 2, 0.001)
+        end)
 
     end)
 end

@@ -13,6 +13,7 @@
 		<string>Splat</string>
 		<string>Missile</string>
 		<string>Universe</string>
+		<string>Explosion</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

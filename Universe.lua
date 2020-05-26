@@ -6,13 +6,16 @@ Universe = class()
 local MissileSpeed = 2.0
 
 function Universe:init()
+    self.ship = createShip()
     self.asteroids = {}
     self.missiles = {}
+    self.explosions = {}
     self.missileVelocity = vec2(MissileSpeed,0)
 end
 
 function Universe:draw()
     self:drawAsteroids()
+    self:drawExplosions()
 end
 
 function Universe:createAsteroids()
@@ -24,14 +27,31 @@ end
 
 function Universe:findCollisions()
     for i,a in pairs(self.asteroids) do
-        for k,m in pairs(self.missiles) do
-            if m.pos:dist(a.pos) < a:killDist() then
-                scoreAsteroid(a)
-                splitAsteroid(a, self.asteroids)
-                m:die()
-            end
+        self:checkMissileCollisions(a)
+        self:checkShipCollision(a)
+    end
+end
+
+function Universe:checkShipCollision(asteroid)
+    if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
+        scoreAsteroid(asteroid)
+        splitAsteroid(asteroid, self.asteroids)
+        killShip()
+    end
+end
+
+function Universe:checkMissileCollisions(asteroid)
+    for k,m in pairs(self.missiles) do
+        if m.pos:dist(asteroid.pos) < asteroid:killDist() then
+            scoreAsteroid(asteroid)
+            splitAsteroid(asteroid, self.asteroids)
+            m:die()
         end
     end
+end
+
+function killShip()
+    Explosion(U.ship)
 end
 
 function Universe:moveObject(anObject)
@@ -41,6 +61,12 @@ end
 
 function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
+end
+
+function Universe:drawExplosions()
+    for k,e in pairs(self.explosions) do
+        e:draw()
+    end
 end
 
 function Universe:drawMissiles()

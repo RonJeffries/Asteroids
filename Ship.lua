@@ -5,10 +5,15 @@ local Ship = {}
 
 local rotationStep = math.rad(1) -- one degree in radians
 
+function getShip()
+    return Ship -- used in testing. try to make this unnecessary
+end
+
 function createShip()
     Ship.pos = vec2(WIDTH, HEIGHT)/2
     Ship.radians = 0
     Ship.step = vec2(0,0)
+    return Ship
 end
 
 function drawShip()
