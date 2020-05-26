@@ -11,7 +11,6 @@ function setup()
     Score = 0
     --displayMode(FULLSCREEN_NO_BUTTONS)
     createButtons()
-    createShip()
 end
 
 function draw()
