@@ -58,16 +58,14 @@ function testAsteroids()
         
         _:test("Missile fired at rest", function()
             createShip()
-            local ship = getShip()
-            local missile = Missile(ship)
+            local missile = Missile(U.ship)
             _:expect(missile.step).is(U.missileVelocity)
         end)
         
         _:test("Missile fired north", function()
             createShip()
-            local ship = getShip()
-            ship.radians = math.pi/2
-            local missile = Missile(ship)
+            U.ship.radians = math.pi/2
+            local missile = Missile(U.ship)
             local mx = missile.step.x
             local my = missile.step.y
             _:expect(mx).is(0, 0.001)
@@ -76,9 +74,8 @@ function testAsteroids()
         
         _:test("Missile fired from moving ship", function()
             createShip()
-            local ship = getShip()
-            ship.step = vec2(1,2)
-            local missile = Missile(ship)
+            U.ship.step = vec2(1,2)
+            local missile = Missile(U.ship)
             local mx = missile.step.x
             local my = missile.step.y
             _:expect(mx).is(U.missileVelocity.x + 1, 0.001)
