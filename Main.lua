@@ -12,19 +12,7 @@ function setup()
 end
 
 function draw()
-    --displayMode(FULLSCREEN_NO_BUTTONS)
-    checkButtons()
-    pushStyle()
-    background(40, 40, 50)
     U:draw()
-    drawButtons()
-    drawShip()
-    moveShip()
-    U:drawMissiles()
-    drawSplats()
-    drawScore()
-    popStyle()
-    U:findCollisions()
 end
 
 function drawScore()

@@ -17,9 +17,21 @@ function Universe:init()
 end
 
 function Universe:draw()
+    --displayMode(FULLSCREEN_NO_BUTTONS)
+    pushStyle()
+    background(40, 40, 50)
     self.processorRatio = DeltaTime/0.0083333
     self:drawAsteroids()
     self:drawExplosions()
+    checkButtons()
+    drawButtons()
+    drawShip()
+    moveShip()
+    self:drawMissiles()
+    drawSplats()
+    drawScore()
+    popStyle()
+    self:findCollisions()
 end
 
 function Universe:createAsteroids()
