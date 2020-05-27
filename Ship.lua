@@ -37,7 +37,7 @@ end
 
 function Ship:actualShipMove()
     if U.button.go then
-        local accel = vec2(0.015,0):rotate(Ship.radians)
+        local accel = vec2(0.015,0):rotate(self.radians)
         self.step = self.step + accel
         self.step = maximize(self.step, 3)
     end
