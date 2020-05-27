@@ -2,7 +2,6 @@
 -- RJ 20200511
 
 Touches = {}
-Ratio = 1.0 -- draw time scaling ratio
 Score = 0
 
 function setup()
@@ -10,11 +9,9 @@ function setup()
     U:createAsteroids()
     Score = 0
     --displayMode(FULLSCREEN_NO_BUTTONS)
-    createButtons()
 end
 
 function draw()
-    Ratio = DeltaTime/0.0083333
     --displayMode(FULLSCREEN_NO_BUTTONS)
     checkButtons()
     pushStyle()

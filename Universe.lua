@@ -6,7 +6,9 @@ Universe = class()
 local MissileSpeed = 2.0
 
 function Universe:init()
+    createButtons()
     self.ship = createShip()
+    self.processorRatio = 1.0
     self.asteroids = {}
     self.missiles = {}
     self.explosions = {}
@@ -14,6 +16,7 @@ function Universe:init()
 end
 
 function Universe:draw()
+    self.processorRatio = DeltaTime/0.0083333
     self:drawAsteroids()
     self:drawExplosions()
 end
@@ -55,7 +58,7 @@ function killShip()
 end
 
 function Universe:moveObject(anObject)
-    local pos = anObject.pos + Ratio*anObject.step
+    local pos = anObject.pos + self.processorRatio*anObject.step
     anObject.pos = vec2(self:keepInBounds(pos.x, WIDTH), self:keepInBounds(pos.y, HEIGHT))    
 end
 

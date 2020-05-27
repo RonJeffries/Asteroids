@@ -11,7 +11,7 @@ function Asteroid:init()
     self.shape = Rocks[math.random(1,4)]
     self.scale = 16
     local angle = math.random()*2*math.pi
-    self.step = Ratio*vec2(Vel,0):rotate(angle)
+    self.step = vec2(Vel,0):rotate(angle)
 end
 
 function Asteroid:killDist()
