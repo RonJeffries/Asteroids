@@ -10,7 +10,7 @@ function Universe:init()
     self.missileVelocity = vec2(MissileSpeed,0)
     self.button = {}
     createButtons()
-    self.ship = createShip()
+    self.ship = Ship()
     self.processorRatio = 1.0
     self.asteroids = {}
     self.missiles = {}
@@ -26,8 +26,8 @@ function Universe:draw()
     self:drawExplosions()
     checkButtons()
     drawButtons()
-    drawShip()
-    moveShip()
+    self.ship:draw()
+    self.ship:move()
     self:drawMissiles()
     drawSplats()
     U:drawScore()
