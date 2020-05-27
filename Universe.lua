@@ -6,6 +6,8 @@ Universe = class()
 local MissileSpeed = 2.0
 
 function Universe:init()
+    self.score = 0
+    self.missileVelocity = vec2(MissileSpeed,0)
     self.button = {}
     createButtons()
     self.ship = createShip()
@@ -13,7 +15,6 @@ function Universe:init()
     self.asteroids = {}
     self.missiles = {}
     self.explosions = {}
-    self.missileVelocity = vec2(MissileSpeed,0)
 end
 
 function Universe:draw()
@@ -29,9 +30,9 @@ function Universe:draw()
     moveShip()
     self:drawMissiles()
     drawSplats()
-    drawScore()
+    U:drawScore()
     popStyle()
-    self:findCollisions()
+    U:findCollisions()
 end
 
 function Universe:createAsteroids()
@@ -114,4 +115,9 @@ function Universe:drawAsteroids()
     killDeadAsteroids(self.asteroids)
 end
 
-
+function Universe:drawScore()
+    local s= "000000"..tostring(self.score)
+    s = string.sub(s,-5)
+    fontSize(100)
+    text(s, 200, HEIGHT-60)
+end
