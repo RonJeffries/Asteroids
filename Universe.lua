@@ -26,8 +26,8 @@ function Universe:draw()
     self:drawExplosions()
     checkButtons()
     drawButtons()
-    self.ship:draw()
-    self.ship:move()
+    if self.ship then self.ship:draw() end
+    if self.ship then self.ship:move() end
     self:drawMissiles()
     drawSplats()
     U:drawScore()
@@ -45,7 +45,7 @@ end
 function Universe:findCollisions()
     for i,a in pairs(self.asteroids) do
         self:checkMissileCollisions(a)
-        self:checkShipCollision(a)
+        if self.ship then self:checkShipCollision(a) end
     end
 end
 
@@ -53,7 +53,7 @@ function Universe:checkShipCollision(asteroid)
     if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
         scoreAsteroid(asteroid)
         splitAsteroid(asteroid, self.asteroids)
-        killShip()
+        self:killShip()
     end
 end
 
@@ -67,8 +67,13 @@ function Universe:checkMissileCollisions(asteroid)
     end
 end
 
-function killShip()
+function Universe:killShip()
+    local f = function()
+        self.ship = Ship()
+    end
     Explosion(U.ship)
+    U.ship = nil
+    tween(6, self, {}, tween.easing.linear, f)
 end
 
 function Universe:moveObject(anObject)
