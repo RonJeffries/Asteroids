@@ -1,7 +1,6 @@
 -- Button
 -- RJ 20200520
 
-Button = {}
 local Buttons = {}
 
 function createButtons()
@@ -14,14 +13,14 @@ function createButtons()
 end
 
 function checkButtons()
-    Button.left = false
-    Button.right = false
-    Button.go = false
-    Button.fire = false
+    U.button.left = false
+    U.button.right = false
+    U.button.go = false
+    U.button.fire = false
     for id,touch in pairs(Touches) do
         for i,button in ipairs(Buttons) do
             if touch.pos:dist(vec2(button.x,button.y)) < 50 then
-                Button[button.name]=true
+                U.button[button.name]=true
             end
         end
     end
@@ -37,7 +36,7 @@ function drawButtons()
         pushMatrix()
         pushStyle()
         translate(b.x,b.y)
-        if Button[b.name] then
+        if U.button[b.name] then
             fill(128,0,0)
         else
             fill(128,128,128,128)

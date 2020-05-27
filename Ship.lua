@@ -33,15 +33,15 @@ function drawShip()
 end
 
 function moveShip()
-    if Button.left then Ship.radians = Ship.radians + rotationStep end
-    if Button.right then Ship.radians = Ship.radians - rotationStep end
-    if Button.fire then if not Ship.holdFire then fireMissile() end end
-    if not Button.fire then Ship.holdFire = false end
+    if U.button.left then Ship.radians = Ship.radians + rotationStep end
+    if U.button.right then Ship.radians = Ship.radians - rotationStep end
+    if U.button.fire then if not Ship.holdFire then fireMissile() end end
+    if not U.button.fire then Ship.holdFire = false end
     actualShipMove()
 end
 
 function actualShipMove()
-    if Button.go then
+    if U.button.go then
         local accel = vec2(0.015,0):rotate(Ship.radians)
         Ship.step = Ship.step + accel
         Ship.step = maximize(Ship.step, 3)

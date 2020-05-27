@@ -6,6 +6,7 @@ Universe = class()
 local MissileSpeed = 2.0
 
 function Universe:init()
+    self.button = {}
     createButtons()
     self.ship = createShip()
     self.processorRatio = 1.0
