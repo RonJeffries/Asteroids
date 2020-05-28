@@ -81,6 +81,13 @@ function testAsteroids()
             _:expect(mx).is(U.missileVelocity.x + 1, 0.001)
             _:expect(my).is(U.missileVelocity.y + 2, 0.001)
         end)
+        
+        _:test("Asteroids increment score", function()
+            local a = Asteroid()
+            U.score = 0
+            scoreAsteroid(a)
+            _:expect(U.score).is(20)
+        end)
 
     end)
 end

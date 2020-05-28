@@ -33,7 +33,7 @@ function scoreAsteroid(asteroid)
     elseif s == 8 then inc = 50
     else inc = 100
     end
-    Score = Score + inc
+    U.score = U.score + inc
 end
 
 function splitAsteroid(asteroid, asteroids)

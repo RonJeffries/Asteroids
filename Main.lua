@@ -6,7 +6,6 @@ Touches = {}
 function setup()
     U = Universe()
     U:createAsteroids()
-    Score = 0
 end
 
 function draw()
