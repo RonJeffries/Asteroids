@@ -6,19 +6,28 @@ Universe = class()
 local MissileSpeed = 2.0
 
 function Universe:init()
+    self.processorRatio = 1.0
     self.score = 0
     self.missileVelocity = vec2(MissileSpeed,0)
     self.button = {}
-    createButtons()
-    self.ship = Ship()
-    self.processorRatio = 1.0
     self.asteroids = {}
     self.missiles = {}
     self.explosions = {}
+    self.attractMode = true
+    self:newWave()
+end
+
+function Universe:startGame()
+    self.attractMode = false
+    createButtons()
+    self.ship = Ship()
+    self.asteroids = {}
+    self.waveSize = nil
+    self:newWave()
 end
 
 function Universe:draw()
-    --displayMode(FULLSCREEN_NO_BUTTONS)
+    displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
     self.processorRatio = DeltaTime/0.0083333
@@ -35,8 +44,8 @@ function Universe:draw()
     U:findCollisions()
 end
 
-function Universe:createAsteroids()
-    for i = 1,4 do
+function Universe:newWave()
+    for i = 1, self:newWaveSize() do
         local a = Asteroid()
         self.asteroids[a] = a
     end
@@ -125,4 +134,10 @@ function Universe:drawScore()
     s = string.sub(s,-5)
     fontSize(100)
     text(s, 200, HEIGHT-60)
+end
+
+function Universe:newWaveSize()
+    self.waveSize = (self.waveSize or 2) + 2
+    if  self.waveSize > 11 then self.waveSize = 11 end
+    return self.waveSize
 end

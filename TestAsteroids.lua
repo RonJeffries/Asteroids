@@ -88,6 +88,17 @@ function testAsteroids()
             scoreAsteroid(a)
             _:expect(U.score).is(20)
         end)
+        
+        _:test("Wave size", function()
+            local u = Universe()
+            u.waveSize = nil
+            _:expect(u:newWaveSize()).is(4)
+            _:expect(u:newWaveSize()).is(6)
+            _:expect(u:newWaveSize()).is(8)
+            _:expect(u:newWaveSize()).is(10)
+            _:expect(u:newWaveSize()).is(11)
+            _:expect(u:newWaveSize()).is(11)
+        end)
 
     end)
 end
