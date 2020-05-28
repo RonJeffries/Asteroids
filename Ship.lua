@@ -3,8 +3,6 @@
 
 Ship = class()
 
-local rotationStep = math.rad(1) -- one degree in radians
-
 function Ship:init()
     self.pos = vec2(WIDTH, HEIGHT)/2
     self.radians = 0
@@ -28,8 +26,8 @@ function Ship:draw()
 end
 
 function Ship:move()
-    if U.button.left then self.radians = self.radians + rotationStep end
-    if U.button.right then self.radians = self.radians - rotationStep end
+    if U.button.left then self.radians = self.radians + U:adjustedRotationStep() end
+    if U.button.right then self.radians = self.radians - U:adjustedRotationStep() end
     if U.button.fire then if not self.holdFire then self:fireMissile() end end
     if not U.button.fire then self.holdFire = false end
     self:actualShipMove()

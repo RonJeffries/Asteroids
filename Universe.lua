@@ -8,6 +8,7 @@ local MissileSpeed = 2.0
 function Universe:init()
     self.processorRatio = 1.0
     self.score = 0
+    self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
     self.button = {}
     self.asteroids = {}
@@ -140,4 +141,8 @@ function Universe:newWaveSize()
     self.waveSize = (self.waveSize or 2) + 2
     if  self.waveSize > 11 then self.waveSize = 11 end
     return self.waveSize
+end
+
+function Universe:adjustedRotationStep()
+    return self.processorRatio*self.rotationStep
 end
