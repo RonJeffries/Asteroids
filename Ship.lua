@@ -9,20 +9,31 @@ function Ship:init()
     self.step = vec2(0,0)
 end
 
+local accel = 0
+
 function Ship:draw()
-    local sx = 10
-    local sy = 6
-    pushStyle()
-    pushMatrix()
-    translate(self.pos.x, self.pos.y)
-    rotate(math.deg(self.radians))
-    strokeWidth(2)
-    stroke(255)
-    line(sx,0, -sx,sy)
-    line(-sx,sy, -sx,-sy)
-    line(-sx,-sy, sx,0)
-    popMatrix()
-    popStyle()
+   local sx = 10
+   local sy = 6
+   pushStyle()
+   pushMatrix()
+   translate(self.pos.x, self.pos.y)
+   rotate(math.deg(self.radians))
+   strokeWidth(1)
+   stroke(255)
+   scale(2)
+   line(-3,-2, -3,2)
+   line(-3,2, -5,4)
+   line(-5,4, 7,0)
+   line(7,0, -5,-4)
+   line(-5,-4,-3,-2)
+   accel = (accel+1)%3
+   if U.button.go and accel == 0 then
+       strokeWidth(1.5)
+       line(-3,-2, -7,0)
+       line(-7,0, -3,2)
+   end
+   popMatrix()
+   popStyle()
 end
 
 function Ship:move()
