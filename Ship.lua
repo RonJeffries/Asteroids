@@ -67,7 +67,7 @@ function maximize(vec, size)
 end
 
 function Ship:fireMissile()
-    sound(asset.documents.Dropbox.fire)
+    sound(U.sounds.fire)
     self.holdFire = true
     Missile(self)
 end

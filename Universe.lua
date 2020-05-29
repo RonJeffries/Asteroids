@@ -10,12 +10,18 @@ function Universe:init()
     self.score = 0
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
+    self:defineSounds()
     self.button = {}
     self.asteroids = {}
     self.missiles = {}
     self.explosions = {}
     self.attractMode = true
     self:newWave()
+end
+
+function Universe:defineSounds()
+    self.sounds = {}
+    self.sounds.fire = asset.documents.Dropbox.fire
 end
 
 function Universe:startGame()
