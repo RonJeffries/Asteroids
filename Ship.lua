@@ -46,6 +46,7 @@ end
 
 function Ship:actualShipMove()
     if U.button.go then
+        sound(U.sounds.thrust)
         local accel = vec2(0.015,0):rotate(self.radians)
         self.step = self.step + accel
         self.step = maximize(self.step, 3)

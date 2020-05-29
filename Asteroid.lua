@@ -37,7 +37,12 @@ function scoreAsteroid(asteroid)
 end
 
 function splitAsteroid(asteroid, asteroids)
-    if asteroid.scale == 4 then
+    if asteroid.scale == 16 then
+        sound(U.sounds.bangLarge)
+    elseif asteroid.scale == 8 then
+        sound(U.sounds.bangMedium)
+    elseif asteroid.scale == 4 then
+        sound(U.sounds.bangSmall)
         Splat(asteroid.pos)
         DeadAsteroids[asteroid] = asteroid
         return
