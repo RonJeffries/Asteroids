@@ -22,6 +22,16 @@ end
 function Universe:defineSounds()
     self.sounds = {}
     self.sounds.fire = asset.documents.Dropbox.fire
+    self.sounds.bangLarge = asset.documents.Dropbox.bangLarge
+    self.sounds.bangMedium = asset.documents.Dropbox.bangMedium
+    self.sounds.bangSmall = asset.documents.Dropbox.bangSmall
+    self.sounds.beat1 = asset.documents.Dropbox.beat1
+    self.sounds.beat2 = asset.documents.Dropbox.beat2
+    self.sounds.extraShip = asset.documents.Dropbox.extraShip
+    self.sounds.fire = asset.documents.Dropbox.fire
+    self.sounds.saucerBig = asset.documents.Dropbox.saucerBig
+    self.sounds.saucerSmall = asset.documents.Dropbox.saucerSmall
+    self.sounds.thrust = asset.documents.Dropbox.thrust
 end
 
 function Universe:startGame()
