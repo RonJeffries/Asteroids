@@ -10,6 +10,7 @@ function Universe:init()
     self.score = 0
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
+    self.frame64 = 0
     self:defineSounds()
     self.button = {}
     self.asteroids = {}
@@ -40,10 +41,14 @@ function Universe:startGame()
     self.ship = Ship()
     self.asteroids = {}
     self.waveSize = nil
+    self.beatDelay = 1 -- second
+    self.lastBeatTime = ElapsedTime
     self:newWave()
 end
 
 function Universe:draw()
+    self.frame64 = (self.frame64+1)%64
+    self:checkBeat()
     displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
@@ -59,6 +64,30 @@ function Universe:draw()
     U:drawScore()
     popStyle()
     U:findCollisions()
+end
+
+function Universe:checkBeat()
+    if self.attractMode then return end
+    self:updateBeatDelay()
+    if ElapsedTime - self.lastBeatTime > self.beatDelay then
+        self.lastBeatTime = ElapsedTime
+        self:playBeat()
+    end
+end
+
+function Universe:updateBeatDelay()
+    if self.frame64 == 63 and self.beatDelay > 0.128 then
+        self.beatDelay = self.beatDelay - 0.016
+    end
+end
+
+function Universe:playBeat()
+    if self.lastBeat == self.sounds.beat2 then
+        self.lastBeat = self.sounds.beat1
+    else
+        self.lastBeat = self.sounds.beat2
+    end
+    sound(self.lastBeat)
 end
 
 function Universe:newWave()
