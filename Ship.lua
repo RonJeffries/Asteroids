@@ -46,7 +46,7 @@ end
 
 function Ship:actualShipMove()
     if U.button.go then
-        sound(U.sounds.thrust)
+        U:playStereo(U.sounds.thrust, self)
         local accel = vec2(0.015,0):rotate(self.radians)
         self.step = self.step + accel
         self.step = maximize(self.step, 3)
@@ -68,7 +68,7 @@ function maximize(vec, size)
 end
 
 function Ship:fireMissile()
-    sound(U.sounds.fire)
+    U:playStereo(U.sounds.fire, self)
     self.holdFire = true
     Missile(self)
 end

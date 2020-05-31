@@ -190,3 +190,7 @@ end
 function Universe:adjustedRotationStep()
     return self.processorRatio*self.rotationStep
 end
+
+function Universe:playStereo(aSound, anObject)
+    sound(aSound, 1, 1, 2*anObject.pos.x/WIDTH - 1)
+end

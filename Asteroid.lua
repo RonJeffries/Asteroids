@@ -38,11 +38,11 @@ end
 
 function splitAsteroid(asteroid, asteroids)
     if asteroid.scale == 16 then
-        sound(U.sounds.bangLarge)
+        U:playStereo(U.sounds.bangLarge, asteroid)
     elseif asteroid.scale == 8 then
-        sound(U.sounds.bangMedium)
+        U:playStereo(U.sounds.bangMedium, asteroid, asteroid)
     elseif asteroid.scale == 4 then
-        sound(U.sounds.bangSmall)
+        U:playStereo(U.sounds.bangSmall, asteroid)
         Splat(asteroid.pos)
         DeadAsteroids[asteroid] = asteroid
         return

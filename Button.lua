@@ -4,12 +4,12 @@
 local Buttons = {}
 
 function createButtons()
-    local dx=50
+    local dx=75
     local dy=200
-    table.insert(Buttons, {x=dx, y=dy, name="left"})
-    table.insert(Buttons, {x=dy, y=dx, name="right"})
-    table.insert(Buttons, {x=WIDTH-dx, y=dy, name="fire"})
-    table.insert(Buttons, {x=WIDTH-dy, y=dx, name = "go"})
+    table.insert(Buttons, {x=dx, y=dy, radius=dx, name="left"})
+    table.insert(Buttons, {x=dy, y=dx, radius=dx, name="right"})
+    table.insert(Buttons, {x=WIDTH-dx, y=dy, radius=dx, name="fire"})
+    table.insert(Buttons, {x=WIDTH-dy, y=dx, radius=dx, name = "go"})
 end
 
 function checkButtons()
@@ -19,7 +19,7 @@ function checkButtons()
     U.button.fire = false
     for id,touch in pairs(Touches) do
         for i,button in ipairs(Buttons) do
-            if touch.pos:dist(vec2(button.x,button.y)) < 50 then
+            if touch.pos:dist(vec2(button.x,button.y)) < button.radius then
                 U.button[button.name]=true
             end
         end
@@ -41,7 +41,7 @@ function drawButtons()
         else
             fill(128,128,128,128)
         end
-        ellipse(0,0, 50)
+        ellipse(0,0, b.radius)
         fill(255)
         fontSize(30)
         text(b.name,0,0)
