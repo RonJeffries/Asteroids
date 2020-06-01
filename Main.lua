@@ -8,7 +8,7 @@ function setup()
 end
 
 function draw()
-    U:draw()
+    U:draw(ElapsedTime)
     if U.attractMode then
         pushStyle()
         fontSize(50)
@@ -19,7 +19,7 @@ function draw()
 end
 
 function touched(touch)
-    if U.attractMode and touch.state == ENDED then U:startGame() end
+    if U.attractMode and touch.state == ENDED then U:startGame(ElapsedTime) end
     if touch.state == ENDED or touch.state == CANCELLED then
         Touches[touch.id] = nil
     else

@@ -18,7 +18,7 @@ function testAsteroids()
             _:expect( 2+1 ).is(3)
         end)
         
-        _:test("Random", function()
+        _:ignore("Random", function()
             local min = 100
             local max = 0
             for i = 0,1000 do
@@ -99,6 +99,17 @@ function testAsteroids()
             _:expect(u:newWaveSize()).is(11)
             _:expect(u:newWaveSize()).is(11)
         end)
+        
+        _:test("Trigger New Wave", function()
+            local u = Universe()
+            _:expect(u.timeOfNextWave).is(0)
+            u.asteroids = {}
+            u:draw(ElapsedTime)
+            _:expect(u.timeOfNextWave).is(u.currentTime + 2, .05)
+            u:draw(u.currentTime + 2)
+            _:expect(u.timeOfNextWave).is(0)
+        end)
 
     end)
 end
+
