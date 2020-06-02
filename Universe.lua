@@ -104,6 +104,7 @@ function Universe:newWave()
 end
 
 function Universe:findCollisions()
+    if true then return end
     local needNewWave = true
     for i,a in pairs(self.asteroids) do
         needNewWave = false
@@ -146,7 +147,7 @@ end
 
 function Universe:moveObject(anObject)
     local pos = anObject.pos + self.processorRatio*anObject.step
-    anObject.pos = vec2(self:keepInBounds(pos.x, WIDTH), self:keepInBounds(pos.y, HEIGHT))    
+    anObject.pos = vec2(pos.x%WIDTH, pos.y%HEIGHT)
 end
 
 function Universe:keepInBounds(value, bound)

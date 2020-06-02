@@ -52,9 +52,11 @@ end
 function Ship:actualShipMove()
     if U.button.go then
         U:playStereo(U.sounds.thrust, self)
-        local accel = vec2(0.015,0):rotate(self.radians)
+        local accel = vec2(0.015,0):rotate(self.radians)*U.processorRatio
         self.step = self.step + accel
-        self.step = maximize(self.step, 3)
+        self.step = maximize(self.step, 6)
+    else
+        self.step = self.step*(0.995^U.processorRatio)
     end
     self:finallyMove()
 end
