@@ -37,11 +37,16 @@ function Ship:draw()
 end
 
 function Ship:move()
-    if U.button.left then self.radians = self.radians + U:adjustedRotationStep() end
-    if U.button.right then self.radians = self.radians - U:adjustedRotationStep() end
-    if U.button.fire then if not self.holdFire then self:fireMissile() end end
+    if U.button.turn then self:turn() end
+    if U.button.fire and not self.holdFire then self:fireMissile() end
     if not U.button.fire then self.holdFire = false end
     self:actualShipMove()
+end
+
+function Ship:turn()
+    local center = U.button.turnCenter
+    local pos = U.button.turnPos
+    self.radians = math.atan2(pos.y-center.y, pos.x-center.x)
 end
 
 function Ship:actualShipMove()

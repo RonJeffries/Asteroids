@@ -53,7 +53,7 @@ function Universe:draw(currentTime)
     end
     self.frame64 = (self.frame64+1)%64
     self:checkBeat()
-    --displayMode(FULLSCREEN_NO_BUTTONS)
+    displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
     self.processorRatio = DeltaTime/0.0083333
