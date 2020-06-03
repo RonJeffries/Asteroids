@@ -52,7 +52,7 @@ function Universe:draw(currentTime)
     end
     self.frame64 = (self.frame64+1)%64
     self:checkBeat()
-    displayMode(FULLSCREEN_NO_BUTTONS)
+    --displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
     self.processorRatio = DeltaTime/0.0083333
@@ -94,10 +94,16 @@ function Universe:playBeat()
 end
 
 function Universe:newWave()
+    local pos
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
     for i = 1, self:newWaveSize() do
-        Asteroid()
+        if math.random(0,1) then
+            pos = vec2(0,math.random(HEIGHT))
+        else
+            pos = vec2(math.random(WIDTH), 0)
+        end
+        Asteroid(pos)
     end
 end
 
