@@ -188,8 +188,8 @@ function Universe:drawAsteroids()
         asteroid:draw()
         asteroid:move()
     end
-    popStyle()
     killDeadAsteroids(self.asteroids)
+    popStyle()
 end
 
 function Universe:drawScore()
