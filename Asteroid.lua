@@ -6,12 +6,13 @@ local Vel = 1.5
 
 Asteroid = class()
 
-function Asteroid:init()
-    self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+function Asteroid:init(pos, size)
+    self.pos = pos or vec2(math.random(WIDTH), math.random(HEIGHT))
+    self.scale = size or 16
     self.shape = Rocks[math.random(1,4)]
-    self.scale = 16
     local angle = math.random()*2*math.pi
     self.step = vec2(Vel,0):rotate(angle)
+    U.asteroids[self] = self
 end
 
 function Asteroid:killDist()
@@ -26,8 +27,8 @@ function killDeadAsteroids(asteroids)
     DeadAsteroids = {}
 end
 
-function scoreAsteroid(asteroid)
-    local s = asteroid.scale
+function Asteroid:score()
+    local s = self.scale
     local inc = 0
     if s == 16 then inc = 20
     elseif s == 8 then inc = 50
@@ -36,24 +37,24 @@ function scoreAsteroid(asteroid)
     U.score = U.score + inc
 end
 
-function splitAsteroid(asteroid, asteroids)
-    if asteroid.scale == 16 then
-        U:playStereo(U.sounds.bangLarge, asteroid)
-    elseif asteroid.scale == 8 then
-        U:playStereo(U.sounds.bangMedium, asteroid, asteroid)
-    elseif asteroid.scale == 4 then
-        U:playStereo(U.sounds.bangSmall, asteroid)
-        Splat(asteroid.pos)
-        DeadAsteroids[asteroid] = asteroid
-        return
+function Asteroid:bang()
+    if self.scale == 16 then
+        U:playStereo(U.sounds.bangLarge, self)
+    elseif self.scale == 8 then
+        U:playStereo(U.sounds.bangMedium, self)
+    elseif self.scale == 4 then
+        U:playStereo(U.sounds.bangSmall, self)
     end
-    asteroid.scale = asteroid.scale//2
-    asteroid.angle = math.random()*2*math.pi
-    local new = Asteroid()
-    new.pos = asteroid.pos
-    new.scale = asteroid.scale
-    asteroids[new] = new
-    Splat(asteroid.pos)
+end
+
+function Asteroid:split()
+    self:bang()
+    DeadAsteroids[self] = self
+    Splat(self.pos)
+    if self.scale ~= 4 then
+        Asteroid(self.pos, self.scale//2)
+        Asteroid(self.pos, self.scale//2)
+    end
 end
 
 function Asteroid:draw()

@@ -5,6 +5,7 @@ Touches = {}
 
 function setup()
     U = Universe()
+    U:newWave()
 end
 
 function draw()

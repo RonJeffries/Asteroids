@@ -18,7 +18,6 @@ function Universe:init()
     self.missiles = {}
     self.explosions = {}
     self.attractMode = true
-    self:newWave()
 end
 
 function Universe:defineSounds()
@@ -98,13 +97,11 @@ function Universe:newWave()
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
     for i = 1, self:newWaveSize() do
-        local a = Asteroid()
-        self.asteroids[a] = a
+        Asteroid()
     end
 end
 
 function Universe:findCollisions()
-    if true then return end
     local needNewWave = true
     for i,a in pairs(self.asteroids) do
         needNewWave = false
@@ -120,8 +117,8 @@ end
 
 function Universe:checkShipCollision(asteroid)
     if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
-        scoreAsteroid(asteroid)
-        splitAsteroid(asteroid, self.asteroids)
+        asteroid:score()
+        asteroid:split(self.asteroids)
         self:killShip()
     end
 end
@@ -129,8 +126,8 @@ end
 function Universe:checkMissileCollisions(asteroid)
     for k,m in pairs(self.missiles) do
         if m.pos:dist(asteroid.pos) < asteroid:killDist() then
-            scoreAsteroid(asteroid)
-            splitAsteroid(asteroid, self.asteroids)
+            asteroid:score()
+            asteroid:split(self.asteroids)
             m:die()
         end
     end
