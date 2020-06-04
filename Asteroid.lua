@@ -12,19 +12,12 @@ function Asteroid:init(pos, size)
     self.shape = Rocks[math.random(1,4)]
     local angle = math.random()*2*math.pi
     self.step = vec2(Vel,0):rotate(angle)
-    U.asteroids[self] = self
+    U:addAsteroid(self)
 end
 
 function Asteroid:killDist()
     local s = self.scale
     if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
-end
-
-function killDeadAsteroids(asteroids)
-    for k,a in pairs(DeadAsteroids) do
-        asteroids[a] = nil
-    end
-    DeadAsteroids = {}
 end
 
 function Asteroid:score()
@@ -49,12 +42,12 @@ end
 
 function Asteroid:split()
     self:bang()
-    DeadAsteroids[self] = self
     Splat(self.pos)
     if self.scale ~= 4 then
         Asteroid(self.pos, self.scale//2)
         Asteroid(self.pos, self.scale//2)
     end
+    U:deleteAsteroid(self)
 end
 
 function Asteroid:draw()

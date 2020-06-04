@@ -69,6 +69,14 @@ function Universe:draw(currentTime)
     self:findCollisions()
 end
 
+function Universe:addAsteroid(asteroid)
+    self.asteroids[asteroid] = asteroid
+end
+
+function Universe:deleteAsteroid(asteroid)
+    self.asteroids[asteroid] = nil
+end
+
 function Universe:checkBeat()
     if self.attractMode then return end
     self:updateBeatDelay()
@@ -109,7 +117,7 @@ end
 
 function Universe:findCollisions()
     local needNewWave = true
-    for i,a in pairs(self.asteroids) do
+    for i,a in pairs(clone(self.asteroids)) do
         needNewWave = false
         self:checkMissileCollisions(a)
         if self.ship then self:checkShipCollision(a) end
@@ -124,7 +132,7 @@ end
 function Universe:checkShipCollision(asteroid)
     if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
         asteroid:score()
-        asteroid:split(self.asteroids)
+        asteroid:split()
         self:killShip()
     end
 end
@@ -133,7 +141,7 @@ function Universe:checkMissileCollisions(asteroid)
     for k,m in pairs(self.missiles) do
         if m.pos:dist(asteroid.pos) < asteroid:killDist() then
             asteroid:score()
-            asteroid:split(self.asteroids)
+            asteroid:split()
             m:die()
         end
     end
@@ -188,7 +196,6 @@ function Universe:drawAsteroids()
         asteroid:draw()
         asteroid:move()
     end
-    killDeadAsteroids(self.asteroids)
     popStyle()
 end
 
