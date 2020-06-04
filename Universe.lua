@@ -77,6 +77,14 @@ function Universe:deleteAsteroid(asteroid)
     self.asteroids[asteroid] = nil
 end
 
+function Universe:addMissile(missile)
+    self.missiles[missile] = missile
+end
+
+function Universe:deleteMissile(missile)
+    self.missiles[missile] = nil
+end
+
 function Universe:checkBeat()
     if self.attractMode then return end
     self:updateBeatDelay()
@@ -116,6 +124,7 @@ function Universe:newWave()
 end
 
 function Universe:findCollisions()
+    -- we clone the asteroids collection to allow live editing
     local needNewWave = true
     for i,a in pairs(clone(self.asteroids)) do
         needNewWave = false

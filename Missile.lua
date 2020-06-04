@@ -9,12 +9,12 @@ function Missile:init(ship)
     end
     self.pos = ship.pos
     self.step = U.missileVelocity:rotate(ship.radians) + ship.step
-    U.missiles[self] = self
+    U:addMissile(self)
     tween(3, self, {}, tween.easing.linear, die)
 end
 
 function Missile:die()
-    U.missiles[self] = nil
+    U:deleteMissile(self)
 end
 
 function Missile:draw()
