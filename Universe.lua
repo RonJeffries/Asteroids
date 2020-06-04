@@ -22,15 +22,16 @@ end
 
 function Universe:defineSounds()
     self.sounds = {}
-    self.sounds.bangLarge = asset.bangLarge
-    self.sounds.bangMedium = asset.bangMedium
-    self.sounds.bangSmall = asset.bangSmall
+    self.sounds.bangLarge = asset.bangLargeHi
+    self.sounds.bangMedium = asset.bangMediumHi
+    self.sounds.bangSmall = asset.bangSmallHi
     self.sounds.beat1 = asset.beat1
     self.sounds.beat2 = asset.beat2
-    self.sounds.extraShip = asset.extraShip
+    self.sounds.extraShip = asset.extraShipHi
     self.sounds.fire = asset.fire
-    self.sounds.saucerBig = asset.saucerBig
-    self.sounds.saucerSmall = asset.saucerSmall
+    self.sounds.saucerBig = asset.saucerBigHi
+    self.sounds.saucerSmall = asset.saucerSmallHi
+    self.sounds.saucerFire = asset.saucerFireHi
     self.sounds.thrust = asset.thrust
 end
 
