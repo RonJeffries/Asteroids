@@ -12,6 +12,7 @@ function Universe:init()
     self.missileVelocity = vec2(MissileSpeed,0)
     self.frame64 = 0
     self.timeBetweenWaves = 2
+    self.timeOfNextWave= 0
     self:defineSounds()
     self.button = {}
     self.asteroids = {}
@@ -37,13 +38,13 @@ end
 
 function Universe:startGame(currentTime)
     self.currentTime = currentTime
+    self.saucerTime = currentTime
     self.attractMode = false
     createButtons()
     self.ship = Ship()
     self.asteroids = {}
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
-    Saucer()
     self:newWave()
 end
 
@@ -51,6 +52,10 @@ function Universe:draw(currentTime)
     self.currentTime = currentTime
     if self.timeOfNextWave > 0 and self.currentTime >= self.timeOfNextWave then
         self:newWave()
+    end
+    if not self.attractMode and not self.saucer and self.currentTime - self.saucerTime > 10 then
+        self.saucerTime = currentTime
+        Saucer()
     end
     self.frame64 = (self.frame64+1)%64
     self:checkBeat()
@@ -65,11 +70,20 @@ function Universe:draw(currentTime)
     if self.ship then self.ship:draw() end
     if self.ship then self.ship:move() end
     if self.saucer then self.saucer:draw() end
+    if self.saucer then self.saucer:move() end
     self:drawMissiles()
     drawSplats()
     self:drawScore()
     popStyle()
     self:findCollisions()
+end
+
+function Universe:asteroidCount()
+    local c = 0
+    for i,a in pairs(self.asteroids) do
+        c = c + 1
+    end
+    return c
 end
 
 function Universe:addAsteroid(asteroid)
@@ -86,6 +100,15 @@ end
 
 function Universe:deleteMissile(missile)
     self.missiles[missile] = nil
+end
+
+function Universe:addSaucer(saucer)
+    self.saucer = saucer
+end
+
+function Universe:deleteSaucer(saucer)
+    self.saucer = nil
+    self.saucerTime = self.currentTime
 end
 
 function Universe:checkBeat()

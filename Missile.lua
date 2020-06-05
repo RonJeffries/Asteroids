@@ -3,14 +3,18 @@
 
 Missile = class()
 
-function Missile:init(ship)
+function Missile:init(pos, step)
     function die()
         self:die()
     end
-    self.pos = ship.pos
-    self.step = U.missileVelocity:rotate(ship.radians) + ship.step
+    self.pos = pos
+    self.step = step 
     U:addMissile(self)
     tween(3, self, {}, tween.easing.linear, die)
+end
+
+function Missile:fromShip(ship)
+    return Missile(ship.pos, U.missileVelocity:rotate(ship.radians) + ship.step)
 end
 
 function Missile:die()

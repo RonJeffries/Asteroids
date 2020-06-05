@@ -77,5 +77,5 @@ end
 function Ship:fireMissile()
     U:playStereo(U.sounds.fire, self)
     self.holdFire = true
-    Missile(self)
+    Missile:fromShip(self)
 end
