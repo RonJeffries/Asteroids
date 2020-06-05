@@ -14,6 +14,7 @@
 		<string>Missile</string>
 		<string>Universe</string>
 		<string>Explosion</string>
+		<string>Saucer</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

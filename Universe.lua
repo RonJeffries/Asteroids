@@ -43,6 +43,7 @@ function Universe:startGame(currentTime)
     self.asteroids = {}
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
+    Saucer()
     self:newWave()
 end
 
@@ -63,6 +64,7 @@ function Universe:draw(currentTime)
     drawButtons()
     if self.ship then self.ship:draw() end
     if self.ship then self.ship:move() end
+    if self.saucer then self.saucer:draw() end
     self:drawMissiles()
     drawSplats()
     self:drawScore()
