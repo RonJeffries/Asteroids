@@ -14,7 +14,9 @@ function Missile:init(pos, step)
 end
 
 function Missile:fromShip(ship)
-    return Missile(ship.pos, U.missileVelocity:rotate(ship.radians) + ship.step)
+    local pos = ship.pos + vec2(ship:killDist() + 1,0):rotate(ship.radians)
+    local step = U.missileVelocity:rotate(ship.radians) + ship.step
+    return Missile(pos, step)
 end
 
 function Missile:fromSaucer(saucer)

@@ -11,6 +11,7 @@ function Universe:init()
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
     self.frame64 = 0
+    self.saucerInterval = 2
     self.timeBetweenWaves = 2
     self.timeOfNextWave= 0
     self:defineSounds()
@@ -53,7 +54,7 @@ function Universe:draw(currentTime)
     if self.timeOfNextWave > 0 and self.currentTime >= self.timeOfNextWave then
         self:newWave()
     end
-    if not self.attractMode and not self.saucer and self.currentTime - self.saucerTime > 10 then
+    if not self.attractMode and not self.saucer and self.currentTime - self.saucerTime > self.saucerInterval then
         self.saucerTime = currentTime
         Saucer()
     end
@@ -69,8 +70,8 @@ function Universe:draw(currentTime)
     drawButtons()
     if self.ship then self.ship:draw() end
     if self.ship then self.ship:move() end
-    if self.saucer then self.saucer:draw(self.currentTime) end
-    if self.saucer then self.saucer:move(self.currentTime) end
+    if self.saucer then self.saucer:draw() end
+    if self.saucer then self.saucer:move() end
     self:drawMissiles()
     drawSplats()
     self:drawScore()
@@ -174,6 +175,10 @@ end
 
 function Universe:checkMissileCollisions(asteroid)
     for k,m in pairs(self.missiles) do
+        if self.ship and m.pos:dist(self.ship.pos) < self.ship:killDist() then
+            self:killShip()
+            m:die()
+        end
         if m.pos:dist(asteroid.pos) < asteroid:killDist() then
             asteroid:score()
             asteroid:split()

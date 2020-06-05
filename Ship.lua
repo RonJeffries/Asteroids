@@ -79,3 +79,7 @@ function Ship:fireMissile()
     self.holdFire = true
     Missile:fromShip(self)
 end
+
+function Ship:killDist()
+    return 24
+end
