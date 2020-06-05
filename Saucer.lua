@@ -6,8 +6,9 @@ function Saucer:init()
     end
     U:addSaucer(self)
     self.pos = vec2(0, math.random(HEIGHT))
-    self.vel = vec2(2,0)
-    if math.random(2) == 1 then self.vel = -self.vel end
+    self.step = vec2(2,0)
+    self.fireTime = U.currentTime + 1 -- one second from now
+    if math.random(2) == 1 then self.step = -self.step end
     tween(7, self, {}, tween.easing.linear, die)
 end
 
@@ -34,7 +35,11 @@ function Saucer:draw()
 end
 
 function Saucer:move()
-    self.pos = self.pos + self.vel
+    self.pos = self.pos + self.step
+    if U.currentTime >= self.fireTime then
+        self.fireTime = U.currentTime + 1
+        Missile:fromSaucer(self)
+    end
 end
 
 function Saucer:die()

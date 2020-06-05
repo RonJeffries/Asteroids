@@ -69,8 +69,8 @@ function Universe:draw(currentTime)
     drawButtons()
     if self.ship then self.ship:draw() end
     if self.ship then self.ship:move() end
-    if self.saucer then self.saucer:draw() end
-    if self.saucer then self.saucer:move() end
+    if self.saucer then self.saucer:draw(self.currentTime) end
+    if self.saucer then self.saucer:move(self.currentTime) end
     self:drawMissiles()
     drawSplats()
     self:drawScore()

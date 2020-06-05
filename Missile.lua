@@ -17,6 +17,11 @@ function Missile:fromShip(ship)
     return Missile(ship.pos, U.missileVelocity:rotate(ship.radians) + ship.step)
 end
 
+function Missile:fromSaucer(saucer)
+    local vel = U.missileVelocity:rotate(math.random()*2*math.pi) + saucer.step
+    return Missile(saucer.pos, vel)
+end
+
 function Missile:die()
     U:deleteMissile(self)
 end
