@@ -43,7 +43,7 @@ function Universe:startGame(currentTime)
     self.saucerTime = currentTime
     self.attractMode = false
     createButtons()
-    self.ship = Ship()
+    Ship()
     self.asteroids = {}
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
@@ -119,6 +119,21 @@ function Universe:deleteSaucer(saucer)
     self.saucerTime = self.currentTime
 end
 
+function Universe:addShip(ship)
+    self.objects[ship] = ship
+    self.ship = ship
+end
+
+function Universe:deleteShip(ship)
+    local f = function()
+        Ship()
+    end
+    Explosion(ship)
+    self.objects[ship] = nil
+    self.ship = nil
+    tween(6, self, {}, tween.easing.linear, f)
+end
+
 function Universe:checkBeat()
     if self.attractMode then return end
     self:updateBeatDelay()
@@ -176,14 +191,14 @@ function Universe:checkShipCollision(asteroid)
     if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
         asteroid:score()
         asteroid:split()
-        self:killShip()
+        self:deleteShip(self.ship)
     end
 end
 
 function Universe:checkMissileCollisions(asteroid)
     for k,m in pairs(self.missiles) do
         if self.ship and m.pos:dist(self.ship.pos) < self.ship:killDist() then
-            self:killShip()
+            self:deleteShip(self.ship)
             m:die()
         end
         if m.pos:dist(asteroid.pos) < asteroid:killDist() then
@@ -192,15 +207,6 @@ function Universe:checkMissileCollisions(asteroid)
             m:die()
         end
     end
-end
-
-function Universe:killShip()
-    local f = function()
-        self.ship = Ship()
-    end
-    Explosion(U.ship)
-    U.ship = nil
-    tween(6, self, {}, tween.easing.linear, f)
 end
 
 function Universe:moveObject(anObject)

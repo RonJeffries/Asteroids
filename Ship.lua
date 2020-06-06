@@ -7,6 +7,7 @@ function Ship:init()
     self.pos = vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
+    U:addShip(self)
 end
 
 local accel = 0
