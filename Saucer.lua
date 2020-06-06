@@ -43,5 +43,5 @@ function Saucer:move()
 end
 
 function Saucer:die()
-    U:deleteSaucer()
+    U:deleteSaucer(self)
 end

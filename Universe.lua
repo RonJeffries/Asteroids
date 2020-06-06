@@ -15,6 +15,7 @@ function Universe:init()
     self.timeBetweenWaves = 2
     self.timeOfNextWave= 0
     self:defineSounds()
+    self.objects = {}
     self.button = {}
     self.asteroids = {}
     self.missiles = {}
@@ -88,26 +89,32 @@ function Universe:asteroidCount()
 end
 
 function Universe:addAsteroid(asteroid)
+    self.objects[asteroid] = asteroid
     self.asteroids[asteroid] = asteroid
 end
 
 function Universe:deleteAsteroid(asteroid)
+    self.objects[asteroid] = nil
     self.asteroids[asteroid] = nil
 end
 
 function Universe:addMissile(missile)
+    self.objects[missile] = missile
     self.missiles[missile] = missile
 end
 
 function Universe:deleteMissile(missile)
+    self.objects[missile] = nil
     self.missiles[missile] = nil
 end
 
 function Universe:addSaucer(saucer)
+    self.objects[saucer] = saucer
     self.saucer = saucer
 end
 
 function Universe:deleteSaucer(saucer)
+    self.objects[saucer] = nil
     self.saucer = nil
     self.saucerTime = self.currentTime
 end
