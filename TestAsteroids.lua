@@ -137,6 +137,14 @@ function testAsteroids()
             Ship()
             _:expect(countObjects()).is(1)
         end)
+        
+        _:test("Explosion added to objects", function()
+            _:expect(countObjects()).is(0)
+            Ship()
+            _:expect(countObjects()).is(1)
+            Explosion(U.ship)
+            _:expect(countObjects()).is(2)
+        end)
     end)
 end
 

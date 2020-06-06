@@ -98,6 +98,16 @@ function Universe:deleteAsteroid(asteroid)
     self.asteroids[asteroid] = nil
 end
 
+function Universe:addExplosion(explosion)
+    self.objects[explosion] = explosion
+    self.explosions[explosion] = explosion
+end
+
+function Universe:deleteExplosion(explosion)
+    self.objects[explosion] = nil
+    self.explosions[explosion] = nil
+end
+
 function Universe:addMissile(missile)
     self.objects[missile] = missile
     self.missiles[missile] = missile

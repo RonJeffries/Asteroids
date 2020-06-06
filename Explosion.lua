@@ -2,11 +2,11 @@ Explosion = class()
 
 function Explosion:init(ship)
     local f = function()
-        U.explosions[self] = nil
+        U:deleteExplosion(self)
     end
     self.pos = ship.pos
     self.step = vec2(0,0)
-    U.explosions[self] = self
+    U:addExplosion(self)
     tween(4, self, {}, tween.easing.linear, f)
 end
 
