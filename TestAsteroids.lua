@@ -3,15 +3,17 @@
     
 function testAsteroids()
     CodeaUnit.detailed = true
+    CodeaUnit.oldU = nil
 
     _:describe("Asteroids First Tests", function()
 
         _:before(function()
-            -- Some setup
+            CodeaUnit.oldU = U
+            U = Universe()
         end)
 
         _:after(function()
-            -- Some teardown
+            U = CodeaUnit.oldU
         end)
         
         _:test("Hookup", function()
@@ -109,7 +111,39 @@ function testAsteroids()
             u:draw(668)
             _:expect(u.timeOfNextWave).is(0)
         end)
-
+        
+        _:test("Asteroids added to objects", function()
+            U:newWave()
+            _:expect(countObjects()).is(4)
+        end)
+      
+        _:test("Missiles added to objects", function()
+            _:expect(countObjects()).is(0)
+            Missile(vec2(100,100), vec2(0,0))
+            _:expect(countObjects()).is(1)
+            Missile(vec2(100,100), vec2(0,0))
+            _:expect(countObjects()).is(2)
+        end)
+        
+        _:test("Saucer added to objects", function()
+            _:expect(countObjects()).is(0)
+            U.currentTime = ElapsedTime
+            Saucer()
+            _:expect(countObjects()).is(1)
+        end)
+             
+        _:test("Ship added to objects", function()
+            _:expect(countObjects()).is(0)
+            Ship()
+            _:expect(countObjects()).is(1)
+        end)
     end)
 end
 
+function countObjects()
+    local c = 0
+    for k,v in pairs(U.objects) do
+        c = c + 1
+    end
+    return c
+end
