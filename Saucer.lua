@@ -45,3 +45,12 @@ end
 function Saucer:die()
     U:deleteSaucer(self)
 end
+
+function Saucer:collide(anObject)
+    anObject:collideWithSaucer(self)
+end
+
+function Saucer:collideWithMissile(missile)
+    U:destroy(self)
+    U:destroy(missile)
+end

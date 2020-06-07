@@ -35,3 +35,12 @@ end
 function Missile:move()
     U:moveObject(self)
 end
+
+function Missile:collide(anObject)
+    anObject:collideWithMissile(self)
+end
+
+function Missile:collideWithSaucer(saucer)
+    U:destroy(self)
+    U:destroy(saucer)
+end

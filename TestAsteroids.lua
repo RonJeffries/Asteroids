@@ -145,6 +145,23 @@ function testAsteroids()
             Explosion(U.ship)
             _:expect(countObjects()).is(2)
         end)
+        
+        _:test("missile hits saucer", function()
+            U = FakeUniverse()
+            local m = Missile()
+            local s = Saucer()
+            m:collide(s)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+        
+        _:test("saucer hits missile", function()
+            U = FakeUniverse()
+            local m = Missile()
+            local s = Saucer()
+            s:collide(m)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+        
     end)
 end
 
@@ -154,4 +171,35 @@ function countObjects()
         c = c + 1
     end
     return c
+end
+
+FakeUniverse = class()
+
+function FakeUniverse:init()
+    self.currentTime = ElapsedTime
+    self.destroyed = {}
+end
+
+function FakeUniverse:destroy(anObject)
+    self.destroyed[anObject] = anObject
+end
+
+function FakeUniverse:destroyedCount()
+    return self:count(self.destroyed)
+end
+
+function FakeUniverse:count(aTable)
+    local c = 0
+    for k,v in pairs(aTable) do
+        c = c + 1
+    end
+    return c
+end
+
+function FakeUniverse:addMissile(missile)
+    self.missile = missile
+end
+
+function FakeUniverse:addSaucer(saucer)
+    self,saucer = saucer
 end
