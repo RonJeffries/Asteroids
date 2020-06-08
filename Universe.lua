@@ -17,7 +17,6 @@ function Universe:init()
     self:defineSounds()
     self.objects = {}
     self.button = {}
-    self.asteroids = {}
     self.missiles = {}
     self.explosions = {}
     self.attractMode = true
@@ -44,7 +43,6 @@ function Universe:startGame(currentTime)
     self.attractMode = false
     createButtons()
     Ship()
-    self.asteroids = {}
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
     self:newWave()
@@ -92,20 +90,18 @@ end
 
 function Universe:asteroidCount()
     local c = 0
-    for i,a in pairs(self.asteroids) do
-        c = c + 1
+    for i,a in pairs(self.objects) do
+        if a:is_a(Asteroid) then c = c + 1 end
     end
     return c
 end
 
-function Universe:addAsteroid(asteroid)
-    self.objects[asteroid] = asteroid
-    self.asteroids[asteroid] = asteroid
+function Universe:addObject(object)
+    self.objects[object] = object
 end
 
-function Universe:deleteAsteroid(asteroid)
-    self.objects[asteroid] = nil
-    self.asteroids[asteroid] = nil
+function Universe:deleteObject(object)
+    self.objects[object] = nil
 end
 
 function Universe:addExplosion(explosion)
@@ -194,13 +190,27 @@ end
 
 function Universe:findCollisions()
     -- we clone the asteroids collection to allow live editing
-    for i,a in pairs(clone(self.asteroids)) do
+    for i,a in pairs(clone(self.objects)) do
         self:checkMissileCollisions(a)
         if self.ship then self:checkShipCollision(a) end
+    end
+    if self.ship then
+        for i,m in pairs(clone(self.objects)) do
+            self:checkMissileHitShip(m, self.ship)
+        end
+    end
+end
+
+function Universe:checkMissileHitShip(missile, ship)
+    if not missile:is_a(Missile) then return end
+    if  missile.pos:dist(ship.pos) < ship:killDist() then
+        self:deleteShip(ship)
+        missile:die()
     end
 end
 
 function Universe:checkShipCollision(asteroid)
+    if not asteroid:is_a(Asteroid) then return end
     if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
         asteroid:score()
         asteroid:split()
@@ -209,15 +219,14 @@ function Universe:checkShipCollision(asteroid)
 end
 
 function Universe:checkMissileCollisions(asteroid)
-    for k,m in pairs(self.missiles) do
-        if self.ship and m.pos:dist(self.ship.pos) < self.ship:killDist() then
-            self:deleteShip(self.ship)
-            m:die()
-        end
-        if m.pos:dist(asteroid.pos) < asteroid:killDist() then
-            asteroid:score()
-            asteroid:split()
-            m:die()
+    if not asteroid:is_a(Asteroid) then return end
+    for k,m in pairs(self.objects) do
+        if m:is_a(Missile) then
+            if m.pos:dist(asteroid.pos) < asteroid:killDist() then
+                asteroid:score()
+                asteroid:split()
+                m:die()
+            end
         end
     end
 end
@@ -258,9 +267,11 @@ function Universe:drawAsteroids()
     fill(0,0,0, 0)
     strokeWidth(2)
     rectMode(CENTER)
-    for i,asteroid in pairs(self.asteroids) do
-        asteroid:draw()
-        asteroid:move()
+    for i,asteroid in pairs(self.objects) do
+        if asteroid:is_a(Asteroid) then
+            asteroid:draw()
+            asteroid:move()
+        end
     end
     popStyle()
 end
