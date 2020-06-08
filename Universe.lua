@@ -50,15 +50,9 @@ end
 
 function Universe:draw(currentTime)
     self.currentTime = currentTime
-    if self.timeOfNextWave > 0 and self.currentTime >= self.timeOfNextWave then
-        self:newWave()
-    end
-    if not self.attractMode and not self.saucer and self.currentTime - self.saucerTime > self.saucerInterval then
-        self.saucerTime = currentTime
-        Saucer()
-    end
     self.frame64 = (self.frame64+1)%64
     self:checkBeat()
+    self:checkSaucer()
     --displayMode(FULLSCREEN_NO_BUTTONS)
     pushStyle()
     background(40, 40, 50)
@@ -72,6 +66,14 @@ function Universe:draw(currentTime)
     popStyle()
     self:findCollisions()
     self:checkNewWave()
+end
+
+function Universe:checkSaucer()
+    if self.attractMode or self.saucer then return end
+    if self.currentTime - self.saucerTime > self.saucerInterval then
+        self.saucerTime = currentTime
+        Saucer()
+    end
 end
 
 function Universe:drawEverything()
@@ -92,6 +94,9 @@ function Universe:checkNewWave()
         if self.timeOfNextWave == 0 then
             self.timeOfNextWave = self.currentTime + self.timeBetweenWaves
         end
+    end
+    if self.timeOfNextWave > 0 and self.currentTime >= self.timeOfNextWave then
+        self:newWave()
     end
 end
 
