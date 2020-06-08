@@ -78,6 +78,16 @@ function Universe:draw(currentTime)
     self:drawScore()
     popStyle()
     self:findCollisions()
+    self:checkNewWave()
+end
+
+function Universe:checkNewWave()
+    local count = self:asteroidCount()
+    if count == 0 then
+        if self.timeOfNextWave == 0 then
+            self.timeOfNextWave = self.currentTime + self.timeBetweenWaves
+        end
+    end
 end
 
 function Universe:asteroidCount()
@@ -184,16 +194,9 @@ end
 
 function Universe:findCollisions()
     -- we clone the asteroids collection to allow live editing
-    local needNewWave = true
     for i,a in pairs(clone(self.asteroids)) do
-        needNewWave = false
         self:checkMissileCollisions(a)
         if self.ship then self:checkShipCollision(a) end
-    end
-    if needNewWave == true then
-        if self.timeOfNextWave == 0 then
-            self.timeOfNextWave = self.currentTime + self.timeBetweenWaves
-        end
     end
 end
 
