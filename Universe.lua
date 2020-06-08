@@ -40,6 +40,7 @@ function Universe:startGame(currentTime)
     self.currentTime = currentTime
     self.saucerTime = currentTime
     self.attractMode = false
+    self.objects = {}
     createButtons()
     Ship()
     self.waveSize = nil
@@ -192,6 +193,7 @@ end
 
 function Universe:checkMissileHitShip(missile, ship)
     if not missile:is_a(Missile) then return end
+    if not ship then return end
     if  missile.pos:dist(ship.pos) < ship:killDist() then
         self:deleteShip(ship)
         missile:die()
@@ -245,18 +247,12 @@ function Universe:drawMissiles()
 end
 
 function Universe:drawAsteroids()
-    pushStyle()
-    stroke(255)
-    fill(0,0,0, 0)
-    strokeWidth(2)
-    rectMode(CENTER)
     for i,asteroid in pairs(self.objects) do
         if asteroid:is_a(Asteroid) then
             asteroid:draw()
             asteroid:move()
         end
     end
-    popStyle()
 end
 
 function Universe:drawScore()
