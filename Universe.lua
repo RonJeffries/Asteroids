@@ -65,18 +65,25 @@ function Universe:draw(currentTime)
     self.processorRatio = DeltaTime/0.0083333
     checkButtons()
     drawButtons()
-    self:drawAsteroids()
-    self:drawExplosions()
-    if self.ship then self.ship:draw() end
-    if self.saucer then self.saucer:draw() end
-    self:drawMissiles()
+    self:drawEverything()
+    self:moveEverything()
     drawSplats()
     self:drawScore()
     popStyle()
-    if self.ship then self.ship:move() end
-    if self.saucer then self.saucer:move() end
     self:findCollisions()
     self:checkNewWave()
+end
+
+function Universe:drawEverything()
+    for k,o in pairs(self.objects) do
+        o:draw()
+    end
+end
+
+function Universe:moveEverything()
+    for k,o in pairs(self.objects) do
+        o:move()
+    end
 end
 
 function Universe:checkNewWave()

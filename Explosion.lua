@@ -19,3 +19,6 @@ function Explosion:draw()
     popMatrix()
     popStyle()
 end
+
+function Explosion:move()
+end
