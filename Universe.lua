@@ -49,23 +49,25 @@ function Universe:startGame(currentTime)
 end
 
 function Universe:draw(currentTime)
-    self.currentTime = currentTime
-    self.frame64 = (self.frame64+1)%64
-    self:checkBeat()
-    self:checkSaucer()
+    self:adjustTimeValues()
     --displayMode(FULLSCREEN_NO_BUTTONS)
-    pushStyle()
     background(40, 40, 50)
-    self.processorRatio = DeltaTime/0.0083333
     checkButtons()
     drawButtons()
     self:drawEverything()
     self:moveEverything()
     drawSplats()
     self:drawScore()
-    popStyle()
     self:findCollisions()
+    self:checkBeat()
+    self:checkSaucer()
     self:checkNewWave()
+end
+
+function Universe:adjustTimeValues()
+    self.currentTime = currentTime
+    self.processorRatio = DeltaTime/0.0083333
+    self.frame64 = (self.frame64+1)%64
 end
 
 function Universe:checkSaucer()
@@ -191,7 +193,7 @@ function Universe:newWave()
 end
 
 function Universe:findCollisions()
-    -- we clone the asteroids collection to allow live editing
+    -- we clone the collection to allow live editing
     for i,a in pairs(clone(self.objects)) do
         self:checkMissileCollisions(a)
         if self.ship then self:checkShipCollision(a) end
@@ -270,8 +272,10 @@ end
 function Universe:drawScore()
     local s= "000000"..tostring(self.score)
     s = string.sub(s,-5)
+    pushStyle()
     fontSize(100)
     text(s, 200, HEIGHT-60)
+    popStyle()
 end
 
 function Universe:newWaveSize()
