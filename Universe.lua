@@ -17,7 +17,6 @@ function Universe:init()
     self:defineSounds()
     self.objects = {}
     self.button = {}
-    self.explosions = {}
     self.attractMode = true
 end
 
@@ -49,7 +48,7 @@ function Universe:startGame(currentTime)
 end
 
 function Universe:draw(currentTime)
-    self:adjustTimeValues()
+    self:adjustTimeValues(currentTime)
     --displayMode(FULLSCREEN_NO_BUTTONS)
     background(40, 40, 50)
     checkButtons()
@@ -64,11 +63,21 @@ function Universe:draw(currentTime)
     self:checkNewWave()
 end
 
-function Universe:adjustTimeValues()
+function Universe:adjustTimeValues(currentTime)
     self.currentTime = currentTime
     self.processorRatio = DeltaTime/0.0083333
     self.frame64 = (self.frame64+1)%64
 end
+
+function Universe:checkBeat()
+    if self.attractMode then return end
+    self:updateBeatDelay()
+    if self.currentTime - self.lastBeatTime > self.beatDelay then
+        self.lastBeatTime = self.currentTime
+        self:playBeat()
+    end
+end
+
 
 function Universe:checkSaucer()
     if self.attractMode or self.saucer then return end
@@ -118,16 +127,6 @@ function Universe:deleteObject(object)
     self.objects[object] = nil
 end
 
-function Universe:addExplosion(explosion)
-    self.objects[explosion] = explosion
-    self.explosions[explosion] = explosion
-end
-
-function Universe:deleteExplosion(explosion)
-    self.objects[explosion] = nil
-    self.explosions[explosion] = nil
-end
-
 function Universe:addSaucer(saucer)
     self.objects[saucer] = saucer
     self.saucer = saucer
@@ -152,15 +151,6 @@ function Universe:deleteShip(ship)
     self.objects[ship] = nil
     self.ship = nil
     tween(6, self, {}, tween.easing.linear, f)
-end
-
-function Universe:checkBeat()
-    if self.attractMode then return end
-    self:updateBeatDelay()
-    if self.currentTime - self.lastBeatTime > self.beatDelay then
-        self.lastBeatTime = self.currentTime
-        self:playBeat()
-    end
 end
 
 function Universe:updateBeatDelay()
@@ -243,30 +233,6 @@ end
 
 function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
-end
-
-function Universe:drawExplosions()
-    for k,e in pairs(self.explosions) do
-        e:draw()
-    end
-end
-
-function Universe:drawMissiles()
-    for k, missile in pairs(self.objects) do
-        if missile:is_a(Missile) then missile:draw() end
-    end
-    for k, missile in pairs(self.objects) do
-        if missile:is_a(Missile) then missile:move() end
-    end
-end
-
-function Universe:drawAsteroids()
-    for i,asteroid in pairs(self.objects) do
-        if asteroid:is_a(Asteroid) then
-            asteroid:draw()
-            asteroid:move()
-        end
-    end
 end
 
 function Universe:drawScore()
