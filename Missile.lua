@@ -9,7 +9,7 @@ function Missile:init(pos, step)
     end
     self.pos = pos
     self.step = step 
-    U:addMissile(self)
+    U:addObject(self)
     tween(3, self, {}, tween.easing.linear, die)
 end
 
@@ -25,11 +25,17 @@ function Missile:fromSaucer(saucer)
 end
 
 function Missile:die()
-    U:deleteMissile(self)
+    U:deleteObject(self)
 end
 
 function Missile:draw()
+    pushStyle()
+    pushMatrix()
+    fill(255)
+    stroke(255)
     ellipse(self.pos.x, self.pos.y, 6)
+    popMatrix()
+    popStyle()
 end
 
 function Missile:move()

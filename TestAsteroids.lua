@@ -161,6 +161,7 @@ function testAsteroids()
             s:collide(m)
             _:expect(U:destroyedCount()).is(2)
         end)
+
         
     end)
 end
@@ -196,7 +197,7 @@ function FakeUniverse:count(aTable)
     return c
 end
 
-function FakeUniverse:addMissile(missile)
+function FakeUniverse:addObject(missile)
     self.missile = missile
 end
 

@@ -17,7 +17,6 @@ function Universe:init()
     self:defineSounds()
     self.objects = {}
     self.button = {}
-    self.missiles = {}
     self.explosions = {}
     self.attractMode = true
 end
@@ -112,16 +111,6 @@ end
 function Universe:deleteExplosion(explosion)
     self.objects[explosion] = nil
     self.explosions[explosion] = nil
-end
-
-function Universe:addMissile(missile)
-    self.objects[missile] = missile
-    self.missiles[missile] = missile
-end
-
-function Universe:deleteMissile(missile)
-    self.objects[missile] = nil
-    self.missiles[missile] = nil
 end
 
 function Universe:addSaucer(saucer)
@@ -247,17 +236,11 @@ function Universe:drawExplosions()
 end
 
 function Universe:drawMissiles()
-    pushStyle()
-    pushMatrix()
-    fill(255)
-    stroke(255)
-    for k, missile in pairs(self.missiles) do
-        missile:draw()
+    for k, missile in pairs(self.objects) do
+        if missile:is_a(Missile) then missile:draw() end
     end
-    popMatrix()
-    popStyle()
-    for k, missile in pairs(self.missiles) do
-        missile:move()
+    for k, missile in pairs(self.objects) do
+        if missile:is_a(Missile) then missile:move() end
     end
 end
 
