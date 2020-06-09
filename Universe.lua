@@ -128,18 +128,18 @@ function Universe:deleteObject(object)
 end
 
 function Universe:addSaucer(saucer)
-    self.objects[saucer] = saucer
+    self:addObject(saucer)
     self.saucer = saucer
 end
 
 function Universe:deleteSaucer(saucer)
-    self.objects[saucer] = nil
+    self:deleteObject(saucer)
     self.saucer = nil
     self.saucerTime = self.currentTime
 end
 
 function Universe:addShip(ship)
-    self.objects[ship] = ship
+    self:addObject(ship)
     self.ship = ship
 end
 
@@ -148,7 +148,7 @@ function Universe:deleteShip(ship)
         Ship()
     end
     Explosion(ship)
-    self.objects[ship] = nil
+    self:deleteObject(ship)
     self.ship = nil
     tween(6, self, {}, tween.easing.linear, f)
 end
