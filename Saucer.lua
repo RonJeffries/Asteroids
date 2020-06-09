@@ -1,15 +1,22 @@
 Saucer = class()
 
+local Instance;
+
 function Saucer:init()
     function die()
         self:die()
     end
-    U:addSaucer(self)
+    Instance = self
+    U:addObject(self)
     self.pos = vec2(0, math.random(HEIGHT))
     self.step = vec2(2,0)
     self.fireTime = U.currentTime + 1 -- one second from now
     if math.random(2) == 1 then self.step = -self.step end
     tween(7, self, {}, tween.easing.linear, die)
+end
+
+function Saucer:instance()
+    return Instance;
 end
 
 function Saucer:draw()
@@ -43,7 +50,9 @@ function Saucer:move()
 end
 
 function Saucer:die()
-    U:deleteSaucer(self)
+    U:deleteObject(self)
+    Instance = nil
+    U.saucerTime = U.currentTime
 end
 
 function Saucer:collide(anObject)

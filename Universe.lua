@@ -89,9 +89,9 @@ end
 
 
 function Universe:checkSaucer()
-    if self.attractMode or self.saucer then return end
+    if self.attractMode or Saucer:instance() then return end
     if self.currentTime - self.saucerTime > self.saucerInterval then
-        self.saucerTime = currentTime
+        self.saucerTime = self.currentTime
         Saucer()
     end
 end
@@ -134,17 +134,6 @@ end
 
 function Universe:deleteObject(object)
     self.objects[object] = nil
-end
-
-function Universe:addSaucer(saucer)
-    self:addObject(saucer)
-    self.saucer = saucer
-end
-
-function Universe:deleteSaucer(saucer)
-    self:deleteObject(saucer)
-    self.saucer = nil
-    self.saucerTime = self.currentTime
 end
 
 function Universe:addShip(ship)
