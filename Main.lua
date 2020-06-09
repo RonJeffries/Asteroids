@@ -27,11 +27,3 @@ function touched(touch)
         Touches[touch.id] = touch
     end
 end
-
-function clone(tab)
-    local r = {}
-    for k,v in pairs(tab) do
-        r[k] = v
-    end
-    return r
-end

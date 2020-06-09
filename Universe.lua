@@ -16,6 +16,7 @@ function Universe:init()
     self.timeOfNextWave= 0
     self:defineSounds()
     self.objects = {}
+    self.addedObjects = {}
     self.button = {}
     self.attractMode = true
 end
@@ -48,6 +49,7 @@ function Universe:startGame(currentTime)
 end
 
 function Universe:draw(currentTime)
+    self:applyAdditions()
     self:adjustTimeValues(currentTime)
     --displayMode(FULLSCREEN_NO_BUTTONS)
     background(40, 40, 50)
@@ -67,6 +69,13 @@ function Universe:adjustTimeValues(currentTime)
     self.currentTime = currentTime
     self.processorRatio = DeltaTime/0.0083333
     self.frame64 = (self.frame64+1)%64
+end
+
+function Universe:applyAdditions()
+    for k,v in pairs(self.addedObjects) do
+        self.objects[k] = v
+    end
+    self.addedObjects = {}
 end
 
 function Universe:checkBeat()
@@ -120,7 +129,7 @@ function Universe:asteroidCount()
 end
 
 function Universe:addObject(object)
-    self.objects[object] = object
+    self.addedObjects[object] = object
 end
 
 function Universe:deleteObject(object)
@@ -183,13 +192,12 @@ function Universe:newWave()
 end
 
 function Universe:findCollisions()
-    -- we clone the collection to allow live editing
-    for i,a in pairs(clone(self.objects)) do
+    for i,a in pairs(self.objects) do
         self:checkMissileCollisions(a)
         if self.ship then self:checkShipCollision(a) end
     end
     if self.ship then
-        for i,m in pairs(clone(self.objects)) do
+        for i,m in pairs(self.objects) do
             self:checkMissileHitShip(m, self.ship)
         end
     end
