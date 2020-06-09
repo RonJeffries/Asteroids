@@ -225,9 +225,6 @@ function Universe:mutualDestruction(p,q)
     end
 end
 
-    
-end
-
 function Universe:drawScore()
     local s= "000000"..tostring(self.score)
     s = string.sub(s,-5)
