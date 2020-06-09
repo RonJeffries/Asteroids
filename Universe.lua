@@ -136,21 +136,6 @@ function Universe:deleteObject(object)
     self.objects[object] = nil
 end
 
-function Universe:addShip(ship)
-    self:addObject(ship)
-    self.ship = ship
-end
-
-function Universe:deleteShip(ship)
-    local f = function()
-        Ship()
-    end
-    Explosion(ship)
-    self:deleteObject(ship)
-    self.ship = nil
-    tween(6, self, {}, tween.easing.linear, f)
-end
-
 function Universe:updateBeatDelay()
     if self.frame64 == 63 and self.beatDelay > 0.128 then
         self.beatDelay = self.beatDelay - 0.016
@@ -183,11 +168,11 @@ end
 function Universe:findCollisions()
     for i,a in pairs(self.objects) do
         self:checkMissileCollisions(a)
-        if self.ship then self:checkShipCollision(a) end
+        if Ship:instance() then self:checkShipCollision(a) end
     end
-    if self.ship then
+    if Ship:instance() then
         for i,m in pairs(self.objects) do
-            self:checkMissileHitShip(m, self.ship)
+            self:checkMissileHitShip(m, Ship:instance())
         end
     end
 end
@@ -196,17 +181,17 @@ function Universe:checkMissileHitShip(missile, ship)
     if not missile:is_a(Missile) then return end
     if not ship then return end
     if  missile.pos:dist(ship.pos) < ship:killDist() then
-        self:deleteShip(ship)
+        ship:die()
         missile:die()
     end
 end
 
 function Universe:checkShipCollision(asteroid)
     if not asteroid:is_a(Asteroid) then return end
-    if self.ship.pos:dist(asteroid.pos) < asteroid:killDist() then
+    if Ship:instance().pos:dist(asteroid.pos) < asteroid:killDist() then
         asteroid:score()
         asteroid:split()
-        self:deleteShip(self.ship)
+        Ship:instance():die()
     end
 end
 

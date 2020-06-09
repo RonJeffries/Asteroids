@@ -3,11 +3,18 @@
 
 Ship = class()
 
+local Instance
+
 function Ship:init()
     self.pos = vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
-    U:addShip(self)
+    Instance = self
+    U:addObject(self)
+end
+
+function Ship:instance()
+    return Instance
 end
 
 local accel = 0
@@ -83,4 +90,14 @@ end
 
 function Ship:killDist()
     return 24
+end
+
+function Ship:die()
+    local f = function()
+        Ship()
+    end
+    Explosion(self)
+    U:deleteObject(self)
+    Instance = nil
+    tween(6, self, {}, tween.easing.linear, f)
 end
