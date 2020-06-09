@@ -47,6 +47,13 @@ function Missile:collide(anObject)
 end
 
 function Missile:collideWithSaucer(saucer)
-    U:destroy(self)
-    U:destroy(saucer)
+    local d = self.pos:dist(saucer.pos)
+    if d < self:killDist() + saucer:killDist() then
+        self:die()
+        saucer:die()
+    end
+end
+
+function Missile:killDist()
+    return 0
 end

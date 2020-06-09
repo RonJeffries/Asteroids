@@ -31,6 +31,7 @@ function Asteroid:score()
 end
 
 function Asteroid:bang()
+    if not U.sounds then return end
     if self.scale == 16 then
         U:playStereo(U.sounds.bangLarge, self)
     elseif self.scale == 8 then
@@ -41,6 +42,16 @@ function Asteroid:bang()
 end
 
 function Asteroid:split()
+    self:bang()
+    Splat(self.pos)
+    if self.scale ~= 4 then
+        Asteroid(self.pos, self.scale//2)
+        Asteroid(self.pos, self.scale//2)
+    end
+    U:deleteObject(self)
+end
+
+function Asteroid:die()
     self:bang()
     Splat(self.pos)
     if self.scale ~= 4 then
@@ -69,5 +80,9 @@ end
 
 function Asteroid:move()
     U:moveObject(self)
+end
+
+function Asteroid:collideWithMissile(o)
+    U:mutualDestruction(self,o)
 end
 

@@ -217,6 +217,17 @@ function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
 end
 
+function Universe:mutualDestruction(p,q)
+    local dist = p.pos:dist(q.pos)
+    if dist < p:killDist() + q:killDist() then
+        p:die()
+        q:die()
+    end
+end
+
+    
+end
+
 function Universe:drawScore()
     local s= "000000"..tostring(self.score)
     s = string.sub(s,-5)

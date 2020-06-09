@@ -89,7 +89,7 @@ function Ship:fireMissile()
 end
 
 function Ship:killDist()
-    return 24
+    return 12
 end
 
 function Ship:die()

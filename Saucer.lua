@@ -2,13 +2,13 @@ Saucer = class()
 
 local Instance;
 
-function Saucer:init()
+function Saucer:init(optionalPos)
     function die()
         self:die()
     end
     Instance = self
     U:addObject(self)
-    self.pos = vec2(0, math.random(HEIGHT))
+    self.pos = optionalPos or vec2(0, math.random(HEIGHT))
     self.step = vec2(2,0)
     self.fireTime = U.currentTime + 1 -- one second from now
     if math.random(2) == 1 then self.step = -self.step end
@@ -17,6 +17,10 @@ end
 
 function Saucer:instance()
     return Instance;
+end
+
+function Saucer:killDist()
+    return 20
 end
 
 function Saucer:draw()
@@ -60,6 +64,9 @@ function Saucer:collide(anObject)
 end
 
 function Saucer:collideWithMissile(missile)
-    U:destroy(self)
-    U:destroy(missile)
+    local d = self.pos:dist(missile.pos)
+    if d < self:killDist() + missile:killDist() then
+        self:die()
+        missile:die()
+    end
 end
