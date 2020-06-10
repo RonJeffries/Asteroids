@@ -22,3 +22,13 @@ end
 
 function Explosion:move()
 end
+
+-- Indestructible
+
+function Explosion:collide(anything)
+    -- nope
+end
+
+function Explosion:mutuallyDestroy(anything)
+    --nope
+end

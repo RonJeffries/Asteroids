@@ -189,6 +189,18 @@ function testAsteroids()
             ship:collide(m)
             _:expect(U:destroyedCount()).is(2)
         end)
+        
+        _:test("explosions don't collide", function()
+            local pos = vec2(200,200)
+            U = FakeUniverse()
+            x = Explosion(pos)
+            m = Missile(pos)
+            m:collide(x)
+            _:expect(U:destroyedCount()).is(0)
+            x:collide(m)
+            _:expect(U:destroyedCount()).is(0)
+        end)
+         
       
         
     end)
