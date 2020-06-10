@@ -201,7 +201,14 @@ function testAsteroids()
             _:expect(U:destroyedCount()).is(0)
         end)
          
-      
+        _:test("asteroids don't mutually destruct", function()
+            local pos = vec2(333,555)
+            U = FakeUniverse()
+            a1 = Asteroid(pos)
+            a2 = Asteroid(pos)
+            a1:collide(a2)
+            _:expect(U:destroyedCount()).is(0)
+        end)
         
     end)
 end

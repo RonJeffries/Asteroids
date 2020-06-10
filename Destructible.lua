@@ -5,7 +5,9 @@ function Destructible:init(x)
 end
 
 function Destructible:collide(anObject)
-    anObject:mutuallyDestroy(self)
+    if self:unrelated(anObject) then
+        anObject:mutuallyDestroy(self)
+    end
 end
 
 function Destructible:mutuallyDestroy(anObject)
@@ -19,4 +21,8 @@ function Destructible:inRange(anObject)
     local triggerDistance = self:killDist() + anObject:killDist()
     local trueDistance = self.pos:dist(anObject.pos)
     return trueDistance < triggerDistance
+end
+
+function Destructible:unrelated(anObject)
+    return getmetatable(self) ~= getmetatable(anObject)
 end
