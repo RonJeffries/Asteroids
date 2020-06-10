@@ -4,7 +4,7 @@
 local DeadAsteroids = {}
 local Vel = 1.5
 
-Asteroid = class()
+Asteroid = class(Destructible)
 
 function Asteroid:init(pos, size)
     self.pos = pos or vec2(math.random(WIDTH), math.random(HEIGHT))
@@ -82,7 +82,4 @@ function Asteroid:move()
     U:moveObject(self)
 end
 
-function Asteroid:collideWithMissile(o)
-    U:mutualDestruction(self,o)
-end
 

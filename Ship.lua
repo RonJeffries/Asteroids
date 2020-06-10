@@ -1,12 +1,12 @@
 -- Ship
 -- RJ 20200520
 
-Ship = class()
+Ship = class(Destructible)
 
 local Instance
 
-function Ship:init()
-    self.pos = vec2(WIDTH, HEIGHT)/2
+function Ship:init(pos)
+    self.pos = pos or vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
     Instance = self
@@ -98,6 +98,7 @@ function Ship:die()
     end
     Explosion(self)
     U:deleteObject(self)
+    print("ship dies")
     Instance = nil
     tween(6, self, {}, tween.easing.linear, f)
 end

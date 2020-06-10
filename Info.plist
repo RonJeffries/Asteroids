@@ -5,6 +5,7 @@
 	<key>Buffer Order</key>
 	<array>
 		<string>Main</string>
+		<string>Destructible</string>
 		<string>TestAsteroids</string>
 		<string>Shapes</string>
 		<string>Ship</string>

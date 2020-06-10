@@ -31,7 +31,7 @@ function testAsteroids()
             _:expect(min < 0.01).is(true)
             _:expect(max > 6.2).is(true)
         end)
-        
+        --[[
         _:test("Rotated Length", function()
             for i = 0, 1000 do
                 local rand = math.random()*2*math.pi
@@ -153,7 +153,7 @@ function testAsteroids()
             _:expect(countObjects()).is(2)
         end)
         
-        _:test("missile hits saucer", function()
+        _:test("missile vs saucer", function()
             local pos = vec2(100,100)
             U = FakeUniverse()
             local m = Missile(pos)
@@ -162,7 +162,7 @@ function testAsteroids()
             _:expect(U:destroyedCount()).is(2)
         end)
         
-        _:test("saucer hits missile", function()
+        _:test("saucer vs missile", function()
             local pos = vec2(100,100)
             U = FakeUniverse()
             local m = Missile(pos)
@@ -171,23 +171,48 @@ function testAsteroids()
             _:expect(U:destroyedCount()).is(2)
         end)
         
-        _:ignore("deadly collisions", function()
+        _:test("asteroid vs missile", function()
             local pos = vec2(200,200)
-            local candidates = { Missile(pos), Asteroid(pos), Ship(pos) }
-            for k,c in ipairs(candidates) do
-                for kk, cc in ipairs(candidates) do
-                    if cc ~= c then
-                        U = FakeUniverse()
-                        c:collide(cc)
-                        _:expect(U:destroyedCount()).is(2)
-                        U = FakeUniverse()
-                        cc:collide(c)
-                        _:expect(U:destroyedCount()).is(2)
-                    end
-                end
-            end
+            U = FakeUniverse()
+            a = Asteroid(pos)
+            m = Missile(pos)
+            a:collide(m)
+            _:expect(U:destroyedCount()).is(2)
         end)
-
+         
+        _:test("missile vs asteroid", function()
+            local pos = vec2(200,200)
+            U = FakeUniverse()
+            a = Asteroid(pos)
+            m = Missile(pos)
+            m:collide(a)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+         
+        _:test("saucer vs asteroid both ways", function()
+            local pos = vec2(200,200)
+            U = FakeUniverse()
+            s = Saucer(pos)
+            a = Asteroid(pos)
+            s:collide(a)
+            _:expect(U:destroyedCount()).is(2)
+            U.destroyed = {}
+            a:collide(s)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+        ]]--
+        
+        _:test("ship vs asteroid, missile, saucer", function()
+            local pos = vec2(300,300)
+            U = FakeUniverse()
+            local ship = Ship(pos)
+            local a = Asteroid(pos)
+            local m = Missile(pos)
+            local s = Saucer(pos)
+            ship:collide(m)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+      
         
     end)
 end
@@ -223,6 +248,5 @@ function FakeUniverse:count(aTable)
     return c
 end
 
-function FakeUniverse:addObject(missile)
-    self.missile = missile
+function FakeUniverse:addObject(ignored)
 end

@@ -1,4 +1,4 @@
-Saucer = class()
+Saucer = class(Destructible)
 
 local Instance;
 
@@ -57,16 +57,4 @@ function Saucer:die()
     U:deleteObject(self)
     Instance = nil
     U.saucerTime = U.currentTime
-end
-
-function Saucer:collide(anObject)
-    anObject:collideWithSaucer(self)
-end
-
-function Saucer:collideWithMissile(missile)
-    local d = self.pos:dist(missile.pos)
-    if d < self:killDist() + missile:killDist() then
-        self:die()
-        missile:die()
-    end
 end

@@ -1,7 +1,7 @@
 -- Missile
 -- RJ 20200522
 
-Missile = class()
+Missile = class(Destructible)
 
 function Missile:init(pos, step)
     function die()
@@ -40,18 +40,6 @@ end
 
 function Missile:move()
     U:moveObject(self)
-end
-
-function Missile:collide(anObject)
-    anObject:collideWithMissile(self)
-end
-
-function Missile:collideWithSaucer(saucer)
-    local d = self.pos:dist(saucer.pos)
-    if d < self:killDist() + saucer:killDist() then
-        self:die()
-        saucer:die()
-    end
 end
 
 function Missile:killDist()
