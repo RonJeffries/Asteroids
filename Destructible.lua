@@ -12,6 +12,7 @@ end
 
 function Destructible:mutuallyDestroy(anObject)
     if self:inRange(anObject) then
+        --dump("in range", self, anObject)
         self:die()
         anObject:die()
     end
@@ -25,4 +26,22 @@ end
 
 function Destructible:unrelated(anObject)
     return getmetatable(self) ~= getmetatable(anObject)
+end
+
+function dump(msg, p,q)
+    print(msg)
+    dumpObj(p)
+    dumpObj(q)
+end
+
+function dumpObj(o)
+    print(kind(o), o, o.pos)
+end
+
+function kind(o)
+    if o:is_a(Missile) then return "missile" end
+    if o:is_a(Saucer) then return "saucer" end
+    if o:is_a(Ship) then return "ship" end
+    if o:is_a(Asteroid) then return "asteroid" end
+    return "unknown"
 end

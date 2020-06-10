@@ -155,7 +155,7 @@ function Universe:newWave()
     local pos
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
-    for i = 1, 1 --[[self:newWaveSize()]] do
+    for i = 1, self:newWaveSize() do
         if math.random(0,1) then
             pos = vec2(0,math.random(HEIGHT))
         else
@@ -173,49 +173,6 @@ function Universe:findCollisions()
     end
 end
 
-function Universe:findCollisionsXXX()
-    for i,a in pairs(self.objects) do
-        self:checkMissileCollisions(a)
-        if Ship:instance() then self:checkShipCollision(a) end
-    end
-    if Ship:instance() then
-        for i,m in pairs(self.objects) do
-            self:checkMissileHitShip(m, Ship:instance())
-        end
-    end
-end
-
-function Universe:checkMissileHitShip(missile, ship)
-    if not missile:is_a(Missile) then return end
-    if not ship then return end
-    if  missile.pos:dist(ship.pos) < ship:killDist() then
-        ship:die()
-        missile:die()
-    end
-end
-
-function Universe:checkShipCollision(asteroid)
-    if not asteroid:is_a(Asteroid) then return end
-    if Ship:instance().pos:dist(asteroid.pos) < asteroid:killDist() then
-        asteroid:score()
-        asteroid:split()
-        Ship:instance():die()
-    end
-end
-
-function Universe:checkMissileCollisions(asteroid)
-    if not asteroid:is_a(Asteroid) then return end
-    for k,m in pairs(self.objects) do
-        if m:is_a(Missile) then
-            if m.pos:dist(asteroid.pos) < asteroid:killDist() then
-                asteroid:score()
-                asteroid:split()
-                m:die()
-            end
-        end
-    end
-end
-
 function Universe:moveObject(anObject)
     local pos = anObject.pos + self.processorRatio*anObject.step
     anObject.pos = vec2(pos.x%WIDTH, pos.y%HEIGHT)
@@ -223,14 +180,6 @@ end
 
 function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
-end
-
-function Universe:mutualDestruction(p,q)
-    local dist = p.pos:dist(q.pos)
-    if dist < p:killDist() + q:killDist() then
-        p:die()
-        q:die()
-    end
 end
 
 function Universe:drawScore()

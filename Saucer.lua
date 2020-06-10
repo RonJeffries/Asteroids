@@ -4,8 +4,11 @@ local Instance;
 
 function Saucer:init(optionalPos)
     function die()
-        self:die()
+        if self == Instance then
+            self:dieQuietly()
+        end
     end
+    if Instance then assert(false, "instance") end
     Instance = self
     U:addObject(self)
     self.pos = optionalPos or vec2(0, math.random(HEIGHT))
@@ -16,7 +19,7 @@ function Saucer:init(optionalPos)
 end
 
 function Saucer:instance()
-    return Instance;
+    return Instance
 end
 
 function Saucer:killDist()
@@ -46,14 +49,20 @@ function Saucer:draw()
 end
 
 function Saucer:move()
-    self.pos = self.pos + self.step
+    U:moveObject(self)
     if U.currentTime >= self.fireTime then
+        U:playStereo(U.sounds.saucerFire, self)
         self.fireTime = U.currentTime + 1
         Missile:fromSaucer(self)
     end
 end
 
 function Saucer:die()
+    Splat(self.pos)
+    self:dieQuietly()
+end
+
+function Saucer:dieQuietly()
     U:deleteObject(self)
     Instance = nil
     U.saucerTime = U.currentTime
