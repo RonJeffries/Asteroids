@@ -98,7 +98,6 @@ function Ship:die()
     end
     Explosion(self)
     U:deleteObject(self)
-    print("ship dies")
     Instance = nil
     tween(6, self, {}, tween.easing.linear, f)
 end

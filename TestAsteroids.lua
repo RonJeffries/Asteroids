@@ -20,18 +20,6 @@ function testAsteroids()
             _:expect( 2+1 ).is(3)
         end)
         
-        _:ignore("Random", function()
-            local min = 100
-            local max = 0
-            for i = 0,1000 do
-                local rand = math.random()*2*math.pi
-                if rand < min then min = rand end
-                if rand > max then max = rand end
-            end
-            _:expect(min < 0.01).is(true)
-            _:expect(max > 6.2).is(true)
-        end)
-        --[[
         _:test("Rotated Length", function()
             for i = 0, 1000 do
                 local rand = math.random()*2*math.pi
@@ -100,16 +88,6 @@ function testAsteroids()
             _:expect(u:newWaveSize()).is(10)
             _:expect(u:newWaveSize()).is(11)
             _:expect(u:newWaveSize()).is(11)
-        end)
-        
-        _:ignore("Trigger New Wave", function()
-            local u = Universe()
-            _:expect(u.timeOfNextWave).is(0)
-            u.asteroids = {}
-            u:draw(666)
-            _:expect(u.timeOfNextWave).is(668, .05)
-            u:draw(668)
-            _:expect(u.timeOfNextWave).is(0)
         end)
         
         _:test("Asteroids added to objects", function()
@@ -200,7 +178,6 @@ function testAsteroids()
             a:collide(s)
             _:expect(U:destroyedCount()).is(2)
         end)
-        ]]--
         
         _:test("ship vs asteroid, missile, saucer", function()
             local pos = vec2(300,300)
