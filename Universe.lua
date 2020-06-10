@@ -155,7 +155,7 @@ function Universe:newWave()
     local pos
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
-    for i = 1, self:newWaveSize() do
+    for i = 1, 1 --[[self:newWaveSize()]] do
         if math.random(0,1) then
             pos = vec2(0,math.random(HEIGHT))
         else
@@ -166,6 +166,14 @@ function Universe:newWave()
 end
 
 function Universe:findCollisions()
+    for k, o in pairs(self.objects) do
+        for kk, oo in pairs(self.objects) do
+            o:collide(oo)
+        end
+    end
+end
+
+function Universe:findCollisionsXXX()
     for i,a in pairs(self.objects) do
         self:checkMissileCollisions(a)
         if Ship:instance() then self:checkShipCollision(a) end
