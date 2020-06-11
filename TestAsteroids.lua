@@ -74,8 +74,9 @@ function testAsteroids()
         
         _:test("Asteroids increment score", function()
             local a = Asteroid()
+            local m = Missile()
             U.score = 0
-            a:score()
+            a:score(m)
             _:expect(U.score).is(20)
         end)
         
