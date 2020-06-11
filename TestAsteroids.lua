@@ -237,6 +237,21 @@ function testAsteroids()
             _:expect(U.score).is(0)
         end)
         
+        _:test("saucer-asteroid collisions do not score", function()
+            local pos = vec2(222,333)
+            U = FakeUniverse()
+            local s = Saucer(pos)
+            local a = Asteroid(pos)
+            s:collide(a)
+            _:expect(U:destroyedCount()).is(2)
+            _:expect(U.score).is(0)
+            U.destroyed = {}
+            U.score = 0
+            a:collide(s)
+            _:expect(U:destroyedCount()).is(2)
+            _:expect(U.score).is(0)
+        end)
+        
     end)
 end
 

@@ -20,7 +20,8 @@ function Asteroid:killDist()
     if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
 end
 
-function Asteroid:score()
+function Asteroid:score(anObject)
+    if anObject:is_a(Saucer) then return end
     local s = self.scale
     local inc = 0
     if s == 16 then inc = 20

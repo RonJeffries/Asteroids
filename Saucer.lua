@@ -69,6 +69,8 @@ function Saucer:dieQuietly()
     U.saucerTime = U.currentTime
 end
 
-function Saucer:score()
-    U.score = U.score + 250
+function Saucer:score(anObject)
+    if anObject:is_a(Missile) then
+        U.score = U.score + 250
+    end
 end
