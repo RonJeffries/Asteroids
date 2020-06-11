@@ -210,6 +210,33 @@ function testAsteroids()
             _:expect(U:destroyedCount()).is(0)
         end)
         
+        _:test("saucer missiles kill ships", function()
+            local pos = vec2(123,456)
+            U = FakeUniverse()
+            local s = Ship(pos)
+            local m = SaucerMissile(pos)
+            m:collide(s)
+            _:expect(U:destroyedCount()).is(2)
+            U.destroyed = {}
+            s:collide(m)
+            _:expect(U:destroyedCount()).is(2)
+        end)
+        
+        _:test("saucer missiles don't kill asteroids", function()
+            local pos = vec2(111,222)
+            U = FakeUniverse()
+            local a = Asteroid(pos)
+            local m = SaucerMissile(pos)
+            m:collide(a)
+            _:expect(U:destroyedCount()).is(0)
+            _:expect(U.score).is(0)
+            U.score = 0
+            U.destroyed = {}
+            a:collide(m)
+            _:expect(U:destroyedCount()).is(0)
+            _:expect(U.score).is(0)
+        end)
+        
     end)
 end
 
@@ -225,6 +252,7 @@ FakeUniverse = class()
 
 function FakeUniverse:init()
     self.currentTime = ElapsedTime
+    self.score = 0
     self.destroyed = {}
 end
 

@@ -51,6 +51,9 @@ function Ship:move()
     self:actualShipMove()
 end
 
+function Ship:score()
+end
+
 function Ship:turn()
     local center = U.button.turnCenter
     local pos = U.button.turnPos

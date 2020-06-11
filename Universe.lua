@@ -11,7 +11,7 @@ function Universe:init()
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
     self.frame64 = 0
-    self.saucerInterval = 2
+    self.saucerInterval = 7
     self.timeBetweenWaves = 2
     self.timeOfNextWave= 0
     self:defineSounds()
@@ -50,6 +50,9 @@ end
 
 function Universe:draw(currentTime)
     self:applyAdditions()
+    self:checkBeat()
+    self:checkSaucer()
+    self:checkNewWave()
     self:adjustTimeValues(currentTime)
     --displayMode(FULLSCREEN_NO_BUTTONS)
     background(40, 40, 50)
@@ -60,9 +63,6 @@ function Universe:draw(currentTime)
     drawSplats()
     self:drawScore()
     self:findCollisions()
-    self:checkBeat()
-    self:checkSaucer()
-    self:checkNewWave()
 end
 
 function Universe:adjustTimeValues(currentTime)

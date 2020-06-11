@@ -30,6 +30,9 @@ function Missile:die()
     U:deleteObject(self)
 end
 
+function Missile:score()
+end
+
 function Missile:draw()
     pushStyle()
     pushMatrix()

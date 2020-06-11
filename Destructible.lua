@@ -12,10 +12,16 @@ end
 
 function Destructible:mutuallyDestroy(anObject)
     if self:inRange(anObject) then
-        --dump("in range", self, anObject)
+        self:score()
+        anObject:score()
         self:die()
         anObject:die()
     end
+end
+
+function Destructible:score()
+    dump("score", self)
+    assert(false)
 end
 
 function Destructible:inRange(anObject)
@@ -30,8 +36,8 @@ end
 
 function dump(msg, p,q)
     print(msg)
-    dumpObj(p)
-    dumpObj(q)
+    if p then dumpObj(p) end
+    if q then dumpObj(q) end
 end
 
 function dumpObj(o)
