@@ -19,13 +19,6 @@ function Missile:fromShip(ship)
     return Missile(pos, step)
 end
 
-function Missile:fromSaucer(saucer)
-    local rot = math.random()*2*math.pi
-    local pos = saucer.pos + vec2(saucer:killDist() + 1, 0):rotate(rot)
-    local vel = U.missileVelocity:rotate(rot) + saucer.step
-    return Missile(pos, vel)
-end
-
 function Missile:die()
     U:deleteObject(self)
 end

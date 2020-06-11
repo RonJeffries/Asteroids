@@ -53,8 +53,15 @@ function Saucer:move()
     if U.currentTime >= self.fireTime then
         U:playStereo(U.sounds.saucerFire, self)
         self.fireTime = U.currentTime + 0.5
-        Missile:fromSaucer(self)
+        SaucerMissile:fromSaucer(self)
     end
+end
+
+function SaucerMissile:fromSaucer(saucer)
+    local rot = math.random()*2*math.pi
+    local pos = saucer.pos + vec2(saucer:killDist() + 1, 0):rotate(rot)
+    local vel = U.missileVelocity:rotate(rot) + saucer.step
+    return SaucerMissile(pos, vel)
 end
 
 function Saucer:die()
