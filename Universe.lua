@@ -16,6 +16,7 @@ function Universe:init()
     self.timeOfNextWave= 0
     self:defineSounds()
     self.objects = {}
+    self.indestructibles = {}
     self.addedObjects = {}
     self.button = {}
     self.attractMode = true
@@ -41,6 +42,7 @@ function Universe:startGame(currentTime)
     self.saucerTime = currentTime
     self.attractMode = false
     self.objects = {}
+    self.indestructibles = {}
     createButtons()
     Ship()
     self.waveSize = nil
@@ -60,7 +62,6 @@ function Universe:draw(currentTime)
     drawButtons()
     self:drawEverything()
     self:moveEverything()
-    drawSplats()
     self:drawScore()
     self:findCollisions()
 end
@@ -100,10 +101,16 @@ function Universe:drawEverything()
     for k,o in pairs(self.objects) do
         o:draw()
     end
+    for k,o in pairs(self.indestructibles) do
+        o:draw()
+    end
 end
 
 function Universe:moveEverything()
     for k,o in pairs(self.objects) do
+        o:move()
+    end
+    for k,o in pairs(self.indestructibles) do
         o:move()
     end
 end
@@ -134,6 +141,14 @@ end
 
 function Universe:deleteObject(object)
     self.objects[object] = nil
+end
+
+function Universe:addIndestructible(object)
+    self.indestructibles[object] = object
+end
+
+function Universe:deleteIndestructible(object)
+    self.indestructibles[object] = nil
 end
 
 function Universe:updateBeatDelay()

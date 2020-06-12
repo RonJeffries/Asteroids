@@ -1,26 +1,19 @@
 -- Splat
 -- RJ 20200521
-
-local Splats = {}
+-- moved to U.indestructibles 20200612
 
 local Vecs = {
 vec2(-2,0), vec2(-2,-2), vec2(2,-2), vec2(3,1), vec2(2,-1), vec2(0,2), vec2(1,3), vec2(-1,3), vec2(-4,-1), vec2(-3,1)
 }
 
-function drawSplats()
-    for k, splat in pairs(Splats) do
-        splat:draw()
-    end
-end
-
 Splat = class()
 
 function Splat:init(pos)
     local die = function()
-        Splats[self] = nil
+        U:deleteIndestructible(self)
     end
     self.pos = pos
-    Splats[self] = self
+    U:addIndestructible(self)
     self.size = 2
     self.diameter = 6
     self.rot = math.random(0,359)
@@ -40,4 +33,7 @@ function Splat:draw()
     end
     popMatrix()
     popStyle()
+end
+
+function Splat:move()
 end

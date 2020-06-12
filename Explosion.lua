@@ -1,34 +1,12 @@
+-- Explosion
+-- RJ modified 20200612 indestructible
+-- RJ modified 20200612 Fragments
+
 Explosion = class()
 
 function Explosion:init(ship)
-    local f = function()
-        U:deleteObject(self)
-    end
-    self.pos = ship.pos
-    self.step = vec2(0,0)
-    U:addObject(self)
-    tween(4, self, {}, tween.easing.linear, f)
-end
-
-function Explosion:draw()
-    pushStyle()
-    pushMatrix()
-    translate(self.pos.x, self.pos.y)
-    fontSize(30)
-    text("BLAMMO", 0, 0)
-    popMatrix()
-    popStyle()
-end
-
-function Explosion:move()
-end
-
--- Indestructible
-
-function Explosion:collide(anything)
-    -- nope
-end
-
-function Explosion:mutuallyDestroy(anything)
-    --nope
+    local pos = ship.pos
+   for i = 1,5 do
+       local f = Fragment(pos, i==1)
+   end
 end
