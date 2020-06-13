@@ -18,6 +18,7 @@
 		<string>Fragment</string>
 		<string>Explosion</string>
 		<string>Saucer</string>
+		<string>Score</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

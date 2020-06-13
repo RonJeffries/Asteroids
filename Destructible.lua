@@ -12,8 +12,9 @@ end
 
 function Destructible:mutuallyDestroy(anObject)
     if self:inRange(anObject) then
-        self:score(anObject)
-        anObject:score(self)
+        local SC = Score:instance()
+        SC:addScore(self:score(anObject))
+        SC:addScore(anObject:score(self))
         self:die()
         anObject:die()
     end

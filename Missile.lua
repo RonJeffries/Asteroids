@@ -24,6 +24,7 @@ function Missile:die()
 end
 
 function Missile:score()
+    return 0
 end
 
 function Missile:draw()

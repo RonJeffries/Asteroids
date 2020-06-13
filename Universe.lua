@@ -7,7 +7,6 @@ local MissileSpeed = 2.0
 
 function Universe:init()
     self.processorRatio = 1.0
-    self.score = 0
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
     self.frame64 = 0
@@ -38,6 +37,7 @@ function Universe:defineSounds()
 end
 
 function Universe:startGame(currentTime)
+    Score()
     self.currentTime = currentTime
     self.saucerTime = currentTime
     self.attractMode = false
@@ -216,6 +216,6 @@ function Universe:adjustedRotationStep()
     return self.processorRatio*self.rotationStep
 end
 
-function Universe:playStereo(aSound, anObject)
-    sound(aSound, 1, 1, 2*anObject.pos.x/WIDTH - 1)
+function Universe:playStereo(aSound, anObject, optionalPitch)
+    sound(aSound, 1, optionalPitch or 1, 2*anObject.pos.x/WIDTH - 1)
 end

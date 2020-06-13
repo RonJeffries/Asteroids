@@ -72,14 +72,6 @@ function testAsteroids()
             _:expect(my).is(U.missileVelocity.y + 2, 0.001)
         end)
         
-        _:test("Asteroids increment score", function()
-            local a = Asteroid()
-            local m = Missile()
-            U.score = 0
-            a:score(m)
-            _:expect(U.score).is(20)
-        end)
-        
         _:test("Wave size", function()
             local u = Universe()
             u.waveSize = nil
@@ -122,15 +114,6 @@ function testAsteroids()
             _:expect(countObjects()).is(1)
         end)
         
-        _:test("Explosion added to objects", function()
-            _:expect(countObjects()).is(0)
-            Ship()
-            U:applyAdditions()
-            _:expect(countObjects()).is(1)
-            Explosion(Ship:instance())
-            U:applyAdditions()
-            _:expect(countObjects()).is(2)
-        end)
         
         _:test("missile vs saucer", function()
             local pos = vec2(100,100)
@@ -190,17 +173,6 @@ function testAsteroids()
             ship:collide(m)
             _:expect(U:destroyedCount()).is(2)
         end)
-        
-        _:test("explosions don't collide", function()
-            local pos = vec2(200,200)
-            U = FakeUniverse()
-            x = Explosion(pos)
-            m = Missile(pos)
-            m:collide(x)
-            _:expect(U:destroyedCount()).is(0)
-            x:collide(m)
-            _:expect(U:destroyedCount()).is(0)
-        end)
          
         _:test("asteroids don't mutually destruct", function()
             local pos = vec2(333,555)
@@ -223,6 +195,16 @@ function testAsteroids()
             _:expect(U:destroyedCount()).is(2)
         end)
         
+        _:test("Asteroids increment score", function()
+            local a = Asteroid()
+            local m = Missile()
+            local SC = Score:instance()
+            _:expect(SC:score()).is(0)
+            SC:addScore(a:score(m))
+            _:expect(SC:score()).is(20)
+            _:expect(U.score).is(nil)
+        end)
+        
         _:test("saucer missiles don't kill asteroids", function()
             local pos = vec2(111,222)
             U = FakeUniverse()
@@ -230,8 +212,7 @@ function testAsteroids()
             local m = SaucerMissile(pos)
             m:collide(a)
             _:expect(U:destroyedCount()).is(0)
-            _:expect(U.score).is(0)
-            U.score = 0
+            _:expect(Score:instance():score()).is(0)
             U.destroyed = {}
             a:collide(m)
             _:expect(U:destroyedCount()).is(0)
@@ -245,12 +226,11 @@ function testAsteroids()
             local a = Asteroid(pos)
             s:collide(a)
             _:expect(U:destroyedCount()).is(2)
-            _:expect(U.score).is(0)
+            _:expect(Score:instance():score()).is(0)
             U.destroyed = {}
-            U.score = 0
             a:collide(s)
             _:expect(U:destroyedCount()).is(2)
-            _:expect(U.score).is(0)
+            _:expect(Score:instance():score()).is(0)
         end)
         
     end)
@@ -267,6 +247,8 @@ end
 FakeUniverse = class()
 
 function FakeUniverse:init()
+    Score()
+    self.sounds = U.sounds -- U is present. See before().
     self.currentTime = ElapsedTime
     self.score = 0
     self.destroyed = {}
@@ -289,4 +271,10 @@ function FakeUniverse:count(aTable)
 end
 
 function FakeUniverse:addObject(ignored)
+end
+
+function FakeUniverse:addIndestructible(ignored)
+end
+
+function FakeUniverse:playStereo()
 end

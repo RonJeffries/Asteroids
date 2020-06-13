@@ -52,6 +52,7 @@ function Ship:move()
 end
 
 function Ship:score()
+    return 0
 end
 
 function Ship:turn()
@@ -99,6 +100,7 @@ function Ship:die()
     local f = function()
         Ship()
     end
+    U:playStereo(U.sounds.bangLarge, self, 0.8)
     Explosion(self)
     U:deleteObject(self)
     Instance = nil

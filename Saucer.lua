@@ -78,6 +78,8 @@ end
 
 function Saucer:score(anObject)
     if anObject:is_a(Missile) then
-        U.score = U.score + 250
+        return 250
+    else
+        return 0
     end
 end
