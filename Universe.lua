@@ -37,16 +37,16 @@ function Universe:defineSounds()
 end
 
 function Universe:startGame(currentTime)
-    Score()
     self.currentTime = currentTime
     self.saucerTime = currentTime
     self.attractMode = false
     self.objects = {}
     self.indestructibles = {}
-    createButtons()
-    Ship()
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
+    createButtons()
+    Ship()
+    Score()
     self:newWave()
 end
 
@@ -62,7 +62,6 @@ function Universe:draw(currentTime)
     drawButtons()
     self:drawEverything()
     self:moveEverything()
-    self:drawScore()
     self:findCollisions()
 end
 
@@ -195,15 +194,6 @@ end
 
 function Universe:keepInBounds(value, bound)
     return (value+bound)%bound
-end
-
-function Universe:drawScore()
-    local s= "000000"..tostring(self.score)
-    s = string.sub(s,-5)
-    pushStyle()
-    fontSize(100)
-    text(s, 200, HEIGHT-60)
-    popStyle()
 end
 
 function Universe:newWaveSize()
