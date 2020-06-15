@@ -233,6 +233,48 @@ function testAsteroids()
             _:expect(Score:instance():score()).is(0)
         end)
         
+        _:test("firing from south of ship", function()
+            local ship = {pos=vec2(800,800), step=vec2(0,0)}
+            local saucer = {pos=vec2(800,400), step=vec2(0,0), shotSpeed=2}
+            local targ = Targeter(saucer,ship)
+            local dir = targ:fireDirection()
+            _:expect(dir).is(vec2(0,1))
+        end)
+        
+        _:test("firing from southwest of ship", function()
+            local ship = {pos=vec2(800,800), step=vec2(0,0)}
+            local saucer = {pos=vec2(400,400), step=vec2(0,0), shotSpeed=2}
+            local targ = Targeter(saucer,ship)
+            local dir = targ:fireDirection()
+            _:expect(dir.x).is(0.707, 0.005)
+            _:expect(dir.y).is(0.707, 0.005)
+        end)
+        
+        _:test("firing from south of moving ship", function()
+            local ship = {pos=vec2(800,800), step=vec2(1,0)}
+            local saucer = {pos=vec2(800,400), step=vec2(0,0), shotSpeed=2}
+            local targ = Targeter(saucer,ship)
+            local dir = targ:fireDirection()
+            _:expect(dir.y).is(0.86, 0.05)
+        end)
+        
+        _:test("firing from moving saucer south of moving ship", function()
+            local ship = {pos=vec2(800,800), step=vec2(1,0)}
+            local saucer = {pos=vec2(800,400), step=vec2(1,0), shotSpeed=2}
+            local targ = Targeter(saucer,ship)
+            local dir = targ:fireDirection()
+            _:expect(dir).is(vec2(0,1))
+        end)
+        
+        _:test("firing from moving saucer south of anti-moving ship", function()
+            local ship = {pos=vec2(800,800), step=vec2(1,0)}
+            local saucer = {pos=vec2(800,400), step=vec2(-1,0), shotSpeed=4}
+            local targ = Targeter(saucer,ship)
+            local dir = targ:fireDirection()
+            _:expect(dir.x).is(0.5, 0.05)
+            _:expect(dir:len()).is(1,0.01)
+        end)
+        
     end)
 end
 

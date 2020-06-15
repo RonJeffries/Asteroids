@@ -10,6 +10,7 @@ function Saucer:init(optionalPos)
     end
     Instance = self
     U:addObject(self)
+    self.shotSpeed = 5
     self.pos = optionalPos or vec2(0, math.random(HEIGHT))
     self.step = vec2(2,0)
     self.fireTime = U.currentTime + 1 -- one second from now
@@ -57,11 +58,21 @@ function Saucer:move()
     end
 end
 
-function SaucerMissile:fromSaucer(saucer)
+
+function SaucerMissile:randomFromSaucer(saucer)
     local rot = math.random()*2*math.pi
     local pos = saucer.pos + vec2(saucer:killDist() + 1, 0):rotate(rot)
     local vel = U.missileVelocity:rotate(rot) + saucer.step
     return SaucerMissile(pos, vel)
+end
+
+function SaucerMissile:fromSaucer(saucer)
+    if not Ship:instance() then return SaucerMissile:randomFromSaucer(saucer) end
+    local targ = Targeter(saucer, Ship:instance())
+    local dir = targ:fireDirection()
+    print(dir)
+    bulletStep = dir*saucer.shotSpeed + saucer.step
+    return SaucerMissile(saucer.pos, bulletStep)
 end
 
 function Saucer:die()
