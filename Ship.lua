@@ -6,6 +6,7 @@ Ship = class(Destructible)
 local Instance
 
 function Ship:init(pos)
+    if Instance then U:deleteObject(Instance) end -- there can be only one
     self.pos = pos or vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
@@ -98,6 +99,7 @@ end
 
 function Ship:die()
     local f = function()
+        if U.attractMode then return end
         Ship()
     end
     U:playStereo(U.sounds.bangLarge, self, 0.8)

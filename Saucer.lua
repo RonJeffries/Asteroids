@@ -72,7 +72,6 @@ function SaucerMissile:fromSaucer(saucer)
     end
     local targ = Targeter(saucer, Ship:instance())
     local dir = targ:fireDirection()
-    print(dir)
     bulletStep = dir*saucer.shotSpeed + saucer.step
     return SaucerMissile(saucer.pos, bulletStep)
 end

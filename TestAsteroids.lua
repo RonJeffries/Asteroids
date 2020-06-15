@@ -2,10 +2,10 @@
 -- RJ 20200511
     
 function testAsteroids()
-    CodeaUnit.detailed = true
+    --CodeaUnit.detailed = true
     CodeaUnit.oldU = nil
 
-    _:describe("Asteroids First Tests", function()
+    _:describe("Asteroids Tests", function()
 
         _:before(function()
             CodeaUnit.oldU = U
@@ -20,7 +20,7 @@ function testAsteroids()
             _:expect( 2+1 ).is(3)
         end)
         
-        _:test("Rotated Length", function()
+        _:ignore("Rotated Length", function()
             for i = 0, 1000 do
                 local rand = math.random()*2*math.pi
                 local v = vec2(1.5,0):rotate(rand)
@@ -102,9 +102,10 @@ function testAsteroids()
         _:test("Saucer added to objects", function()
             _:expect(countObjects()).is(0)
             U.currentTime = ElapsedTime
-            Saucer()
+            local s = Saucer()
             U:applyAdditions()
             _:expect(countObjects()).is(1)
+            s:die()
         end)
              
         _:test("Ship added to objects", function()
@@ -122,6 +123,7 @@ function testAsteroids()
             local s = Saucer(pos)
             m:collide(s)
             _:expect(U:destroyedCount()).is(2)
+            s:die()
         end)
         
         _:test("saucer vs missile", function()
@@ -131,6 +133,7 @@ function testAsteroids()
             local s = Saucer(pos)
             s:collide(m)
             _:expect(U:destroyedCount()).is(2)
+            s:die()
         end)
         
         _:test("asteroid vs missile", function()
@@ -161,6 +164,7 @@ function testAsteroids()
             U.destroyed = {}
             a:collide(s)
             _:expect(U:destroyedCount()).is(2)
+            s:die()
         end)
         
         _:test("ship vs asteroid, missile, saucer", function()
@@ -172,6 +176,7 @@ function testAsteroids()
             local s = Saucer(pos)
             ship:collide(m)
             _:expect(U:destroyedCount()).is(2)
+            s:die()
         end)
          
         _:test("asteroids don't mutually destruct", function()
@@ -231,6 +236,7 @@ function testAsteroids()
             a:collide(s)
             _:expect(U:destroyedCount()).is(2)
             _:expect(Score:instance():score()).is(0)
+            s:die()
         end)
         
         _:test("firing from south of ship", function()
