@@ -106,6 +106,6 @@ function Ship:die()
     U:deleteObject(self)
     Instance = nil
     if not U.attractMode then
-        tween(6, self, {}, tween.easing.linear, f)
+        tween.delay(6, f)
     end
 end

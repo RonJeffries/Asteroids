@@ -10,7 +10,7 @@ function Missile:init(pos, step)
     self.pos = pos
     self.step = step 
     U:addObject(self)
-    tween(3, self, {}, tween.easing.linear, die)
+    tween.delay(3, die)
 end
 
 function Missile:fromShip(ship)

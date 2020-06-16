@@ -16,7 +16,7 @@ function Saucer:init(optionalPos)
     self.fireTime = U.currentTime + 1 -- one second from now
     if math.random(2) == 1 then self.step = -self.step end
     self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
-    tween(7, self, {}, tween.easing.linear, die)
+    tween.delay(7, die)
 end
 
 function Saucer:instance()
