@@ -12,7 +12,7 @@ function setup()
 end
 
 function runTests()
-    Console = _.executeToString(false)
+    Console = _.execute()
 end
 
 function draw()

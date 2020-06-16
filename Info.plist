@@ -7,7 +7,6 @@
 		<string>Main</string>
 		<string>Destructible</string>
 		<string>TestAsteroids</string>
-		<string>CodeaUnit</string>
 		<string>Targeter</string>
 		<string>Shapes</string>
 		<string>Ship</string>
@@ -23,6 +22,8 @@
 		<string>Score</string>
 	</array>
 	<key>Dependencies</key>
-	<array/>
+	<array>
+		<string>Documents:CodeaUnit</string>
+	</array>
 </dict>
 </plist>
