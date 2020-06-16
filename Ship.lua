@@ -6,7 +6,6 @@ Ship = class(Destructible)
 local Instance
 
 function Ship:init(pos)
-    if Instance then U:deleteObject(Instance) end -- there can be only one
     self.pos = pos or vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
@@ -106,5 +105,7 @@ function Ship:die()
     Explosion(self)
     U:deleteObject(self)
     Instance = nil
-    tween(6, self, {}, tween.easing.linear, f)
+    if not U.attractMode then
+        tween(6, self, {}, tween.easing.linear, f)
+    end
 end

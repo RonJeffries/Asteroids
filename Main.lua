@@ -6,13 +6,17 @@ Touches = {}
 local Console = ""
 
 function setup()
-    runTests()
     U = Universe()
+    runTests()
     U:newWave()
 end
 
 function runTests()
+    if not CodeaUnit then return end
+    local det = CodeaUnit.detailed
+    CodeaUnit.detailed = false
     Console = _.execute()
+    CodeaUnit.detailed = det
 end
 
 function draw()
@@ -23,7 +27,6 @@ function draw()
         fill(255,255,255, 128)
         text("TOUCH SCREEN TO START", WIDTH/2, HEIGHT/4)
         text(Console, WIDTH/2, HEIGHT - 200)
-        --print("//",Console)
         popStyle()
     end
 end

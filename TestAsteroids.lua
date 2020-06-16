@@ -296,6 +296,7 @@ FakeUniverse = class()
 
 function FakeUniverse:init()
     Score()
+    self.attractMode = true
     self.sounds = U.sounds -- U is present. See before().
     self.currentTime = ElapsedTime
     self.score = 0

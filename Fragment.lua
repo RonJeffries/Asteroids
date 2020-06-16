@@ -4,7 +4,6 @@
 Fragment = class()
 
 function Fragment:init(pos, guy)
-    print("frag", self, guy)
     self.pos = pos
     self.color = 255
     self.frag = not guy
@@ -26,7 +25,6 @@ function Fragment:draw()
     self.life = self.life - DeltaTime
     if self.life < 0 then
         U:deleteIndestructible(self)
-        print("fragdie", self)
     end
     pushStyle()
     pushMatrix()

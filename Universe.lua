@@ -182,7 +182,7 @@ end
 function Universe:findCollisions()
     for k, o in pairs(self.objects) do
         for kk, oo in pairs(self.objects) do
-            o:collide(oo)
+            if self.objects[o] then o:collide(oo) end
         end
     end
 end
