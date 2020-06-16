@@ -87,7 +87,6 @@ function Universe:checkBeat()
     end
 end
 
-
 function Universe:checkSaucer()
     if self.attractMode or Saucer:instance() then return end
     if self.currentTime - self.saucerTime > self.saucerInterval then
