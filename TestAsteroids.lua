@@ -20,16 +20,6 @@ function testAsteroids()
             _:expect( 2+1 ).is(3)
         end)
         
-        _:ignore("Rotated Length", function()
-            for i = 0, 1000 do
-                local rand = math.random()*2*math.pi
-                local v = vec2(1.5,0):rotate(rand)
-                local d = v:len()
-                _:expect(d > 1.495).is(true)
-                _:expect(d < 1.505).is(true)
-            end
-        end)
-        
         _:test("Some rotates go down", function()
             local angle = math.rad(-45)
             local v = vec2(1,0):rotate(angle)
