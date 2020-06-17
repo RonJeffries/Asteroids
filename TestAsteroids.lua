@@ -271,6 +271,25 @@ function testAsteroids()
             _:expect(dir:len()).is(1,0.01)
         end)
         
+        _:test("spawn only N ships", function()
+            s = Score(4)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(false)
+        end)
+        
+        _:test("ships actually spawned", function()
+            U = FakeUniverse()
+            s = Score(3)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(true)
+            _:expect(s:spawnShip()).is(false)
+            _:expect(#U.objects).is(3)
+        end)
+        
     end)
 end
 
@@ -291,6 +310,7 @@ function FakeUniverse:init()
     self.currentTime = ElapsedTime
     self.score = 0
     self.destroyed = {}
+    self.objects = {}
 end
 
 function FakeUniverse:deleteObject(anObject)
@@ -309,7 +329,8 @@ function FakeUniverse:count(aTable)
     return c
 end
 
-function FakeUniverse:addObject(ignored)
+function FakeUniverse:addObject(anObject)
+    table.insert(self.objects, anObject)
 end
 
 function FakeUniverse:addIndestructible(ignored)

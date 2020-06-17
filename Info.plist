@@ -7,6 +7,7 @@
 		<string>Main</string>
 		<string>Destructible</string>
 		<string>TestAsteroids</string>
+		<string>Score</string>
 		<string>Targeter</string>
 		<string>Shapes</string>
 		<string>Ship</string>
@@ -19,7 +20,6 @@
 		<string>Fragment</string>
 		<string>Explosion</string>
 		<string>Saucer</string>
-		<string>Score</string>
 	</array>
 	<key>Dependencies</key>
 	<array>

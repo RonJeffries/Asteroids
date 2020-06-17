@@ -45,8 +45,7 @@ function Universe:startGame(currentTime)
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
     createButtons()
-    Ship()
-    Score()
+    Score(4):spawnShip()
     self:newWave()
 end
 

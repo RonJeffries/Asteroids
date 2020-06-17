@@ -99,7 +99,7 @@ end
 function Ship:die()
     local f = function()
         if U.attractMode then return end
-        Ship()
+        Score:instance():spawnShip()
     end
     U:playStereo(U.sounds.bangLarge, self, 0.8)
     Explosion(self)
