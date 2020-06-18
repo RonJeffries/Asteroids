@@ -20,12 +20,16 @@ end
 local accel = 0
 
 function Ship:draw()
+    self:drawAt(self.pos, self.radians)
+end
+
+function Ship:drawAt(pos,radians)
    local sx = 10
    local sy = 6
    pushStyle()
    pushMatrix()
-   translate(self.pos.x, self.pos.y)
-   rotate(math.deg(self.radians))
+   translate(pos.x, pos.y)
+   rotate(math.deg(radians))
    strokeWidth(1)
    stroke(255)
    scale(2)

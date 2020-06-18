@@ -16,7 +16,19 @@ function Saucer:init(optionalPos)
     self.fireTime = U.currentTime + 1 -- one second from now
     if math.random(2) == 1 then self.step = -self.step end
     self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
+    self:setRandomTurnTime()
     tween.delay(7, die)
+end
+
+function Saucer:setRandomTurnTime()
+    self.turnTime = ElapsedTime + 0.5 + math.random()
+end
+
+function Saucer:randomTurn()
+    local x = self.step.x > 0 and 1 or -1
+    local y = math.random(-1,1)
+    self.step = vec2(x, y):normalize()*2
+    self:setRandomTurnTime()
 end
 
 function Saucer:instance()
@@ -50,6 +62,9 @@ function Saucer:draw()
 end
 
 function Saucer:move()
+    if self.turnTime < ElapsedTime then
+        self:randomTurn()
+    end
     U:moveObject(self)
     if U.currentTime >= self.fireTime then
         U:playStereo(U.sounds.saucerFire, self)
