@@ -26,7 +26,7 @@ function Score:draw()
 end
 
 function Score:drawSmallSaucer()
-    return self.totalScore > 300
+    return self.totalScore > 3000
 end
 
 function Score:instance()
