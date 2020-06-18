@@ -92,6 +92,7 @@ function testAsteroids()
         _:test("Saucer added to objects", function()
             _:expect(countObjects()).is(0)
             U.currentTime = ElapsedTime
+            Score(4)
             local s = Saucer()
             U:applyAdditions()
             _:expect(countObjects()).is(1)

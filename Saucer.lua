@@ -10,12 +10,18 @@ function Saucer:init(optionalPos)
     end
     Instance = self
     U:addObject(self)
+    if Score:instance():drawSmallSaucer() then
+        self.size = 0.5
+        self.sound = sound(asset.saucerSmallHi, 0.8, 1, 0, true)
+    else
+        self.size = 1
+        self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
+    end
     self.shotSpeed = 5
     self.pos = optionalPos or vec2(0, math.random(HEIGHT))
     self.step = vec2(2,0)
     self.fireTime = U.currentTime + 1 -- one second from now
     if math.random(2) == 1 then self.step = -self.step end
-    self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
     self:setRandomTurnTime()
     tween.delay(7, die)
 end
@@ -36,14 +42,14 @@ function Saucer:instance()
 end
 
 function Saucer:killDist()
-    return 20
+    return 20*self.size
 end
 
 function Saucer:draw()
    pushMatrix()
    pushStyle()
    translate(self.pos.x%WIDTH, self.pos.y%HEIGHT)
-   scale(4)
+   scale(4*self.size)
    stroke(255)
    strokeWidth(1)
    line(-2,1, 2,1)
