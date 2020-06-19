@@ -25,7 +25,6 @@ end
 
 function Targeter:fireDirection()
     local dt = self:timeToTarget()
-    if dt < 0 then return vec2(0,1) end
     if dt < 0 then return vec2(1,0):rotate(2*math.pi*math.random()) end
     local trueAimPoint = self.target.pos + self.target.step*dt
     local relativeAimPoint = trueAimPoint - self.saucer.pos
