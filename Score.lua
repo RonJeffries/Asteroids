@@ -25,8 +25,8 @@ function Score:draw()
     popStyle()
 end
 
-function Score:drawSmallSaucer()
-    return self.totalScore > 3000
+function Score:shouldDrawSmallSaucer()
+    return self.totalScore >= 3000
 end
 
 function Score:instance()

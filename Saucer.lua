@@ -10,7 +10,7 @@ function Saucer:init(optionalPos)
     end
     Instance = self
     U:addObject(self)
-    if Score:instance():drawSmallSaucer() then
+    if Score:instance():shouldDrawSmallSaucer() then
         self.size = 0.5
         self.sound = sound(asset.saucerSmallHi, 0.8, 1, 0, true)
     else
@@ -79,7 +79,6 @@ function Saucer:move()
     end
 end
 
-
 function SaucerMissile:randomFromSaucer(saucer)
     local rot = math.random()*2*math.pi
     local pos = saucer.pos + vec2(saucer:killDist() + 1, 0):rotate(rot)
@@ -88,13 +87,17 @@ function SaucerMissile:randomFromSaucer(saucer)
 end
 
 function SaucerMissile:fromSaucer(saucer)
-    if not Ship:instance() or math.random(20) < 20 then 
+    if not Ship:instance() or math.random() < saucer:accuracyFraction() then 
         return SaucerMissile:randomFromSaucer(saucer) 
     end
     local targ = Targeter(saucer, Ship:instance())
     local dir = targ:fireDirection()
     bulletStep = dir*saucer.shotSpeed + saucer.step
     return SaucerMissile(saucer.pos, bulletStep)
+end
+
+function Saucer:accuracyFraction()
+    return self.size == 1 and 1/20 or 4/20
 end
 
 function Saucer:die()
@@ -111,7 +114,7 @@ end
 
 function Saucer:score(anObject)
     if anObject:is_a(Missile) then
-        return 250
+        return self.size == 1 and 250 or 1000
     else
         return 0
     end
