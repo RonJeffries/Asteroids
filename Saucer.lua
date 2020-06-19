@@ -87,7 +87,7 @@ function SaucerMissile:randomFromSaucer(saucer)
 end
 
 function SaucerMissile:fromSaucer(saucer)
-    if not Ship:instance() or math.random() < saucer:accuracyFraction() then 
+    if not Ship:instance() or math.random() > saucer:accuracyFraction() then 
         return SaucerMissile:randomFromSaucer(saucer) 
     end
     local targ = Targeter(saucer, Ship:instance())

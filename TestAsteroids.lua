@@ -310,6 +310,23 @@ function testAsteroids()
             s:dieQuietly()
         end)
         
+        _:test("Small Saucer shoots at 4/20 accuracy", function()
+            U = FakeUniverse()
+            local score = Score(3)
+            score:addScore(3000)
+            local ship = Ship(vec2(400,800))
+            local saucer = Saucer(vec2(500,800))
+            local count = 0
+            for i = 1,1000 do
+                local m = SaucerMissile:fromSaucer(saucer)
+                if m.step.y == 0 then
+                    count = count + 1
+                end
+            end
+            saucer:dieQuietly()
+            _:expect(count).is(200,50)
+        end)
+        
     end)
 end
 
@@ -328,6 +345,7 @@ function FakeUniverse:init()
     self.attractMode = true
     self.sounds = U.sounds -- U is present. See before().
     self.currentTime = ElapsedTime
+    self.missileVelocity = vec2(2,0)
     self.score = 0
     self.destroyed = {}
     self.objects = {}
