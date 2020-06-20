@@ -327,6 +327,17 @@ function testAsteroids()
             _:expect(count).is(200,50)
         end)
         
+        _:test("Free ship every N points", function()
+            U = FakeUniverse()
+            local score = Score(3)
+            score:addScore(U.freeShipPoints)
+            _:expect(score.shipCount).is(4)
+            score:addScore(U.freeShipPoints/2)
+            _:expect(score.shipCount).is(4)
+            score:addScore(U.freeShipPoints/2)
+            _:expect(score.shipCount).is(5)
+        end)
+
     end)
 end
 
@@ -344,6 +355,7 @@ function FakeUniverse:init()
     Score()
     self.attractMode = true
     self.sounds = U.sounds -- U is present. See before().
+    self.freeShipPoints = 10000
     self.currentTime = ElapsedTime
     self.missileVelocity = vec2(2,0)
     self.score = 0

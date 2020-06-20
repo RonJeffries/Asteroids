@@ -10,6 +10,7 @@ function Universe:init()
     self.rotationStep = math.rad(1.5) -- degrees
     self.missileVelocity = vec2(MissileSpeed,0)
     self.frame64 = 0
+    self.freeShipPoints = 10000
     self.saucerInterval = 7
     self.timeBetweenWaves = 2
     self.timeOfNextWave= 0

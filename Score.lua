@@ -6,6 +6,7 @@ function Score:init(shipCount)
     self.shipCount = shipCount or 1
     self.gameIsOver = false
     self.totalScore = 0
+    self.nextFreeShip = U.freeShipPoints
     Instance = self
     U:addIndestructible(self)
 end
@@ -35,6 +36,10 @@ end
 
 function Score:addScore(aNumber)
     self.totalScore = self.totalScore + aNumber
+    if self.totalScore >= self.nextFreeShip then
+        self.shipCount = self.shipCount + 1
+        self.nextFreeShip = self.nextFreeShip + U.freeShipPoints
+    end
 end
 
 function Score:score()
