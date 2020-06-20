@@ -17,7 +17,7 @@ function Saucer:init(optionalPos)
         self.size = 1
         self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
     end
-    self.shotSpeed = 5
+    self.shotSpeed = 3
     self.pos = optionalPos or vec2(0, math.random(HEIGHT))
     self.step = vec2(2,0)
     self.fireTime = U.currentTime + 1 -- one second from now
