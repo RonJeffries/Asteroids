@@ -197,7 +197,7 @@ end
 
 function Universe:newWaveSize()
     self.waveSize = (self.waveSize or 2) + 2
-    if  self.waveSize > 11 then self.waveSize = 11 end
+    if  self.waveSize > 10 then self.waveSize = 10 end
     return self.waveSize
 end
 
