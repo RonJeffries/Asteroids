@@ -39,6 +39,7 @@ function Score:addScore(aNumber)
     if self.totalScore >= self.nextFreeShip then
         self.shipCount = self.shipCount + 1
         self.nextFreeShip = self.nextFreeShip + U.freeShipPoints
+        sound(U.sounds.extraShip)
     end
 end
 
