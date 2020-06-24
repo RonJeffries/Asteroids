@@ -93,7 +93,6 @@ function SaucerMissile:fromSaucer(saucer)
     local gunPos = saucer.pos
     local ship = Ship:instance()
     local tgtPos = ship.pos + ship.step*120
-    print(gunPos,tgtPos)
     local aim = Aimer(gunPos,tgtPos)
     local ang = aim:pureAngle()
     local bulletStep = vec2(saucer.shotSpeed, 0):rotate(ang)
