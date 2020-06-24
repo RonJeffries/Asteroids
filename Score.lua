@@ -67,5 +67,5 @@ function Score:stopGame()
         U.attractMode = true
     end
     self.gameIsOver = true
-    if not U.attractMode then tween.delay(10,f) end
+    if not U.attractMode then tween.delay(5,f) end
 end

@@ -90,10 +90,14 @@ function SaucerMissile:fromSaucer(saucer)
     if not Ship:instance() or math.random() > saucer:accuracyFraction() then 
         return SaucerMissile:randomFromSaucer(saucer) 
     end
-    local targ = Targeter(saucer, Ship:instance())
-    local dir = targ:fireDirection()
-    bulletStep = dir*saucer.shotSpeed + saucer.step
-    return SaucerMissile(saucer.pos, bulletStep)
+    local gunPos = saucer.pos
+    local ship = Ship:instance()
+    local tgtPos = ship.pos + ship.step*120
+    print(gunPos,tgtPos)
+    local aim = Aimer(gunPos,tgtPos)
+    local ang = aim:pureAngle()
+    local bulletStep = vec2(saucer.shotSpeed, 0):rotate(ang)
+    return SaucerMissile(gunPos, bulletStep)
 end
 
 function Saucer:accuracyFraction()

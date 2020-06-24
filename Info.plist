@@ -7,12 +7,12 @@
 		<string>Main</string>
 		<string>Destructible</string>
 		<string>TestAsteroids</string>
+		<string>TestAiming</string>
 		<string>Ship</string>
 		<string>Missile</string>
 		<string>SaucerMissile</string>
 		<string>Saucer</string>
 		<string>Score</string>
-		<string>Targeter</string>
 		<string>Shapes</string>
 		<string>Button</string>
 		<string>Asteroid</string>
