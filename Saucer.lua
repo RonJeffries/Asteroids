@@ -87,14 +87,19 @@ function SaucerMissile:randomFromSaucer(saucer)
 end
 
 function SaucerMissile:fromSaucer(saucer)
-    if not Ship:instance() or math.random() > saucer:accuracyFraction() then 
-        return SaucerMissile:randomFromSaucer(saucer) 
-    end
-    local gunPos = saucer.pos
     local ship = Ship:instance()
+    if not ship or math.random() > saucer:accuracyFraction() then 
+        return SaucerMissile:randomFromSaucer(saucer) 
+    else
+        return SaucerMissile:aimedFromSaucer(saucer,ship)
+    end
+end
+    
+function SaucerMissile:aimedFromSaucer(saucer, ship)
+    local gunPos = saucer.pos
     local tgtPos = ship.pos + ship.step*120
-    local aim = Aimer(gunPos,tgtPos)
-    local ang = aim:pureAngle()
+    local toTarget = tgtPos - gunPos
+    local ang = vec2(0,0):angleBetween(toTarget)
     local bulletStep = vec2(saucer.shotSpeed, 0):rotate(ang)
     return SaucerMissile(gunPos, bulletStep)
 end

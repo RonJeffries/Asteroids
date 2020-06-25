@@ -277,7 +277,7 @@ function testAsteroids()
             local count = 0
             for i = 1,1000 do
                 local m = SaucerMissile:fromSaucer(saucer)
-                if m.step.y == 0 then
+                if m.step.y < 0.001 and m.step.y > -0.001 then
                     count = count + 1
                 end
             end
