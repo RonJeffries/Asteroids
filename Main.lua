@@ -6,6 +6,10 @@ Touches = {}
 local Console = ""
 
 function setup()
+    parameter.boolean("FullScreen", false)
+    parameter.integer("NumberOfShips", 2,5,4)
+    parameter.boolean("InfiniteShips", false)
+    parameter.boolean("NoAsteroids", false)
     U = Universe()
     runTests()
     U:newWave()

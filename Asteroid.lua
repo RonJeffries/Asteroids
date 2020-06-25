@@ -16,6 +16,7 @@ function Asteroid:init(pos, size)
 end
 
 function Asteroid:killDist()
+    if NoAsteroids then return -1000 end
     local s = self.scale
     if s == 16 then return 64 elseif s == 8 then return 32 else return 16 end
 end
@@ -61,6 +62,7 @@ function Asteroid:die()
 end
 
 function Asteroid:draw()
+    if NoAsteroids then return end
     pushMatrix()
     pushStyle()
     stroke(255)

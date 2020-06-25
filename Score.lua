@@ -51,6 +51,7 @@ function Score:move()
 end
 
 function Score:spawnShip()
+    if InfiniteShips then self.shipCount = self.shipCount + 1 end
     if self.shipCount <= 0 then
         self:stopGame()
         return false

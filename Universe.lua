@@ -46,7 +46,7 @@ function Universe:startGame(currentTime)
     self.waveSize = nil
     self.lastBeatTime = self.currentTime
     createButtons()
-    Score(4):spawnShip()
+    Score(NumberOfShips):spawnShip()
     self:newWave()
 end
 
@@ -56,7 +56,9 @@ function Universe:draw(currentTime)
     self:checkSaucer()
     self:checkNewWave()
     self:adjustTimeValues(currentTime)
-    --displayMode(FULLSCREEN_NO_BUTTONS)
+    if FullScreen then
+      displayMode(FULLSCREEN_NO_BUTTONS)
+    end
     background(40, 40, 50)
     checkButtons()
     drawButtons()
