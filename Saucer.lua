@@ -99,7 +99,7 @@ function SaucerMissile:aimedFromSaucer(saucer, ship)
     local gunPos = saucer.pos
     local tgtPos = ship.pos + ship.step*120
     local toTarget = tgtPos - gunPos
-    local ang = vec2(0,0):angleBetween(toTarget)
+    local ang = vec2(1,0):angleBetween(toTarget)
     local bulletStep = vec2(saucer.shotSpeed, 0):rotate(ang)
     return SaucerMissile(gunPos, bulletStep)
 end
