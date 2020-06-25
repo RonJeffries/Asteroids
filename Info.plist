@@ -7,10 +7,8 @@
 		<string>Main</string>
 		<string>Destructible</string>
 		<string>TestAsteroids</string>
-		<string>TestAiming</string>
 		<string>Ship</string>
 		<string>Missile</string>
-		<string>SaucerMissile</string>
 		<string>Saucer</string>
 		<string>Score</string>
 		<string>Shapes</string>
@@ -18,7 +16,6 @@
 		<string>Asteroid</string>
 		<string>Splat</string>
 		<string>Universe</string>
-		<string>Fragment</string>
 		<string>Explosion</string>
 	</array>
 	<key>Dependencies</key>

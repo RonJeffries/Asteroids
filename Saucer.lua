@@ -79,31 +79,6 @@ function Saucer:move()
     end
 end
 
-function SaucerMissile:randomFromSaucer(saucer)
-    local rot = math.random()*2*math.pi
-    local pos = saucer.pos + vec2(saucer:killDist() + 1, 0):rotate(rot)
-    local vel = U.missileVelocity:rotate(rot) + saucer.step
-    return SaucerMissile(pos, vel)
-end
-
-function SaucerMissile:fromSaucer(saucer)
-    local ship = Ship:instance()
-    if not ship or math.random() > saucer:accuracyFraction() then 
-        return SaucerMissile:randomFromSaucer(saucer) 
-    else
-        return SaucerMissile:aimedFromSaucer(saucer,ship)
-    end
-end
-    
-function SaucerMissile:aimedFromSaucer(saucer, ship)
-    local gunPos = saucer.pos
-    local tgtPos = ship.pos + ship.step*120
-    local toTarget = tgtPos - gunPos
-    local ang = vec2(1,0):angleBetween(toTarget)
-    local bulletStep = vec2(saucer.shotSpeed, 0):rotate(ang)
-    return SaucerMissile(gunPos, bulletStep)
-end
-
 function Saucer:accuracyFraction()
     return self.size == 1 and 1/20 or 4/20
 end
