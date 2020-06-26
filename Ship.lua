@@ -10,6 +10,7 @@ function Ship:init(pos)
     self.radians = 0
     self.step = vec2(0,0)
     self.realSpace = true
+    self.scale = 2
     Instance = self
     U:addObject(self)
 end
@@ -23,6 +24,8 @@ local accel = 0
 function Ship:draw()
     if self.realSpace then
         self:drawAt(self.pos, self.radians)
+    else
+        print(self.pos)
     end
 end
 
@@ -35,7 +38,7 @@ function Ship:drawAt(pos,radians)
    rotate(math.deg(radians))
    strokeWidth(1)
    stroke(255)
-   scale(2)
+   scale(self.scale or 2)
    line(-3,-2, -3,2)
    line(-3,2, -5,4)
    line(-5,4, 7,0)
@@ -53,11 +56,14 @@ end
 
 function Ship:move()
     if self.realSpace then
-        if U.button.hyperspace then self:enterHyperspace() end
-        if U.button.turn then self:turn() end
-        if U.button.fire and not self.holdFire then self:fireMissile() end
-        if not U.button.fire then self.holdFire = false end
-        self:actualShipMove()
+        if U.button.hyperspace then
+            self:enterHyperspace()
+        else
+            if U.button.turn then self:turn() end
+            if U.button.fire and not self.holdFire then self:fireMissile() end
+            if not U.button.fire then self.holdFire = false end
+            self:actualShipMove()
+        end
     end
 end
 
@@ -65,6 +71,8 @@ function Ship:enterHyperspace()
     local appear = function()
         self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
         self.realSpace = true
+        self.scale = 10
+        tween(1, self, {scale=2})     
     end
     self.realSpace = false
     self.pos = vec2(10000,10000)
