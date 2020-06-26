@@ -9,6 +9,7 @@ function Ship:init(pos)
     self.pos = pos or vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
+    self.realSpace = true
     Instance = self
     U:addObject(self)
 end
@@ -24,6 +25,7 @@ function Ship:draw()
 end
 
 function Ship:drawAt(pos,radians)
+    if not self.realSpace then return end
    local sx = 10
    local sy = 6
    pushStyle()
@@ -49,10 +51,23 @@ function Ship:drawAt(pos,radians)
 end
 
 function Ship:move()
-    if U.button.turn then self:turn() end
-    if U.button.fire and not self.holdFire then self:fireMissile() end
-    if not U.button.fire then self.holdFire = false end
-    self:actualShipMove()
+    if self.realSpace then
+        if U.button.hyperspace then self:enterHyperspace() end
+        if U.button.turn then self:turn() end
+        if U.button.fire and not self.holdFire then self:fireMissile() end
+        if not U.button.fire then self.holdFire = false end
+        self:actualShipMove()
+    end
+end
+
+function Ship:enterHyperspace()
+    local appear = function()
+        self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+        self.realSpace = true
+    end
+    self.realSpace = false
+    self.pos = vec2(10000,10000)
+    tween.delay(6,appear)
 end
 
 function Ship:score()

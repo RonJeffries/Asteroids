@@ -11,6 +11,7 @@ function createButtons()
     table.insert(Buttons, {x=cen.x, y=cen.y, radius=125, name="turn"})
     table.insert(Buttons, {x=WIDTH-dx, y=dy, radius=dx, name="fire"})
     table.insert(Buttons, {x=WIDTH-dy, y=dx, radius=dx, name = "go"})
+    table.insert(Buttons, {x = cen.x + 250, y = cen.y-25, radius=100, name = "hyperspace"})
 end
 
 function checkButtons()
@@ -20,6 +21,7 @@ function checkButtons()
     U.button. turnPos = nil
     U.button.go = false
     U.button.fire = false
+    U.button.hyperspace = false
     for id,touch in pairs(Touches) do
         for i,button in ipairs(Buttons) do
             if touch.pos:dist(vec2(button.x,button.y)) < button.radius then
