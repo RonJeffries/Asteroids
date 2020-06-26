@@ -54,15 +54,6 @@ function SaucerMissile:randomFromSaucer(saucer)
     local vel = U.missileVelocity:rotate(rot) + saucer.step
     return SaucerMissile(pos, vel)
 end
-
-function SaucerMissile:fromSaucer(saucer)
-    local ship = Ship:instance()
-    if not ship or math.random() > saucer:accuracyFraction() then 
-        return SaucerMissile:randomFromSaucer(saucer) 
-    else
-        return SaucerMissile:aimedFromSaucer(saucer,ship)
-    end
-end
     
 function SaucerMissile:aimedFromSaucer(saucer, ship)
     local gunPos = saucer.pos

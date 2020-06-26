@@ -274,9 +274,10 @@ function testAsteroids()
             score:addScore(3000)
             local ship = Ship(vec2(400,800))
             local saucer = Saucer(vec2(500,800))
+            _:expect(saucer.size).is(0.5, 0.0001)
             local count = 0
             for i = 1,1000 do
-                local m = SaucerMissile:fromSaucer(saucer)
+                local m = saucer:fireMissile()
                 if m.step.y < 0.001 and m.step.y > -0.001 then
                     count = count + 1
                 end
@@ -304,6 +305,15 @@ function testAsteroids()
     local bullet
 
     _:describe("Aiming Tests", function()
+
+        _:before(function()
+            CodeaUnit.oldU = U
+            U = Universe()
+        end)
+
+        _:after(function()
+            U = CodeaUnit.oldU
+        end)
         
         _:test("angle between", function()
             _:expect(math.deg(vec2(0,0):angleBetween(vec2(200,200)))).is(45)
