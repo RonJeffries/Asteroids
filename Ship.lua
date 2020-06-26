@@ -21,11 +21,12 @@ end
 local accel = 0
 
 function Ship:draw()
-    self:drawAt(self.pos, self.radians)
+    if self.realSpace then
+        self:drawAt(self.pos, self.radians)
+    end
 end
 
 function Ship:drawAt(pos,radians)
-    if not self.realSpace then return end
    local sx = 10
    local sy = 6
    pushStyle()
