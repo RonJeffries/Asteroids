@@ -68,12 +68,10 @@ function Ship:move()
 end
 
 function Ship:safeToAppear()
-    if not self.safe then
-        self.safe = true
-        return false
-    else
-        return true
+    for k,o in pairs(U.objects) do
+        if self:inRange(o) then return false end
     end
+    return true
 end
 
 function Ship:signalUnsafe()
@@ -94,7 +92,9 @@ function Ship:enterHyperspace()
     end
     self.realSpace = false
     U.objects[self] = nil
-    self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    local w = math.random(WIDTH-200)
+    local h = math.random(HEIGHT-300)
+    self.pos = vec2(w,h) + vec2(100,200)
     self.hyperReturn = appear
     tween.delay(3,appear)
 end
