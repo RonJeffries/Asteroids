@@ -67,16 +67,36 @@ function Ship:move()
     end
 end
 
+function Ship:safeToAppear()
+    if not self.safe then
+        self.safe = true
+        return false
+    else
+        return true
+    end
+end
+
+function Ship:signalUnsafe()
+    sound(U.sounds.extraShip)
+end
+
 function Ship:enterHyperspace()
     local appear = function()
-        self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
-        self.realSpace = true
-        self.scale = 10
-        tween(1, self, {scale=2})     
+        if self:safeToAppear() then
+            U:addObject(self)
+            self.realSpace = true
+            self.scale = 10
+            tween(1, self, {scale=2})
+        else
+            self:signalUnsafe()
+            tween.delay(3, self.hyperReturn)
+        end
     end
     self.realSpace = false
-    self.pos = vec2(10000,10000)
-    tween.delay(6,appear)
+    U.objects[self] = nil
+    self.pos = vec2(math.random(WIDTH), math.random(HEIGHT))
+    self.hyperReturn = appear
+    tween.delay(3,appear)
 end
 
 function Ship:score()
