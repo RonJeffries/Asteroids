@@ -9,7 +9,6 @@ function Ship:init(pos)
     self.pos = pos or vec2(WIDTH, HEIGHT)/2
     self.radians = 0
     self.step = vec2(0,0)
-    self.realSpace = true
     self.scale = 2
     Instance = self
     U:addObject(self)
@@ -22,11 +21,7 @@ end
 local accel = 0
 
 function Ship:draw()
-    if self.realSpace then
-        self:drawAt(self.pos, self.radians)
-    else
-        print(self.pos)
-    end
+    self:drawAt(self.pos, self.radians)
 end
 
 function Ship:drawAt(pos,radians)
@@ -55,15 +50,13 @@ function Ship:drawAt(pos,radians)
 end
 
 function Ship:move()
-    if self.realSpace then
-        if U.button.hyperspace then
-            self:enterHyperspace()
-        else
-            if U.button.turn then self:turn() end
-            if U.button.fire and not self.holdFire then self:fireMissile() end
-            if not U.button.fire then self.holdFire = false end
-            self:actualShipMove()
-        end
+    if U.button.hyperspace then
+        self:enterHyperspace()
+    else
+        if U.button.turn then self:turn() end
+        if U.button.fire and not self.holdFire then self:fireMissile() end
+        if not U.button.fire then self.holdFire = false end
+        self:actualShipMove()
     end
 end
 
@@ -82,7 +75,6 @@ function Ship:enterHyperspace()
     local appear = function()
         if self:safeToAppear() then
             U:addObject(self)
-            self.realSpace = true
             self.scale = 10
             tween(1, self, {scale=2})
         else
@@ -90,7 +82,6 @@ function Ship:enterHyperspace()
             tween.delay(3, self.hyperReturn)
         end
     end
-    self.realSpace = false
     U.objects[self] = nil
     local w = math.random(WIDTH-200)
     local h = math.random(HEIGHT-300)
