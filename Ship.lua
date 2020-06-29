@@ -68,7 +68,7 @@ function Ship:safeToAppear()
 end
 
 function Ship:signalUnsafe()
-    sound(U.sounds.extraShip)
+    -- no signal implemented at this time
 end
 
 function Ship:enterHyperspace()
