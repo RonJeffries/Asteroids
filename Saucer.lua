@@ -87,7 +87,7 @@ end
 
 function Saucer:accuracyFraction()
     if PerfectSaucerShots then return 1 end
-    return self.size == 1 and 1/20 or 4/20
+    return self.size == 1 and 1/20 or 20/20
 end
 
 function Saucer:die()
