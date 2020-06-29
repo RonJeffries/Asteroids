@@ -10,13 +10,8 @@ function Saucer:init(optionalPos)
     end
     Instance = self
     U:addObject(self)
-    if Score:instance():shouldDrawSmallSaucer() then
-        self.size = 0.5
-        self.sound = sound(asset.saucerSmallHi, 0.8, 1, 0, true)
-    else
-        self.size = 1
-        self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
-    end
+    self.size = Score:instance():shouldDrawSmallSaucer() and 0.5 or 1
+    self:startSound()
     self.shotSpeed = 3
     self.firstShot = true
     self.pos = optionalPos or vec2(0, math.random(HEIGHT))
@@ -25,6 +20,14 @@ function Saucer:init(optionalPos)
     if math.random(2) == 1 then self.step = -self.step end
     self:setRandomTurnTime()
     tween.delay(7, die)
+end
+
+function Saucer:startSound()
+    if Score:instance():shouldDrawSmallSaucer() then
+        self.sound = sound(asset.saucerSmallHi, 0.8, 1, 0, true)
+    else
+        self.sound = sound(asset.saucerBigHi, 0.8, 1, 0, true)
+    end
 end
 
 function Saucer:setRandomTurnTime()
@@ -101,10 +104,14 @@ function Saucer:die()
 end
 
 function Saucer:dieQuietly()
-    self.sound:stop()
+    self:stopSound()
     U:deleteObject(self)
     Instance = nil
     U.saucerTime = U.currentTime
+end
+
+function Saucer:stopSound()
+    self.sound:stop()
 end
 
 function Saucer:score(anObject)
