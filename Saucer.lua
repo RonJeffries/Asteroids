@@ -128,7 +128,7 @@ end
 
 function Saucer:score(anObject)
     if anObject:is_a(Missile) then
-        return self.size == 1 and 250 or 1000
+        return self.size == 1 and 200 or 1000
     else
         return 0
     end
