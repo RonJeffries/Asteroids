@@ -82,12 +82,18 @@ function Ship:enterHyperspace()
             tween.delay(3, self.hyperReturn)
         end
     end
-    U.objects[self] = nil
-    local w = math.random(WIDTH-200)
-    local h = math.random(HEIGHT-300)
-    self.pos = vec2(w,h) + vec2(100,200)
+    U:deleteObject(self)
+    self.pos = self:randomPointIn(100,200, WIDTH-100, HEIGHT-100)
     self.hyperReturn = appear
     tween.delay(3,appear)
+end
+
+function Ship:randomPointIn(x1, y1, x2, y2)
+    local widthRange = x2 - x1
+    local heightRange = y2 - y1
+    local width = math.random(widthRange)
+    local height = math.random(heightRange)
+    return vec2(x1,y1) + vec2(width,height)
 end
 
 function Ship:score()
