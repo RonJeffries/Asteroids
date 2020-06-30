@@ -73,6 +73,9 @@ function Saucer:move()
         self.fireTime = U.currentTime + 0.5
         self:fireMissile()
     end
+    if U.currentTime > self.nextSoundTime then
+        self:playSound()
+    end
 end
 
 function Saucer:fireMissile()
@@ -96,22 +99,9 @@ function Saucer:die()
 end
 
 function Saucer:dieQuietly()
-    self:stopSound()
     U:deleteObject(self)
     Instance = nil
     U.saucerTime = U.currentTime
-end
-
-function Saucer:startSound()
-    local play = function()
-        U:playStereo(self.sound, self)
-        self.sounder = tween.delay(self.soundDelay, self.playFunction)
-    end
-    self.playFunction = play
-    self.soundDelay = 0.2
-    self.sound = self:selectSound()
-    U:playStereo(self.sound, self)
-    self.sounder = tween.delay(self.soundDelay, self.playFunction)
 end
 
 function Saucer:selectSound()
@@ -122,8 +112,15 @@ function Saucer:selectSound()
     end
 end
 
-function Saucer:stopSound()
-    tween.stop(self.sounder)
+function Saucer:startSound()
+    self.soundDelay = 0.2
+    self.sound = self:selectSound()
+    self:playSound()
+end
+
+function Saucer:playSound()
+    U:playStereo(self.sound, self)
+    self.nextSoundTime = U.currentTime + self.soundDelay
 end
 
 function Saucer:score(anObject)
