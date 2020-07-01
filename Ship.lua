@@ -98,23 +98,6 @@ function Ship:dropIn()
     tween(1, self, {scale=2})
 end
 
-function Ship:xxxenterHyperspace()
-    local appear = function()
-        if self:safeToAppear() then
-            U:addObject(self)
-            self.scale = 10
-            tween(1, self, {scale=2})
-        else
-            self:signalUnsafe()
-            tween.delay(3, self.hyperReturn)
-        end
-    end
-    U:deleteObject(self)
-    self.pos = self:randomPointIn(100,200, WIDTH-100, HEIGHT-100)
-    self.hyperReturn = appear
-    tween.delay(3,appear)
-end
-
 function Ship:randomPointIn(x1, y1, x2, y2)
     local widthRange = x2 - x1
     local heightRange = y2 - y1
