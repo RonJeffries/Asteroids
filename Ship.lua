@@ -72,6 +72,33 @@ function Ship:signalUnsafe()
 end
 
 function Ship:enterHyperspace()
+    local tryToAppear = function()
+        self:tryToAppear()
+    end
+    U:deleteObject(self)
+    self.pos = self:randomPointIn(100,200, WIDTH-100, HEIGHT-100)
+    tween.delay(3,tryToAppear)
+end
+
+function Ship:tryToAppear()
+    local tryAgain = function()
+        self:tryToAppear()
+    end
+    if self:safeToAppear() then
+        U:addObject(self)
+        self:dropIn()
+    else
+        self:signalUnsafe()
+        tween.delay(3,tryAgain)
+    end
+end
+
+function Ship:dropIn()
+    self.scale = 10
+    tween(1, self, {scale=2})
+end
+
+function Ship:xxxenterHyperspace()
     local appear = function()
         if self:safeToAppear() then
             U:addObject(self)

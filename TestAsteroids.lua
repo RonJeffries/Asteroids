@@ -20,6 +20,16 @@ function testAsteroids()
             _:expect( 2+1 ).is(3)
         end)
         
+        _:test("math random 2 returns 2", function()
+            local found1 = false
+            for i = 1,1000 do
+                if math.random(2) == 2 then
+                    found1 = true
+                end
+            end
+            _:expect(found1).is(true)
+        end)
+        
         _:test("Some rotates go down", function()
             local angle = math.rad(-45)
             local v = vec2(1,0):rotate(angle)
