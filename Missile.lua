@@ -4,13 +4,10 @@
 Missile = class(Destructible)
 
 function Missile:init(pos, step)
-    function die()
-        self:die()
-    end
     self.pos = pos
     self.step = step 
     U:addObject(self)
-    tween.delay(3, die)
+    tween.delay(3, self.die, self)
 end
 
 function Missile:fromShip(ship)
