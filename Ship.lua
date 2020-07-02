@@ -25,28 +25,28 @@ function Ship:draw()
 end
 
 function Ship:drawAt(pos,radians)
-   local sx = 10
-   local sy = 6
-   pushStyle()
-   pushMatrix()
-   translate(pos.x, pos.y)
-   rotate(math.deg(radians))
-   strokeWidth(1)
-   stroke(255)
-   scale(self.scale or 2)
-   line(-3,-2, -3,2)
-   line(-3,2, -5,4)
-   line(-5,4, 7,0)
-   line(7,0, -5,-4)
-   line(-5,-4,-3,-2)
-   accel = (accel+1)%3
-   if U.button.go and accel == 0 then
-       strokeWidth(1.5)
-       line(-3,-2, -7,0)
-       line(-7,0, -3,2)
-   end
-   popMatrix()
-   popStyle()
+    local sx = 10
+    local sy = 6
+    pushStyle()
+    pushMatrix()
+    translate(pos.x, pos.y)
+    rotate(math.deg(radians))
+    strokeWidth(1)
+    stroke(255)
+    scale(self.scale or 2)
+    line(-3,-2, -3,2)
+    line(-3,2, -5,4)
+    line(-5,4, 7,0)
+    line(7,0, -5,-4)
+    line(-5,-4,-3,-2)
+    accel = (accel+1)%3
+    if U.button.go and accel == 0 then
+        strokeWidth(1.5)
+        line(-3,-2, -7,0)
+        line(-7,0, -3,2)
+    end
+    popMatrix()
+    popStyle()
 end
 
 function Ship:move()
@@ -146,15 +146,16 @@ function Ship:killDist()
 end
 
 function Ship:die()
-    local f = function()
-        if U.attractMode then return end
-        Score:instance():spawnShip()
-    end
     U:playStereo(U.sounds.bangLarge, self, 0.8)
     Explosion(self)
     U:deleteObject(self)
     Instance = nil
     if not U.attractMode then
-        tween.delay(6, f)
+        tween.delay(6, self.spawnUnlessAttractMode, self)
     end
+end
+
+function Ship:spawnUnlessAttractMode()
+    if U.attractMode then return end
+    Score:instance():spawnShip()
 end
