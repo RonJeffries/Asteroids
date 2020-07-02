@@ -63,10 +63,13 @@ function Score:spawnShip()
 end
 
 function Score:stopGame()
-    local f = function()
-        self.gameIsOver = false
-        U.attractMode = true
-    end
     self.gameIsOver = true
-    if not U.attractMode then tween.delay(5,f) end
+    if not U.attractMode then 
+        tween.delay(5,self.enterAttractMode,self) 
+    end
+end
+
+function:Score:enterAttractMode()
+    self.gameIsOver = false
+    U.attractMode = true
 end
