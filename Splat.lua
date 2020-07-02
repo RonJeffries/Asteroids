@@ -9,15 +9,16 @@ vec2(-2,0), vec2(-2,-2), vec2(2,-2), vec2(3,1), vec2(2,-1), vec2(0,2), vec2(1,3)
 Splat = class()
 
 function Splat:init(pos)
-    local die = function()
-        U:deleteIndestructible(self)
-    end
     self.pos = pos
     U:addIndestructible(self)
     self.size = 2
     self.diameter = 6
     self.rot = math.random(0,359)
-    tween(4, self, {size=10, diameter=1}, tween.easing.linear, die)
+    tween(4, self, {size=10, diameter=1}, tween.easing.linear, self.die, self)
+end
+
+function Splat:die()
+    U:deleteIndestructible(self)
 end
 
 function Splat:draw()

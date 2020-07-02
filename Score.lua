@@ -69,7 +69,7 @@ function Score:stopGame()
     end
 end
 
-function:Score:enterAttractMode()
+function Score:enterAttractMode()
     self.gameIsOver = false
     U.attractMode = true
 end
