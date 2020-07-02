@@ -3,11 +3,6 @@ Saucer = class(Destructible)
 local Instance;
 
 function Saucer:init(optionalPos)
-    function die()
-        if self == Instance then
-            self:dieQuietly()
-        end
-    end
     Instance = self
     U:addObject(self)
     self.size = Score:instance():shouldDrawSmallSaucer() and 0.5 or 1
@@ -19,7 +14,7 @@ function Saucer:init(optionalPos)
     if math.random(2) == 1 then self.step = -self.step end
     self:setRandomTurnTime()
     self:startSound()
-    tween.delay(7, die)
+    tween.delay(7, self.dieQuietlyIfInstance,self)
 end
 
 function Saucer:setRandomTurnTime()
@@ -102,6 +97,12 @@ function Saucer:dieQuietly()
     U:deleteObject(self)
     Instance = nil
     U.saucerTime = U.currentTime
+end
+
+function Saucer:dieQuietlyIfInstance()
+    if self == Instance then
+        self:dieQuietly()
+    end
 end
 
 function Saucer:selectSound()
