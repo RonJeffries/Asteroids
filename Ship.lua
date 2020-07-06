@@ -37,7 +37,7 @@ local accel = 0
 
 function Ship:draw()
     translate(self.pos.x, self.pos.y)
-    rotate(math.deg(radians))
+    rotate(math.deg(self.radians))
     strokeWidth(1)
     stroke(255)
     scale(self.scale or 2)
@@ -48,7 +48,8 @@ function Ship:drawFancy()
     translate(self.pos.x, self.pos.y)
     rotate(math.deg(self.radians))
     rotate(-90)
-    scale(0.5)
+    scale(self.scale or 2)
+    scale(0.25)
     sprite(asset.builtin.Space_Art.Red_Ship)
 end
 
