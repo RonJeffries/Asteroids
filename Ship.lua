@@ -25,27 +25,19 @@ function Ship:draw()
 end
 
 function Ship:drawAt(pos,radians)
-    local sx = 10
-    local sy = 6
-    pushStyle()
-    pushMatrix()
     translate(pos.x, pos.y)
     rotate(math.deg(radians))
     strokeWidth(1)
     stroke(255)
     scale(self.scale or 2)
-    if Fancy then
-        self:drawSpriteShip()
-    else
-        self:drawLineShip()
-    end
-    popMatrix()
-    popStyle()
+    self:drawLineShip()
 end
 
-function Ship:drawSpriteShip()
+function Ship:drawFancy()
+    translate(self.pos.x, self.pos.y)
+    rotate(math.deg(self.radians))
     rotate(-90)
-    scale(0.25)
+    scale(0.5)
     sprite(asset.builtin.Space_Art.Red_Ship)
 end
 

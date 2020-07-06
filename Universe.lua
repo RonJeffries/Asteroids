@@ -99,11 +99,23 @@ end
 
 function Universe:drawEverything()
     for k,o in pairs(self.objects) do
-        o:draw()
+        self:drawProperly(o)
     end
     for k,o in pairs(self.indestructibles) do
-        o:draw()
+        self:drawProperly(o)
     end
+end
+
+function Universe:drawProperly(anObject)
+    pushMatrix()
+    pushStyle()
+    if Fancy and anObject.drawFancy then
+        anObject:drawFancy()
+    else
+        anObject:draw()
+    end
+    popStyle()
+    popMatrix()
 end
 
 function Universe:moveEverything()
