@@ -37,8 +37,6 @@ function Saucer:killDist()
 end
 
 function Saucer:draw()
-   pushMatrix()
-   pushStyle()
    translate(self.pos.x%WIDTH, self.pos.y%HEIGHT)
    scale(4*self.size)
    stroke(255)
@@ -54,8 +52,12 @@ function Saucer:draw()
    line(1,3, -1,3)
    line(-1,3, -2,1)
    line(-2,1, -5,-1)
-   popStyle()
-   popMatrix()
+end
+
+function Saucer:drawFancy()
+    translate(self.pos.x%WIDTH, self.pos.y%HEIGHT)
+    scale(0.33, 0.25)
+    sprite(asset.builtin.Space_Art.UFO)
 end
 
 function Saucer:move()
