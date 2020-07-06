@@ -34,6 +34,22 @@ function Ship:drawAt(pos,radians)
     strokeWidth(1)
     stroke(255)
     scale(self.scale or 2)
+    if Fancy then
+        self:drawSpriteShip()
+    else
+        self:drawLineShip()
+    end
+    popMatrix()
+    popStyle()
+end
+
+function Ship:drawSpriteShip()
+    rotate(-90)
+    scale(0.25)
+    sprite(asset.builtin.Space_Art.Red_Ship)
+end
+
+function Ship:drawLineShip()
     line(-3,-2, -3,2)
     line(-3,2, -5,4)
     line(-5,4, 7,0)
@@ -45,8 +61,6 @@ function Ship:drawAt(pos,radians)
         line(-3,-2, -7,0)
         line(-7,0, -3,2)
     end
-    popMatrix()
-    popStyle()
 end
 
 function Ship:move()

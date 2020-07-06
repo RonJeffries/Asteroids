@@ -17,8 +17,9 @@ function Score:draw()
     pushStyle()
     fontSize(100)
     text(s, 200, HEIGHT-60)
+    local step = Fancy and 50 or 20
     for i = 1,self.shipCount do
-        Ship:drawAt(vec2(330-i*20, HEIGHT-120), math.pi/2)
+        Ship:drawAt(vec2(330-i*step, HEIGHT-120), math.pi/2)
     end
     if self.gameIsOver then
         text("GAME OVER", WIDTH/2, HEIGHT/2)
