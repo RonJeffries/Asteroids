@@ -10,8 +10,23 @@ function Ship:init(pos)
     self.radians = 0
     self.step = vec2(0,0)
     self.scale = 2
-    Instance = self
-    U:addObject(self)
+end
+
+function Ship:makeRegisteredInstance(pos)
+    if Instance then U:deleteObject(Instance) end
+    local ship = Ship(pos)
+    Instance = ship
+    U:addObject(ship)
+    return ship
+end
+
+function Ship:privateShip()
+    local instance = Instance
+    local ship = Ship()
+    U:applyAdditions()
+    U:deleteObject(ship)
+    Instance = instance
+    return ship
 end
 
 function Ship:instance()
@@ -21,11 +36,7 @@ end
 local accel = 0
 
 function Ship:draw()
-    self:drawAt(self.pos, self.radians)
-end
-
-function Ship:drawAt(pos,radians)
-    translate(pos.x, pos.y)
+    translate(self.pos.x, self.pos.y)
     rotate(math.deg(radians))
     strokeWidth(1)
     stroke(255)

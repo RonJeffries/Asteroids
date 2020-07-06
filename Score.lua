@@ -7,6 +7,7 @@ function Score:init(shipCount)
     self.gameIsOver = false
     self.totalScore = 0
     self.nextFreeShip = U.freeShipPoints
+    self.myShip = Ship()
     Instance = self
     U:addIndestructible(self)
 end
@@ -19,7 +20,9 @@ function Score:draw()
     text(s, 200, HEIGHT-60)
     local step = Fancy and 50 or 20
     for i = 1,self.shipCount do
-        Ship:drawAt(vec2(330-i*step, HEIGHT-120), math.pi/2)
+        self.myShip.pos = vec2(330-i*step, HEIGHT-120)
+        self.myShip.radians = math.pi/2
+        U:drawProperly(self.myShip)
     end
     if self.gameIsOver then
         text("GAME OVER", WIDTH/2, HEIGHT/2)
@@ -58,7 +61,7 @@ function Score:spawnShip()
         return false
     else
         self.shipCount = self.shipCount - 1
-        Ship()
+        Ship:makeRegisteredInstance()
         return true
     end
 end
