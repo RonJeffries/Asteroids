@@ -25,13 +25,15 @@ function Missile:score()
 end
 
 function Missile:draw()
-    pushStyle()
-    pushMatrix()
     fill(255)
     stroke(255)
     ellipse(self.pos.x, self.pos.y, 6)
-    popMatrix()
-    popStyle()
+end
+
+function Missile:drawFancy()
+    translate(self.pos.x, self.pos.y)
+    scale(0.5)
+    sprite(asset.builtin.Space_Art.Red_Explosion)
 end
 
 function Missile:move()
@@ -65,6 +67,12 @@ function SaucerMissile:collide(anObject)
     if anObject:is_a(Ship) then
         anObject:mutuallyDestroy(self)
     end
+end
+
+function SaucerMissile:drawFancy()
+    translate(self.pos.x, self.pos.y)
+    scale(0.5)
+    sprite(asset.builtin.Space_Art.Green_Explosion)
 end
 
 function SaucerMissile:mutuallyDestroy(anObject)
