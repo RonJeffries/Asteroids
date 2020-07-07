@@ -14,6 +14,7 @@ function setup()
     parameter.boolean("Fancy", true)
     U = Universe()
     runTests()
+    print(zLevel())
     U:newWave()
 end
 

@@ -61,8 +61,8 @@ function Universe:draw(currentTime)
     end
     background(40, 40, 50)
     checkButtons()
-    drawButtons()
     self:drawEverything()
+    drawButtons()
     self:moveEverything()
     self:findCollisions()
 end
@@ -98,10 +98,10 @@ function Universe:checkSaucer()
 end
 
 function Universe:drawEverything()
-    for k,o in pairs(self.objects) do
+    for k,o in pairs(self.indestructibles) do
         self:drawProperly(o)
     end
-    for k,o in pairs(self.indestructibles) do
+    for k,o in pairs(self.objects) do
         self:drawProperly(o)
     end
 end
