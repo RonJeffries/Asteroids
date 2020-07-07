@@ -63,8 +63,6 @@ end
 
 function Asteroid:draw()
     if NoAsteroids then return end
-    pushMatrix()
-    pushStyle()
     stroke(255)
     fill(0,0,0, 0)
     strokeWidth(2)
@@ -75,8 +73,13 @@ function Asteroid:draw()
     for i,l in ipairs(self.shape) do
         line(l.x, l.y, l.z, l.w)
     end
-    popStyle()
-    popMatrix()
+end
+
+function Asteroid:drawFancy()
+    if NoAsteroids then return end
+    translate(self.pos.x, self.pos.y)
+    scale(self.scale/16)
+    sprite(asset.builtin.Space_Art.Asteroid_Large)
 end
 
 function Asteroid:move()
