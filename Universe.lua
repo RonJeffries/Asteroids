@@ -51,6 +51,8 @@ function Universe:startGame(currentTime)
 end
 
 function Universe:draw(currentTime)
+    pushMatrix()
+    pushStyle()
     self:applyAdditions()
     self:checkBeat()
     self:checkSaucer()
@@ -59,12 +61,14 @@ function Universe:draw(currentTime)
     if FullScreen then
       displayMode(FULLSCREEN_NO_BUTTONS)
     end
-    background(40, 40, 50)
+    if not Fancy then background(40, 40, 50) end
     checkButtons()
     self:drawEverything()
     drawButtons()
     self:moveEverything()
     self:findCollisions()
+    popStyle()
+    popMatrix()
 end
 
 function Universe:adjustTimeValues(currentTime)
