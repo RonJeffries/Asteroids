@@ -9,7 +9,8 @@ function Score:init(shipCount)
     self.nextFreeShip = U.freeShipPoints
     self.myShip = Ship()
     Instance = self
-    U:addIndestructible(self, U.drawLevels.scorre)
+    self.drawLevel = U.drawLevels.score
+    U:addIndestructible(self)
 end
 
 function Score:draw()

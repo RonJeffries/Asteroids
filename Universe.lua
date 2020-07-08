@@ -24,16 +24,25 @@ function Universe:init()
 end
 
 function Universe:defineLevels()
+    self.t10 = {}
+    self.t20 = {}
+    self.t30 = {}
+    self.t40 = {}
+    self.t50 = {}
+    self.t60 = {}
+    self.t70 = {}
+    self.t80 = {}
+    self.t90 = {}
     self.drawLevels = {}
-    self.drawLevels.backgound = 10
-    self.drawLevels.ship = 20
-    self.drawLevels.saucer = 30
-    self.drawLevels.asteroid = 40
-    self.drawLevels.missile = 50
-    self.drawLevels.splat = 60
-    self.drawLevels.fragment = 70
-    self.drawLevels.score = 80
-    self.drawLevels.buttons = 90
+    self.drawLevels.backgound = t10
+    self.drawLevels.ship = t20
+    self.drawLevels.saucer = t30
+    self.drawLevels.asteroid = t40
+    self.drawLevels.missile = t50
+    self.drawLevels.splat = t60
+    self.drawLevels.fragment = t70
+    self.drawLevels.score = t80
+    self.drawLevels.buttons = t90
 end
 
 function Universe:defineSounds()

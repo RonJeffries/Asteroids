@@ -10,13 +10,14 @@ function Ship:init(pos)
     self.radians = 0
     self.step = vec2(0,0)
     self.scale = 2
+    self.drawLevel = U.drawLevels.ship
 end
 
 function Ship:makeRegisteredInstance(pos)
     if Instance then U:deleteObject(Instance) end
     local ship = Ship(pos)
     Instance = ship
-    U:addObject(ship, U.drawLevels.ship)
+    U:addObject(ship)
     return ship
 end
 
@@ -97,7 +98,7 @@ end
 
 function Ship:tryToAppear()
     if self:safeToAppear() then
-        U:addObject(self, U.drawLevels.ship)
+        U:addObject(self)
         self:dropIn()
     else
         self:signalUnsafe()

@@ -12,7 +12,8 @@ function Asteroid:init(pos, size)
     self.shape = Rocks[math.random(1,4)]
     local angle = math.random()*2*math.pi
     self.step = vec2(Vel,0):rotate(angle)
-    U:addObject(self, U.drawLevels.asteroid)
+    self.drawLevel = U.drawLevels.asteroid
+    U:addObject(self)
 end
 
 function Asteroid:killDist()

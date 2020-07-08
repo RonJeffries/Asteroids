@@ -4,7 +4,8 @@ local Instance;
 
 function Saucer:init(optionalPos)
     Instance = self
-    U:addObject(self, U.drawLevels.saucer)
+    self.drawLevel = U.drawLevels.saucer
+    U:addObject(self)
     self.size = Score:instance():shouldDrawSmallSaucer() and 0.5 or 1
     self.shotSpeed = 3
     self.firstShot = true

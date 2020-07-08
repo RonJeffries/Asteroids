@@ -10,7 +10,8 @@ Splat = class()
 
 function Splat:init(pos)
     self.pos = pos
-    U:addIndestructible(self, U.drawLevels.splat)
+    self.drawLevel = U.drawLevels.splat
+    U:addIndestructible(self)
     self.size = 2
     self.diameter = 6
     self.rot = math.random(0,359)
