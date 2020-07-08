@@ -84,12 +84,26 @@ function Universe:draw(currentTime)
     if FullScreen then
       displayMode(FULLSCREEN_NO_BUTTONS)
     end
-    if not Fancy then background(40, 40, 50) end
+    if Fancy then 
+        self:drawFancyBackground()
+    else
+        background(40, 40, 50) 
+    end
     checkButtons()
     self:drawEverything()
     drawButtons()
     self:moveEverything()
     self:findCollisions()
+    popStyle()
+    popMatrix()
+end
+
+function Universe:drawFancyBackground()
+    pushMatrix()
+    pushStyle()
+    translate(WIDTH/2,HEIGHT/2)
+    scale(WIDTH/137, HEIGHT/91)
+    sprite(asset.milkyway)
     popStyle()
     popMatrix()
 end
@@ -118,11 +132,11 @@ function Universe:checkSaucer()
 end
 
 function Universe:drawEverything()
-    for k,o in pairs(self.indestructibles) do
-        self:drawProperly(o)
-    end
-    for k,o in pairs(self.objects) do
-        self:drawProperly(o)
+    local tables = {self.t10, self.t20, self.t30, self.t40, self.t50, self.t60, self.t70, self.t80, self.t90}
+    for i, tab in ipairs(tables) do
+        for k,o in pairs(tab) do
+            self:drawProperly(o)
+        end
     end
 end
 
@@ -213,6 +227,10 @@ function Universe:newWave()
     local pos
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
+    local t = self.drawLevels.asteroid
+    for k, o in pairs(t) do
+        t[o] = nil
+    end
     for i = 1, self:newWaveSize() do
         if math.random(0,1) then
             pos = vec2(0,math.random(HEIGHT))

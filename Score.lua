@@ -30,12 +30,12 @@ function Score:draw()
     end
     popStyle()
 end
-
+--[[
 function Score:drawFancy()
     translate(WIDTH/2,HEIGHT/2)
     scale(WIDTH/137,HEIGHT/91)
     --zLevel(-1)
-    sprite(asset.milkyway)
+    --sprite(asset.milkyway)
     --zLevel(0)
     popMatrix()
     popStyle()
@@ -45,7 +45,7 @@ function Score:drawFancy()
     popStyle()
     popMatrix()
 end
-
+]]--
 
 function Score:shouldDrawSmallSaucer()
     return self.totalScore >= 3000

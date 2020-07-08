@@ -26,18 +26,10 @@ function runTests()
 end
 
 function draw()
+    U:draw(ElapsedTime)
     if U.attractMode then
         pushMatrix()
         pushStyle()
-        if Fancy then
-            translate(WIDTH/2,HEIGHT/2)
-            scale(WIDTH/137,HEIGHT/91)
-            sprite(asset.milkyway)
-            popStyle()
-            popMatrix()
-            pushMatrix()
-            pushStyle()
-        end
         fontSize(50)
         fill(255,255,255, 128)
         text("TOUCH SCREEN TO START", WIDTH/2, HEIGHT/4)
@@ -45,7 +37,7 @@ function draw()
         popStyle()
         popMatrix()
     end
-    U:draw(ElapsedTime)
+    
 end
 
 function touched(touch)

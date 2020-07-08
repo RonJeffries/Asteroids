@@ -50,5 +50,6 @@ function kind(o)
     if o:is_a(Saucer) then return "saucer" end
     if o:is_a(Ship) then return "ship" end
     if o:is_a(Asteroid) then return "asteroid" end
+    if o:is_a(Score) then return "score" end
     return "unknown"
 end
