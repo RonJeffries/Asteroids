@@ -34,15 +34,15 @@ function Universe:defineLevels()
     self.t80 = {}
     self.t90 = {}
     self.drawLevels = {}
-    self.drawLevels.backgound = t10
-    self.drawLevels.ship = t20
-    self.drawLevels.saucer = t30
-    self.drawLevels.asteroid = t40
-    self.drawLevels.missile = t50
-    self.drawLevels.splat = t60
-    self.drawLevels.fragment = t70
-    self.drawLevels.score = t80
-    self.drawLevels.buttons = t90
+    self.drawLevels.backgound = self.t10
+    self.drawLevels.ship = self.t20
+    self.drawLevels.saucer = self.t30
+    self.drawLevels.asteroid = self.t40
+    self.drawLevels.missile = self.t50
+    self.drawLevels.splat = self.t60
+    self.drawLevels.fragment = self.t70
+    self.drawLevels.score = self.t80
+    self.drawLevels.buttons = self.t90
 end
 
 function Universe:defineSounds()
@@ -98,13 +98,6 @@ function Universe:adjustTimeValues(currentTime)
     self.currentTime = currentTime
     self.processorRatio = DeltaTime/0.0083333
     self.frame64 = (self.frame64+1)%64
-end
-
-function Universe:applyAdditions()
-    for k,v in pairs(self.addedObjects) do
-        self.objects[k] = v
-    end
-    self.addedObjects = {}
 end
 
 function Universe:checkBeat()
@@ -180,14 +173,25 @@ end
 
 function Universe:deleteObject(object)
     self.objects[object] = nil
+    object.drawLevel[object] = nil
 end
 
 function Universe:addIndestructible(object)
     self.indestructibles[object] = object
+    object.drawLevel[object] = object
 end
 
 function Universe:deleteIndestructible(object)
     self.indestructibles[object] = nil
+    object.drawLevel[object] = nil
+end
+
+function Universe:applyAdditions()
+    for k,v in pairs(self.addedObjects) do
+        self.objects[k] = v
+        v.drawLevel[k] = v
+    end
+    self.addedObjects = {}
 end
 
 function Universe:updateBeatDelay()

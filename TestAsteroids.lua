@@ -297,6 +297,7 @@ function testAsteroids()
         end)
         
         _:test("Free ship every N points", function()
+            _:expect(2).is(3)
             U = FakeUniverse()
             local score = Score(3)
             score:addScore(U.freeShipPoints)
