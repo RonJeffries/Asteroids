@@ -297,7 +297,6 @@ function testAsteroids()
         end)
         
         _:test("Free ship every N points", function()
-            _:expect(2).is(3)
             U = FakeUniverse()
             local score = Score(3)
             score:addScore(U.freeShipPoints)
@@ -376,18 +375,26 @@ function FakeUniverse:init()
 end
 
 function FakeUniverse:defineLevels()
+    self.t10 = {}
+    self.t20 = {}
+    self.t30 = {}
+    self.t40 = {}
+    self.t50 = {}
+    self.t60 = {}
+    self.t70 = {}
+    self.t80 = {}
+    self.t90 = {}
     self.drawLevels = {}
-    self.drawLevels.backgound = 10
-    self.drawLevels.ship = 20
-    self.drawLevels.saucer = 30
-    self.drawLevels.asteroid = 40
-    self.drawLevels.missile = 50
-    self.drawLevels.splat = 60
-    self.drawLevels.fragment = 70
-    self.drawLevels.score = 80
-    self.drawLevels.buttons = 90
+    self.drawLevels.backgound = self.t10
+    self.drawLevels.ship = self.t20
+    self.drawLevels.saucer = self.t30
+    self.drawLevels.asteroid = self.t40
+    self.drawLevels.missile = self.t50
+    self.drawLevels.splat = self.t60
+    self.drawLevels.fragment = self.t70
+    self.drawLevels.score = self.t80
+    self.drawLevels.buttons = self.t90
 end
-
 
 function FakeUniverse:deleteObject(anObject)
     self.destroyed[anObject] = anObject

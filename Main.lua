@@ -13,7 +13,7 @@ function setup()
     parameter.boolean("PerfectSaucerShots", false)
     parameter.boolean("Fancy", true)
     U = Universe()
-    --runTests()
+    runTests()
     U:newWave()
 end
 
