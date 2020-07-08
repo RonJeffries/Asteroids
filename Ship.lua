@@ -16,7 +16,7 @@ function Ship:makeRegisteredInstance(pos)
     if Instance then U:deleteObject(Instance) end
     local ship = Ship(pos)
     Instance = ship
-    U:addObject(ship)
+    U:addObject(ship, U.drawLevels.ship)
     return ship
 end
 
@@ -97,7 +97,7 @@ end
 
 function Ship:tryToAppear()
     if self:safeToAppear() then
-        U:addObject(self)
+        U:addObject(self, U.drawLevels.ship)
         self:dropIn()
     else
         self:signalUnsafe()

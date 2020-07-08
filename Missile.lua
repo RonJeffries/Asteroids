@@ -6,7 +6,7 @@ Missile = class(Destructible)
 function Missile:init(pos, step)
     self.pos = pos
     self.step = step 
-    U:addObject(self)
+    U:addObject(self, U.drawLevels.missile)
     tween.delay(3, self.die, self)
 end
 

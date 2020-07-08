@@ -371,7 +371,22 @@ function FakeUniverse:init()
     self.score = 0
     self.destroyed = {}
     self.objects = {}
+    self:defineLevels()
 end
+
+function FakeUniverse:defineLevels()
+    self.drawLevels = {}
+    self.drawLevels.backgound = 10
+    self.drawLevels.ship = 20
+    self.drawLevels.saucer = 30
+    self.drawLevels.asteroid = 40
+    self.drawLevels.missile = 50
+    self.drawLevels.splat = 60
+    self.drawLevels.fragment = 70
+    self.drawLevels.score = 80
+    self.drawLevels.buttons = 90
+end
+
 
 function FakeUniverse:deleteObject(anObject)
     self.destroyed[anObject] = anObject

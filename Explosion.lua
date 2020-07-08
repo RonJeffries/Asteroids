@@ -26,7 +26,7 @@ function Fragment:init(pos, frag)
     self.spin = math.random(9)
     self.ds = 8*math.random()
     self.life = 4
-    U:addIndestructible(self)
+    U:addIndestructible(self, U.drawLevels.fragment)
 end
 
 function Fragment:move()

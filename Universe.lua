@@ -15,11 +15,25 @@ function Universe:init()
     self.timeBetweenWaves = 2
     self.timeOfNextWave= 0
     self:defineSounds()
+    self:defineLevels()
     self.objects = {}
     self.indestructibles = {}
     self.addedObjects = {}
     self.button = {}
     self.attractMode = true
+end
+
+function Universe:defineLevels()
+    self.drawLevels = {}
+    self.drawLevels.backgound = 10
+    self.drawLevels.ship = 20
+    self.drawLevels.saucer = 30
+    self.drawLevels.asteroid = 40
+    self.drawLevels.missile = 50
+    self.drawLevels.splat = 60
+    self.drawLevels.fragment = 70
+    self.drawLevels.score = 80
+    self.drawLevels.buttons = 90
 end
 
 function Universe:defineSounds()
