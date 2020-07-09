@@ -24,25 +24,16 @@ function Universe:init()
 end
 
 function Universe:defineLevels()
-    self.t10 = {}
-    self.t20 = {}
-    self.t30 = {}
-    self.t40 = {}
-    self.t50 = {}
-    self.t60 = {}
-    self.t70 = {}
-    self.t80 = {}
-    self.t90 = {}
-    self.drawLevels = {}
-    self.drawLevels.backgound = self.t10
-    self.drawLevels.ship = self.t20
-    self.drawLevels.saucer = self.t30
-    self.drawLevels.asteroid = self.t40
-    self.drawLevels.missile = self.t50
-    self.drawLevels.splat = self.t60
-    self.drawLevels.fragment = self.t70
-    self.drawLevels.score = self.t80
-    self.drawLevels.buttons = self.t90
+    self.drawLevels = {} 
+    self.drawLevels.background = {}
+    self.drawLevels.ship = {}
+    self.drawLevels.saucer = {}
+    self.drawLevels.asteroid = {}
+    self.drawLevels.missile = {}
+    self.drawLevels.splat = {}
+    self.drawLevels.fragment = {}
+    self.drawLevels.score = {}
+    self.drawLevels.buttons = {}
 end
 
 function Universe:defineSounds()
@@ -132,9 +123,9 @@ function Universe:checkSaucer()
 end
 
 function Universe:drawEverything()
-    local tables = {self.t10, self.t20, self.t30, self.t40, self.t50, self.t60, self.t70, self.t80, self.t90}
-    for i, tab in ipairs(tables) do
-        for k,o in pairs(tab) do
+    local drawingOrder = {"background", "ship", "saucer", "asteroid", "missile", "splat", "fragment", "score", "buttons" }
+    for i, name in ipairs(drawingOrder) do
+        for k,o in pairs(self.drawLevels[name]) do
             self:drawProperly(o)
         end
     end
