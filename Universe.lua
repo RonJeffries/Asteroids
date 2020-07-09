@@ -218,10 +218,7 @@ function Universe:newWave()
     local pos
     self.beatDelay = 1 -- second
     self.timeOfNextWave = 0
-    local t = self.drawLevels.asteroid
-    for k, o in pairs(t) do
-        t[o] = nil
-    end
+    self.drawLevels.asteroid = {}
     for i = 1, self:newWaveSize() do
         if math.random(0,1) then
             pos = vec2(0,math.random(HEIGHT))
